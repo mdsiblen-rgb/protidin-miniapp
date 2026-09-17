@@ -1,26 +1,128 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protidin Mini App</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+from flask import Flask, request, jsonify, render_template_string
+import json, os
+app = Flask(__name__)
+DB_FILE = "db.json"
+
+DEFAULT_SETTINGS = {
+  "app_name": "প্রতিদিনের কাজ বিডি", "primary": "#8b5cf6", "secondary": "#f59e0b",
+  "ad": 0.25, "pop": 0.20, "clim": 30, "plim": 30, "min": 500, "ref": 10,
+  "company_ad_id": "11764581", "popup_ad_id": "11798857",
+  "direct_link1": "https://omg10.com/4/11760259", "direct_link2": "",
+  "home_corner_diamond": "💎", "home_small_diamond_icon": "💎",
+  "home_diamond_big_size": "28", "home_name_font_size": "20",
+  "spon_title": "Biggest Earning Offer", "spon_desc": "প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন",
+  "spon_link": "https://google.com", "spon_btn": "🚀 Claim Now", "spon_big_height": "180",
+  "task_page_title": "Tasks & Company Links", "task_page_sub": "প্রতি Task এ ৳20-25 + Diamond",
+  "task_bottom_title": "🔥 Special Offer", "task_bottom_desc": "এই বক্স Admin থেকে চেঞ্জ হবে",
+  "task_bottom_btn": "Claim Now", "task_bottom_link": "https://google.com",
+  "ref_title": "Refer & Earn", "ref_desc": "বন্ধুদের Invite করে Unlimited আয়",
+  "ref_banner": "🎉 Refer Contest চলছে! - ৳5000 পুরস্কার",
+  "ref_rules": "1. বন্ধুকে লিংক শেয়ার করো\n2. Join করলে ৳20 পাবে\n3. Ads দেখলে 15% Commission",
+  "refer_bottom_title": "🔥 Refer Special Bonus", "refer_bottom_desc": "Admin থেকে অফার লিখুন",
+  "refer_bottom_btn": "Join Now", "refer_bottom_link": "https://google.com",
+  "sup_title": "Support Center", "sup_desc": "যেকোনো সমস্যায় যোগাযোগ করুন - 24/7",
+  "sup_tg": "https://t.me/dailyworkbd", "sup_wa": "https://wa.me/8801", "sup_fb": "https://facebook.com",
+  "sup_email": "support@dailyworkbd.com",
+  "sup_notice": "⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে",
+  "sup_faq1_q": "Withdraw কতক্ষণে পাবো?", "sup_faq1_a": "২৪ ঘণ্টার ভিতরে",
+  "sup_faq2_q": "Refer টাকা কখন পাবো?", "sup_faq2_a": "Join করলেই সাথে সাথে",
+  "sup_faq3_q": "Ads দেখলে টাকা আসে না কেন?", "sup_faq3_a": "VPN বন্ধ করে চেষ্টা করুন",
+  "sup_rules": "1. একাধিক একাউন্ট খুলবেন না",
+  "support_bottom_title": "📢 Important Update", "support_bottom_desc": "Admin থেকে কন্ট্রোল",
+  "support_bottom_btn": "Contact Now", "support_bottom_link": "https://t.me/",
+  "profile_bottom_title": "💎 VIP Membership", "profile_bottom_desc": "VIP হলে বেশি ইনকাম",
+  "profile_bottom_btn": "⭐ Upgrade Now", "profile_bottom_link": "https://google.com"
+}
+
+def load_db():
+    if not os.path.exists(DB_FILE):
+        return {"users":{}, "settings": DEFAULT_SETTINGS, "tasks":[
+            {"id":"t1","icon":"🌐","title":"Visit Company Website - ৳20","reward":0.2,"link":"https://google.com"},
+            {"id":"t2","icon":"▶️","title":"Watch Video - ৳25","reward":0.25,"link":"https://youtube.com"},
+            {"id":"t3","icon":"📢","title":"Join Telegram - ৳30","reward":0.3,"link":"https://t.me/"}
+        ], "wds":[]}
+    try:
+        with open(DB_FILE,'r',encoding='utf-8') as f:
+            db=json.load(f)
+            for k,v in DEFAULT_SETTINGS.items(): db["settings"].setdefault(k,v)
+            return db
+    except: return {"users":{}, "settings": DEFAULT_SETTINGS, "tasks":[], "wds":[]}
+
+def save_db(db):
+    with open(DB_FILE,'w',encoding='utf-8') as f: json.dump(f,db,ensure_ascii=False,indent=2)
+
+@app.route('/')
+def home():
+    db=load_db(); s=db["settings"]
+    return render_template_string(f"""
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{s['app_name']}</title><script src="https://cdn.tailwindcss.com"></script>
 <style>
-body{font-family:sans-serif;text-align:center;padding:20px;background:#f2f2f2}
-.box{background:white;padding:20px;border-radius:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-button{padding:12px 20px;background:#0088cc;color:white;border:none;border-radius:10px;font-size:16px}
-</style>
-</head>
-<body>
-<div class="box">
-<h2>Protidin Mini App</h2>
-<p id="user"></p>
-<button onclick="Telegram.WebApp.close()">Close App</button>
+*{{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}}
+body{{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;padding-bottom:100px}}
+.glass{{background:#1A2040;border:1px solid #2a2f4a;border-radius:22px;padding:18px;margin:12px}}
+.btn{{width:100%;padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff;background:{s['primary']};cursor:pointer;margin-top:10px}}
+.btm{{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#151A2D;display:flex;padding:10px 0;border-radius:20px 20px 0 0;z-index:99}}
+.btm div{{flex:1;text-align:center;color:#64748b;font-size:11px;font-weight:700;cursor:pointer}}.btm div.on{{color:{s['primary']}}}
+.page{{display:none}}.page.active{{display:block}}
+</style></head><body>
+<div id="home" class="page active">
+<div style="display:flex;justify-content:space-between;padding:16px"><h2 style="font-size:{s['home_name_font_size']}px;font-weight:800">{s['app_name']}</h2><div style="width:50px;height:50px;background:#1A2040;border:2px solid {s['primary']};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:{s['home_diamond_big_size']}px">{s['home_corner_diamond']}</div></div>
+<div class="glass"><p>Balance ৳20.3 | {s['home_small_diamond_icon']} 2030 Diamond</p><p class="mt-2">Company Ads ৳{s['ad']} - 0/{s['clim']}</p><button class="btn">Start - ৳{s['ad']}</button><p class="mt-3">Popup Ads ৳{s['pop']} - 0/{s['plim']}</p><button class="btn" style="background:{s['secondary']}">Watch - ৳{s['pop']}</button></div>
+<div class="glass" style="background:linear-gradient(135deg,#2D1B4E,#1A1033);border-color:{s['secondary']};min-height:{s['spon_big_height']}px"><h3>{s['spon_title']}</h3><p class="text-sm opacity-70">{s['spon_desc']}</p><a href="{s['spon_link']}" class="btn block text-center" style="background:{s['secondary']};color:#000;text-decoration:none">{s['spon_btn']}</a></div>
+</div>
+
+<div id="tasks" class="page"><div class="glass"><h3>{s['task_page_title']}</h3><p class="text-sm opacity-60">{s['task_page_sub']}</p></div><div id="taskList"></div>
+<div class="glass"><h4>{s['task_bottom_title']}</h4><p>{s['task_bottom_desc']}</p><a href="{s['task_bottom_link']}" class="btn block text-center">{s['task_bottom_btn']}</a></div></div>
+
+<div id="refer" class="page"><div class="glass"><h3>{s['ref_title']}</h3><p>{s['ref_desc']}</p></div><div style="background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;padding:14px;border-radius:18px;margin:12px;text-align:center;font-weight:800">{s['ref_banner']}</div>
+<div class="glass"><pre style="white-space:pre-wrap">{s['ref_rules']}</pre></div>
+<div class="glass"><h4>{s['refer_bottom_title']}</h4><p>{s['refer_bottom_desc']}</p><a href="{s['refer_bottom_link']}" class="btn block text-center">{s['refer_bottom_btn']}</a></div></div>
+
+<div id="support" class="page"><div class="glass"><h3>{s['sup_title']}</h3><p>{s['sup_desc']}</p></div>
+<div class="glass"><p>{s['sup_notice']}</p></div>
+<div class="glass"><p>Q: {s['sup_faq1_q']}</p><p>A: {s['sup_faq1_a']}</p><br><p>Q: {s['sup_faq2_q']}</p><p>A: {s['sup_faq2_a']}</p><br><p>Q: {s['sup_faq3_q']}</p><p>A: {s['sup_faq3_a']}</p></div>
+<div class="glass"><pre style="white-space:pre-wrap">{s['sup_rules']}</pre></div>
+<div class="glass"><h4>{s['support_bottom_title']}</h4><p>{s['support_bottom_desc']}</p><a href="{s['support_bottom_link']}" class="btn block text-center">{s['support_bottom_btn']}</a></div>
+</div>
+
+<div id="profile" class="page"><div class="glass text-center"><div style="width:90px;height:90px;margin:auto;background:#0B0E1C;border:2px solid {s['primary']};border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:40px">👑</div><h3 class="mt-2">Diamond Member</h3></div>
+<div class="glass"><h4>{s['profile_bottom_title']}</h4><p>{s['profile_bottom_desc']}</p><a href="{s['profile_bottom_link']}" class="btn block text-center">{s['profile_bottom_btn']}</a></div>
+<a href="/admin" class="btn block text-center m-3" style="background:#222">Admin Panel</a>
+</div>
+
+<div class="btm">
+<div class="on" onclick="show('home',this)"><span>🏠</span>Home</div>
+<div onclick="show('tasks',this)"><span>🎯</span>Tasks</div>
+<div onclick="show('refer',this)"><span>👥</span>Refer</div>
+<div onclick="show('support',this)"><span>💬</span>Support</div>
+<div onclick="show('profile',this)"><span>👤</span>Profile</div>
 </div>
 <script>
-let tg = window.Telegram.WebApp;
-tg.expand();
-document.getElementById('user').innerText = "Hello " + (tg.initDataUnsafe.user?.first_name || "User") + "!";
-</script>
-</body>
-</html>
+let tasks={db['tasks']};
+function renderTask(){{document.getElementById('taskList').innerHTML=tasks.map(t=>`<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><span>${{t.icon}} ${{t.title}}</span><a href="${{t.link}}" target="_blank" class="btn" style="width:auto;padding:8px 16px">৳${{t.reward}}</a></div>`).join('')}}
+function show(id,el){{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on')}}
+renderTask()
+</script></body></html>
+""")
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    db=load_db(); s=db["settings"]
+    inputs="".join([f'<label class="text-xs opacity-60">{k}</label><input name="{k}" value="{str(v).replace(chr(34),chr(39))}" class="w-full p-2 rounded bg-zinc-800 mb-2">' for k,v in s.items()])
+    return render_template_string(f"""
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-black text-white p-4 max-w-[600px] mx-auto"><h1 class="text-xl font-bold mb-4">Admin - {s['app_name']} - সব সেটিংস</h1>
+<form id="f" class="space-y-1">{inputs}<button class="w-full bg-violet-600 py-3 rounded-xl font-bold mt-4">Save All Settings</button></form>
+<a href="/" class="block text-center mt-4 text-zinc-500">Back to App</a>
+<script>document.getElementById('f').onsubmit=async(e)=>{{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));await fetch('/api/save_settings',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify(d)}});alert('Saved! All Updated');}}</script></body></html>
+""")
+
+@app.route('/api/save_settings', methods=['POST'])
+def save_settings():
+    db=load_db(); data=request.json
+    for k,v in data.items(): db["settings"][k]=v
+    save_db(db); return jsonify({{"ok":True}})
+
+if __name__=='__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT",5000)))
