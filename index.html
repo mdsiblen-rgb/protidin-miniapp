@@ -2,94 +2,78 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>প্রতিদিনের কাজ বিডি</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui, -apple-system}
-body{background:#0B0E1C;color:#fff;max-width:430px;margin:0 auto;padding-bottom:120px;overflow-x:hidden}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:#0B0E1C;color:#fff;max-width:430px;margin:0 auto;padding-bottom:120px}
 .glass{background:#1A2040;border:1px solid #2a2f4a;border-radius:22px;padding:18px;margin:12px}
 .top2{display:flex;gap:10px;margin:12px;align-items:center}
-.topbox{flex:1;background:#151A2D;border:1px solid #8b5cf6;padding:12px;border-radius:14px;font-weight:700;font-size:14px;line-height:1.4}
-.cornerDiamond{width:58px;height:58px;background:linear-gradient(135deg,#1A2040,#2D1B4E);border:2px solid #8b5cf6;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 0 20px rgba(139,92,246,.6)}
+.topbox{flex:1;background:#151A2D;border:1px solid #8b5cf6;padding:12px;border-radius:14px;font-weight:700;font-size:14px}
+.cornerDiamond{width:58px;height:58px;background:linear-gradient(135deg,#1A2040,#2D1B4E);border:2px solid #8b5cf6;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:34px}
 .btn{width:100%;padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer;margin-top:10px;font-size:16px}
-.btn2{flex:1;padding:12px;border-radius:14px;border:1px solid #1e293b;text-align:center;cursor:pointer;background:#0B0E1C;font-weight:800}
-.btn2.on{border-color:#8b5cf6;background:rgba(139,92,246,.25)}
+.btn:active{transform:scale(0.97)}
 .task-card{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#0F1429;border:1px solid #1e293b;border-radius:18px;margin:10px 12px}
-.stat4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.stat4 div{background:#0B0E1C;border:1px solid #1e293b;padding:14px;border-radius:16px;text-align:center}
-.spon-big{background:linear-gradient(135deg,#2D1B4E,#1A1033);border:2px solid #f59e0b;padding:28px 20px;border-radius:26px;margin:16px;min-height:180px}
-.contest{background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;padding:14px;border-radius:18px;margin:12px;text-align:center;font-weight:800}
 .page{display:none}.page.active{display:block}
 .btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#151A2D;display:flex;padding:12px 0 18px;border-radius:22px 22px 0 0;border-top:1px solid #1e293b;z-index:99}
 .btm div{flex:1;text-align:center;color:#64748b;font-size:11px;font-weight:700;cursor:pointer}.btm div.on{color:#8b5cf6}.btm div span{font-size:22px;display:block}
-.inputDark{width:100%;padding:13px;border-radius:12px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:10px}
+.inputDark{width:100%;padding:13px;border-radius:12px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:10px;resize:none}
+.proImg{width:92px;height:92px;border-radius:22px;background:#0B0E1C;border:2px solid #8b5cf6;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden;margin:0 auto}
+.proImg img{width:100%;height:100%;object-fit:cover}
+.stat4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.stat4 div{background:#0B0E1C;border:1px solid #1e293b;padding:14px;border-radius:16px;text-align:center}
 </style>
 </head>
 <body>
 
-<!-- HOME -->
 <div id="home" class="page active">
-  <div class="top2">
-    <div class="cornerDiamond">💎</div>
-    <div class="topbox">👑 প্রতিদিনের কাজ বিডি<br>Daily Work BD ✅<br><small style="color:#8b5cf6">Diamond Member • Level 1</small></div>
+  <div class="top2"><div class="cornerDiamond">💎</div><div class="topbox">👑 প্রতিদিনের কাজ বিডি<br><small id="topName">Loading...</small></div></div>
+  <div class="glass"><small>Diamond Member • Level 1</small><h1 style="font-size:36px;margin:10px 0">৳<span id="bal">20.3</span></h1><p>💎 <span id="dmd">2030</span> Diamond | <span id="adsDone">0</span>/80 Ads</p></div>
+  <div style="display:flex;gap:10px;margin:12px">
+    <div class="glass" style="flex:1;margin:0;text-align:center"><small>Company Ads ৳0.25</small><br><b id="c1">0/30</b><button class="btn" onclick="watchAd('company')">Start - ৳0.25</button></div>
+    <div class="glass" style="flex:1;margin:0;text-align:center"><small>Popup Ads ৳0.20</small><br><b id="c2">0/30</b><button class="btn" style="background:#f59e0b;color:#000" onclick="watchAd('popup')">Watch - ৳0.20</button></div>
   </div>
-  <div class="glass">
-    <div style="display:flex;justify-content:space-between">
-      <div><small>Balance</small><h1 style="font-size:36px">৳<span id="bal">20.3</span></h1></div>
-      <div style="text-align:right"><small>💎 <span id="dmd">2030</span> Diamond<br>0/80 Ads</small></div>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:14px">
-      <div style="flex:1;background:#0B0E1C;border:1px solid #2a2f4a;border-radius:14px;padding:12px;text-align:center">
-        <small>Company Ads</small><br><b>৳0.25</b><br><small id="c1">0/30</small><br><button class="btn" style="padding:10px;font-size:13px" onclick="earn(0.25,'c1')">Start - ৳0.25</button>
-      </div>
-      <div style="flex:1;background:#0B0E1C;border:1px solid #2a2f4a;border-radius:14px;padding:12px;text-align:center">
-        <small>Popup Ads</small><br><b>৳0.20</b><br><small id="c2">0/30</small><br><button class="btn" style="padding:10px;font-size:13px;background:#f59e0b;color:#000" onclick="earn(0.20,'c2')">Watch - ৳0.20</button>
-      </div>
-    </div>
-  </div>
-  <div class="glass"><div style="display:flex;gap:10px"><div class="btn2 on">bKash</div><div class="btn2">Nagad</div></div><button class="btn">💸 Withdraw Now - Min ৳500</button></div>
-  <div class="spon-big"><h3>🔥 Biggest Earning Offer</h3><p style="margin:12px 0;color:#c4b5fd">প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন</p><button class="btn" style="background:#f59e0b;color:#000">🚀 Claim Now</button></div>
+  <div class="glass"><button class="btn" onclick="openWithdraw()">💸 Withdraw Now</button></div>
 </div>
 
-<!-- TASKS -->
 <div id="tasks" class="page">
-  <div class="glass"><h3>🎯 Tasks & Company Links</h3><small style="color:#94a3b8">প্রতি Task এ ৳20-25 + Diamond</small></div>
-  <div class="task-card"><div>🌐 Visit Company Website - ৳20</div><button class="btn" style="width:auto;padding:8px 16px" onclick="earn(20)">Go</button></div>
-  <div class="task-card"><div>▶️ Watch Video - ৳25</div><button class="btn" style="width:auto;padding:8px 16px" onclick="earn(25)">Go</button></div>
-  <div class="task-card"><div>📢 Join Telegram - ৳30</div><button class="btn" style="width:auto;padding:8px 16px" onclick="earn(30)">Join</button></div>
-  <div class="glass" style="background:#1e1b0f;border-color:#f59e0b"><h4>🔥 Special Offer</h4><p style="color:#aaa;margin:8px 0;font-size:13px">এই বক্স Admin থেকে চেঞ্জ হবে</p><button class="btn" style="background:#f59e0b;color:#000">Claim Now</button></div>
+  <div class="glass"><h3>🎯 Tasks</h3><small>প্রতি Task এ ৳20-25</small></div>
+  <div class="task-card"><span>🌐 Visit Website - ৳20</span><button class="btn" style="width:auto;padding:8px 14px" onclick="doTask(20,'https://google.com')">Go</button></div>
+  <div class="task-card"><span>▶️ Watch Video - ৳25</span><button class="btn" style="width:auto;padding:8px 14px" onclick="doTask(25,'https://youtube.com')">Go</button></div>
+  <div class="task-card"><span>📢 Join Telegram - ৳30</span><button class="btn" style="width:auto;padding:8px 14px" onclick="doTask(30,'https://t.me/ProtidinerKaj_BD_Bot')">Join</button></div>
 </div>
 
-<!-- REFER -->
 <div id="refer" class="page">
-  <div class="contest">🎉 Refer Contest চলছে! - ৳5000 পুরস্কার</div>
-  <div class="glass" style="text-align:center"><h3>👥 Refer & Earn</h3><p style="color:#94a3b8;margin:8px 0">বন্ধুদের Invite করে Unlimited আয়</p><div style="background:#0B0E1C;border:1px dashed #8b5cf6;padding:12px;border-radius:12px;margin:12px 0">https://t.me/ProtidinerKaj_BD_Bot?start=123</div><button class="btn" onclick="navigator.clipboard.writeText('https://t.me/ProtidinerKaj_BD_Bot?start=123');alert('Copied!')">Copy Link</button><div class="stat4"><div><b>0</b><br><small>Total Refer</small></div><div><b>৳0</b><br><small>Refer Earn</small></div></div></div>
-  <div class="glass"><small style="white-space:pre-line;color:#94a3b8">1. বন্ধুকে লিংক শেয়ার করো
-2. বন্ধু Join করলে ৳20 পাবে
-3. বন্ধু Ads দেখলে 15% Commission পাবে</small></div>
-  <div class="glass" style="border-color:#f59e0b"><h4>🔥 Refer Special Bonus</h4><p style="color:#aaa;font-size:13px;margin:6px 0">এখানে Admin থেকে যেকোনো লিংক/অফার লিখতে পারবে</p><button class="btn" style="background:#f59e0b;color:#000">Join Now</button></div>
+  <div class="glass" style="text-align:center"><h3>👥 Refer & Earn</h3><p style="color:#f59e0b;margin:10px 0">🎉 ৳5000 Contest</p><div style="background:#0B0E1C;border:1px dashed #8b5cf6;padding:12px;border-radius:12px;margin:12px 0;word-break:break-all" id="refLink">Loading...</div><button class="btn" onclick="copyRef()">Copy Refer Link</button></div>
 </div>
 
-<!-- SUPPORT -->
 <div id="support" class="page">
-  <div class="glass"><h3>💬 Support Center</h3><small style="color:#94a3b8">যেকোনো সমস্যায় যোগাযোগ করুন - 24/7</small></div>
-  <div class="glass"><p style="white-space:pre-line;font-size:13px;color:#fbbf24">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
-✅ সকাল ৯টার পর আবার চালু হয়
-📢 Fake Account করলে ব্যান</p></div>
-  <div class="glass"><b>Q: Withdraw কতক্ষণে পাবো?</b><p style="color:#94a3b8;font-size:13px;margin-top:6px">২৪ ঘণ্টার ভিতরে পেমেন্ট করা হয়</p></div>
-  <div class="glass"><b>Q: Refer টাকা কখন পাবো?</b><p style="color:#94a3b8;font-size:13px;margin-top:6px">বন্ধু Join করলেই সাথে সাথে</p></div>
-  <div class="glass"><b>Q: Ads দেখলে টাকা আসে না কেন?</b><p style="color:#94a3b8;font-size:13px;margin-top:6px">VPN বন্ধ করে আবার চেষ্টা করুন</p></div>
-  <div class="glass"><small style="white-space:pre-line;color:#94a3b8">1. একাধিক একাউন্ট খুলবেন না
-2. ভুল তথ্য দিবেন না
-3. Fake Refer করবেন না
-4. Admin এর সিদ্ধান্তই চূড়ান্ত</small></div>
+  <div class="glass"><h3>💬 Support Center</h3><small>24/7 Support</small></div>
+  <div class="glass"><p style="font-size:13px;color:#fbbf24">⚠️ রাত ১০টার পর Withdraw বন্ধ<br>✅ সকাল ৯টার পর চালু</p></div>
+  <!-- লেখার বক্স এড করছি -->
+  <div class="glass">
+    <h4>✍️ আমাদের মেসেজ লিখুন</h4>
+    <textarea id="msgBox" class="inputDark" rows="4" placeholder="আপনার সমস্যাটা লিখুন..."></textarea>
+    <input id="contactBox" class="inputDark" placeholder="আপনার Telegram Username / Number">
+    <button class="btn" onclick="sendMsg()">📤 Send Message</button>
+    <p id="msgStatus" style="margin-top:8px;color:#22c55e;font-size:13px;display:none">✅ মেসেজ পাঠানো হয়েছে!</p>
+  </div>
+  <div class="glass"><b>Q: Withdraw কতক্ষণে পাবো?</b><p style="color:#aaa;font-size:13px">২৪ ঘণ্টার ভিতরে</p></div>
 </div>
 
-<!-- PROFILE -->
 <div id="profile" class="page">
-  <div class="glass" style="text-align:center"><div style="width:92px;height:92px;border-radius:22px;background:#0B0E1C;border:2px solid #8b5cf6;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto">👤</div><h3 style="margin-top:10px">User Name</h3><p style="color:#8b5cf6">@username • ID: 123456</p><div class="stat4"><div><b>৳<span class="bal">20.3</span></b><br><small>Balance</small></div><div><b>2030</b><br><small>Diamond</small></div><div><b>0</b><br><small>Refer</small></div><div><b>0</b><br><small>Ads Watched</small></div></div></div>
-  <div class="glass"><h4>💎 VIP Membership</h4><p style="color:#aaa;font-size:13px;margin:8px 0">VIP হলে বেশি ইনকাম পাবেন। Admin থেকে অফার লিখুন</p><button class="btn">⭐ Upgrade Now</button></div>
+  <div class="glass" style="text-align:center">
+    <div class="proImg" id="proImg">👤</div>
+    <h3 id="proName" style="margin-top:12px">Loading...</h3>
+    <p id="proUser" style="color:#8b5cf6;font-size:13px">@username</p>
+    <p id="proId" style="color:#64748b;font-size:12px">ID: 123456</p>
+    <div class="stat4">
+      <div><b>৳<span class="bal2">20.3</span></b><br><small>Balance</small></div>
+      <div><b id="dmd2">2030</b><br><small>Diamond</small></div>
+      <div><b>0</b><br><small>Refer</small></div>
+      <div><b id="adsDone2">0</b><br><small>Ads</small></div>
+    </div>
+  </div>
 </div>
 
 <div class="btm">
@@ -101,22 +85,66 @@ body{background:#0B0E1C;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 </div>
 
 <script>
-let balance=20.3; let adCount={c1:0,c2:0};
-function earn(amount,id){
-  balance+=amount;
-  document.getElementById('bal').innerText=balance.toFixed(1);
-  document.querySelectorAll('.bal').forEach(e=>e.innerText=balance.toFixed(1));
-  if(id){adCount[id]++; document.getElementById(id).innerText=adCount[id]+'/30';}
-  if(window.Telegram && Telegram.WebApp){Telegram.WebApp.HapticFeedback.notificationOccurred('success');}
+let bal=parseFloat(localStorage.getItem('bal')||20.3);
+let ads=parseInt(localStorage.getItem('ads')||0);
+let c1=parseInt(localStorage.getItem('c1')||0);
+let c2=parseInt(localStorage.getItem('c2')||0);
+function updateUI(){
+  document.getElementById('bal').innerText=bal.toFixed(1);
+  document.querySelectorAll('.bal2').forEach(e=>e.innerText=bal.toFixed(1));
+  document.getElementById('adsDone').innerText=ads;
+  document.getElementById('adsDone2').innerText=ads;
+  document.getElementById('c1').innerText=c1+'/30';
+  document.getElementById('c2').innerText=c2+'/30';
+  localStorage.setItem('bal',bal); localStorage.setItem('ads',ads); localStorage.setItem('c1',c1); localStorage.setItem('c2',c2);
 }
+function watchAd(type){
+  // এড দেখার সিস্টেম
+  let btn=event.target; btn.innerText='⏳ Loading Ad...'; btn.disabled=true;
+  // তোমার Direct Link ওপেন হবে
+  window.open('https://omg10.com/4/11760259','_blank');
+  setTimeout(()=>{
+    if(type=='company'){bal+=0.25;c1++;}else{bal+=0.20;c2++;}
+    ads++; updateUI();
+    btn.innerText=type=='company'?'Start - ৳0.25':'Watch - ৳0.20'; btn.disabled=false;
+    if(window.Telegram) Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+  },5000); // 5 সেকেন্ড পর টাকা এড হবে
+}
+function doTask(reward,link){
+  window.open(link,'_blank');
+  setTimeout(()=>{bal+=reward; ads++; updateUI(); alert('✅ ৳'+reward+' Added!');},3000);
+}
+function sendMsg(){
+  let m=document.getElementById('msgBox').value;
+  if(!m){alert('মেসেজ লিখুন');return;}
+  document.getElementById('msgStatus').style.display='block';
+  document.getElementById('msgBox').value='';
+  setTimeout(()=>{document.getElementById('msgStatus').style.display='none';},3000);
+}
+function copyRef(){navigator.clipboard.writeText(document.getElementById('refLink').innerText); alert('Copied!');}
+function openWithdraw(){alert('Min Withdraw ৳500 - Your Balance ৳'+bal.toFixed(1));}
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));
   el.classList.add('on');
-  window.scrollTo(0,0);
 }
-if(window.Telegram && Telegram.WebApp){Telegram.WebApp.ready(); Telegram.WebApp.expand();}
+updateUI();
+// Telegram থেকে নাম ছবি আনা
+if(window.Telegram && Telegram.WebApp){
+  Telegram.WebApp.ready(); Telegram.WebApp.expand();
+  let user=Telegram.WebApp.initDataUnsafe.user;
+  if(user){
+    document.getElementById('topName').innerText=user.first_name;
+    document.getElementById('proName').innerText=user.first_name+' '+(user.last_name||'');
+    document.getElementById('proUser').innerText='@'+(user.username||'no username');
+    document.getElementById('proId').innerText='ID: '+user.id;
+    document.getElementById('refLink').innerText='https://t.me/ProtidinerKaj_BD_Bot?start='+user.id;
+    if(user.photo_url){
+      document.getElementById('proImg').innerHTML='<img src="'+user.photo_url+'">';
+    }
+  }
+}
 </script>
 </body>
 </html>
