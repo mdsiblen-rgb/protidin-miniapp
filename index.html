@@ -1,170 +1,137 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>প্রতিদিনের কাজ বিডি</title>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;padding-bottom:95px}
-.glass{background:#1A2040;border:1px solid #2a2f4a;border-radius:20px;padding:14px;margin:10px}
-.top2{display:flex;gap:10px;margin:10px;align-items:center}
-.topbox{flex:1;background:#151A2D;border:1px solid #8b5cf6;padding:10px;border-radius:12px;font-weight:700;font-size:13px;line-height:1.4}
-.corner{width:52px;height:52px;background:linear-gradient(135deg,#1A2040,#2D1B4E);border:2px solid #8b5cf6;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px}
-.btn{width:100%;padding:12px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer;margin-top:8px}
-.btn:active{transform:scale(0.97)}
-.btn2{flex:1;padding:10px;border-radius:10px;border:1px solid #1e293b;text-align:center;background:#0B0E1C;font-weight:700;cursor:pointer}
-.btn2.on{border-color:#8b5cf6;background:rgba(139,92,246,.25)}
-.task{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#0F1429;border:1px solid #1e293b;border-radius:14px;margin:8px 10px;font-size:13px}
-.page{display:none}.page.active{display:block;min-height:80vh}
-.btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#151A2D;display:flex;padding:8px 0 14px;border-radius:20px 20px 0 0;border-top:1px solid #1e293b;z-index:99}
-.btm div{flex:1;text-align:center;color:#64748b;font-size:10px;font-weight:700;cursor:pointer}.btm div.on{color:#8b5cf6}.btm div span{font-size:20px;display:block}
-.inputDark{width:100%;padding:11px;border-radius:10px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:8px;font-size:13px}
-.proImg{width:90px;height:90px;border-radius:20px;border:2px solid #8b5cf6;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0B0E1C;font-size:38px}
-.proImg img{width:100%;height:100%;object-fit:cover}
-.levelBar{width:100%;height:10px;background:#0B0E1C;border-radius:10px;overflow:hidden;margin-top:8px;border:1px solid #2a2f4a}
-.levelFill{height:100%;background:linear-gradient(90deg,#8b5cf6,#f59e0b);transition:0.5s}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 10px}
-.small{font-size:12px;color:#94a3b8}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
+body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;min-height:100vh;padding-bottom:90px}
+.glass{background:#1A2040;border:1px solid #242A45;border-radius:14px;padding:12px}
+.btn{padding:12px;border:none;border-radius:12px;font-weight:800;width:100%;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6366f1);cursor:pointer}
+.inputDark{width:100%;padding:10px;border-radius:8px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:6px}
+.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#151A32;border-top:1px solid #242A45;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
+.bItem{text-align:center;color:#94a3b8;font-size:11px;cursor:pointer;flex:1}
+.bItem.active{color:#8b5cf6}
 </style>
 </head>
 <body>
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminPage" style="display:none;padding:15px">
+<h2 style="text-align:center;margin:10px 0">👑 Admin Panel</h2>
+<div class="glass">
+<label>App Name</label><input id="a_name" class="inputDark">
+<label>Company Rate</label><input id="a_cRate" class="inputDark">
+<label>Popup Rate</label><input id="a_pRate" class="inputDark">
+<label>Min Withdraw (৳)</label><input id="a_min" class="inputDark">
+<label>Refer Bonus</label><input id="a_ref" class="inputDark">
+<label>Direct Link 1</label><input id="a_l1" class="inputDark">
+<label>Direct Link 2</label><input id="a_l2" class="inputDark">
+<label>Telegram Link</label><input id="a_tg" class="inputDark">
+<label>Big Offer Text</label><textarea id="a_offer" class="inputDark" rows="3"></textarea>
+<label>Notice</label><textarea id="a_notice" class="inputDark" rows="3"></textarea>
+<button class="btn" style="margin-top:12px" onclick="saveAdmin()">🚀 Save For All Users</button>
+<p id="a_ok" style="display:none;color:#22c55e;text-align:center;margin-top:10px">✅ Save হয়েছে!</p>
+</div>
+<p style="text-align:center;margin-top:15px"><a href="./" style="color:#94a3b8">← User App এ ফিরে যাও</a></p>
+</div>
+
+<!-- ===== USER APP ===== -->
+<div id="userPage">
+<div style="padding:15px">
+<div class="glass" style="display:flex;justify-content:space-between;align-items:center">
+<b id="appName">প্রতিদিনের কাজ বিডি</b><span style="font-size:12px;color:#22c55e">● Online</span>
+</div>
+<div class="glass" style="margin-top:10px;background:linear-gradient(135deg,#1A2040,#2a2f6a)">
+<p style="font-size:12px;color:#94a3b8">Balance</p><h1 id="bal">৳0.00</h1>
+<p style="font-size:12px;margin-top:6px">Today Ads: <b id="ads">0</b> | Refer: <b id="refCount">0</b></p>
+</div>
+<div id="bigBox" class="glass" style="margin-top:10px;border-color:#8b5cf6"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+<div class="glass" style="text-align:center"><small>Company Ads Rate</small><h3 id="cRate" style="color:#22c55e">৳0.25</h3><button class="btn" style="margin-top:8px;padding:8px" onclick="watchAd('company')">▶️ Watch</button></div>
+<div class="glass" style="text-align:center"><small>Popup Rate</small><h3 id="pRate" style="color:#f59e0b">৳0.20</h3><button class="btn" style="margin-top:8px;padding:8px;background:linear-gradient(135deg,#f59e0b,#f97316)" onclick="watchAd('popup')">▶️ Watch</button></div>
+</div>
+<div id="vipBox" class="glass" style="margin-top:10px"></div>
+<div id="noticeBox" class="glass" style="margin-top:10px"></div>
+<div class="glass" style="margin-top:10px"><b>Withdraw (Min <span id="minW">৳500</span>)</b><input id="wAmount" class="inputDark" placeholder="Amount"><input id="wMethod" class="inputDark" placeholder="Bkash/Nagad Number" style="margin-top:8px"><button class="btn" style="margin-top:8px" onclick="withdraw()">Withdraw Request</button></div>
+</div>
+<div class="bottom">
+<div class="bItem active">🏠<br>Home</div>
+<div class="bItem">🎯<br>Tasks</div>
+<div class="bItem">👥<br>Refer</div>
+<div class="bItem">💬<br>Support</div>
+<div class="bItem">👤<br>Profile</div>
+</div>
+</div>
+
 <script>
-// ===== ADMIN PANEL - এখান থেকে সব কন্ট্রোল করবে =====
-const ADMIN = {
-  appName: "প্রতিদিনের কাজ বিডি",
-  companyRate: 0.25,
-  popupRate: 0.20,
-  minWithdraw: 500,
-  directLink1: "https://omg10.com/4/11760259", // Company Ads Link
-  directLink2: "https://omg10.com/4/11760264", // Popup Ads Link
-  telegramLink: "https://t.me/ProtidinerKaj_BD",
-  websiteLink: "https://google.com",
-  bigOffer: `<b>🔥 Biggest Offer Today</b><p class="small" style="margin:6px 0">প্রতিদিন 80 টা এড দেখলে ৳500 বোনাস পাবেন</p><button class="btn" style="background:#f59e0b;color:#000">🚀 Claim Bonus</button>`,
-  notice: `⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে\n✅ সকাল ৯টার পর আবার চালু হয়\n📢 Fake Account করলে ব্যান করা হবে`,
-  referBonus: 20,
-  vipText: `<b>💎 VIP Membership</b><p class="small" style="margin:6px 0">VIP হলে প্রতি এডে ৳0.50 পাবেন। এখনই আপগ্রেড করুন</p><button class="btn">⭐ Upgrade Now - ৳199</button>`
+// ===== FIREBASE CONFIG - তোমারটা বসাও =====
+const firebaseConfig = {
+  apiKey: "AIzaSyDummyKey-Replace-With-Yours",
+  authDomain: "protidin-kaj-bd.firebaseapp.com",
+  databaseURL: "https://protidin-kaj-bd-default-rtdb.firebaseio.com",
+  projectId: "protidin-kaj-bd",
+  storageBucket: "protidin-kaj-bd.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456:web:abcdef"
 };
-// ===== ADMIN END =====
-</script>
+// ==========================================
+let defaultAdmin = {
+  appName:"প্রতিদিনের কাজ বিডি", companyRate:0.25, popupRate:0.20, minWithdraw:500, referBonus:20,
+  directLink1:"https://omg10.com/4/11760259", directLink2:"https://omg10.com/4/11760264",
+  telegramLink:"https://t.me/ProtidinerKaj_BD",
+  bigOffer:"🔥 Biggest Offer - 80 Ads = ৳500 Bonus",
+  notice:"⚠️ রাত ১০টার পর Withdraw বন্ধ",
+  vipText:"<b>💎 VIP</b><p>VIP হলে বেশি ইনকাম</p>"
+};
+let ADMIN = {...defaultAdmin};
+try{ firebase.initializeApp(firebaseConfig); }catch(e){}
 
-<!-- HOME -->
-<div id="home" class="page active">
-  <div class="top2"><div class="corner">💎</div><div class="topbox">👑 <span id="appName">প্রতিদিনের কাজ বিডি</span><br><small id="topUser">Daily Work BD ✅</small></div></div>
-  <div class="glass"><small>Diamond Member • Level <span id="lvlText">1</span></small><div style="display:flex;justify-content:space-between;align-items:center"><h1 style="font-size:30px">৳<span id="bal">20.3</span></h1><div style="text-align:right;font-size:12px">💎 <span id="dmd">2030</span> Diamond<br><span id="adInfo">0/80 Ads</span></div></div><div class="levelBar"><div class="levelFill" id="homeBar" style="width:40%"></div></div></div>
-  <div class="grid2">
-    <div class="glass" style="margin:0;text-align:center"><small>Company Ads</small><br><b id="cRate">৳0.25</b><br><b id="c1">0/30</b><button class="btn" onclick="watchAd('c1')">Start</button></div>
-    <div class="glass" style="margin:0;text-align:center"><small>Popup Ads</small><br><b id="pRate">৳0.20</b><br><b id="c2">0/30</b><button class="btn" style="background:#f59e0b;color:#000" onclick="watchAd('c2')">Watch</button></div>
-  </div>
-  <div class="glass"><div style="display:flex;gap:6px"><div class="btn2 on" id="bk" onclick="sel('bk')">bKash</div><div class="btn2" id="ng" onclick="sel('ng')">Nagad</div></div><input id="num" class="inputDark" placeholder="Number - 01XXXXXXXXX"><input id="amt" class="inputDark" type="number" placeholder="Amount - Min 500"><button class="btn" onclick="withdraw()">💸 Withdraw Now</button><p class="small" style="text-align:center;margin-top:6px" id="noticeSmall"></p></div>
-  <div class="glass" id="bigBox"></div>
-  <div class="glass"><b>📊 Live Withdraw</b><p class="small">✅ Rahim - ৳550 bKash - 2m ago</p><p class="small">✅ Karim - ৳700 Nagad - 5m ago</p><p class="small">✅ Sibli - ৳500 bKash - 10m ago</p></div>
-</div>
-
-<!-- TASKS -->
-<div id="tasks" class="page">
-  <div class="glass"><h3>🎯 Tasks & Company Links</h3><small class="small">প্রতি Task এ ৳20-30 + Diamond</small></div>
-  <div class="task"><span>🌐 Visit Website - ৳20</span><button class="btn" style="width:auto;padding:6px 12px;margin:0" onclick="doTask(20, ADMIN.websiteLink)">Go</button></div>
-  <div class="task"><span>▶️ Watch Video - ৳25</span><button class="btn" style="width:auto;padding:6px 12px;margin:0" onclick="doTask(25, ADMIN.directLink1)">Go</button></div>
-  <div class="task"><span>📢 Join Telegram - ৳30</span><button class="btn" style="width:auto;padding:6px 12px;margin:0" onclick="doTask(30, ADMIN.telegramLink)">Join</button></div>
-  <div class="task"><span>👍 Like Facebook - ৳15</span><button class="btn" style="width:auto;padding:6px 12px;margin:0" onclick="doTask(15, ADMIN.websiteLink)">Like</button></div>
-  <div class="task"><span>⭐ Rate App - ৳50</span><button class="btn" style="width:auto;padding:6px 12px;margin:0" onclick="doTask(50, ADMIN.websiteLink)">Rate</button></div>
-  <div class="glass" style="border-color:#f59e0b"><b>🔥 Special Offer</b><p class="small" style="margin-top:6px">Admin থেকে এখানে যেকোনো অফার বসাতে পারবে</p><button class="btn" style="background:#f59e0b;color:#000" onclick="doTask(100, ADMIN.directLink2)">Claim ৳100</button></div>
-</div>
-
-<!-- REFER -->
-<div id="refer" class="page">
-  <div class="glass" style="text-align:center;background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;font-weight:800">🎉 Refer Contest চলছে! - ৳5000 পুরস্কার</div>
-  <div class="glass" style="text-align:center"><h3>👥 Refer & Earn</h3><p class="small" style="margin:6px 0">বন্ধুকে Invite করলে ৳<span id="refAmt">20</span> পাবেন</p><div id="refLink" style="background:#0B0E1C;border:1px dashed #8b5cf6;padding:10px;border-radius:10px;word-break:break-all;font-size:11px;margin:10px 0">Loading...</div><button class="btn" onclick="copyRef()">Copy Link</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:#0B0E1C;padding:10px;border-radius:12px;border:1px solid #1e293b"><b>0</b><br><small>Total Refer</small></div><div style="background:#0B0E1C;padding:10px;border-radius:12px;border:1px solid #1e293b"><b>৳0</b><br><small>Refer Earn</small></div></div></div>
-  <div class="glass"><b>📋 Refer Rules</b><p class="small" style="white-space:pre-line;margin-top:6px">1. বন্ধুকে লিংক শেয়ার করো\n2. বন্ধু Join করলে ৳20 পাবে\n3. বন্ধু Ads দেখলে 15% Commission\n4. Fake Refer করলে ব্যান</p></div>
-</div>
-
-<!-- SUPPORT -->
-<div id="support" class="page">
-  <div class="glass"><h3>💬 Support Center</h3><small class="small">24/7 Support</small></div>
-  <div class="glass" id="noticeBox"></div>
-  <div class="glass"><h4>✍️ আমাদের মেসেজ লিখুন</h4><textarea id="supMsg" class="inputDark" rows="4" placeholder="আপনার সমস্যাটা লিখুন..."></textarea><input id="supContact" class="inputDark" placeholder="Telegram @ / Number"><button class="btn" onclick="sendSup()">📤 Send Message</button><p id="supOk" style="display:none;color:#22c55e;margin-top:8px;font-size:12px">✅ মেসেজ পাঠানো হয়েছে!</p></div>
-  <div class="glass"><b>❓ FAQ</b><p class="small" style="margin-top:8px"><b>Q: Withdraw কতক্ষণে পাবো?</b><br>২৪ ঘণ্টার ভিতরে</p><p class="small" style="margin-top:8px"><b>Q: Refer টাকা কখন?</b><br>বন্ধু Join করলেই</p><p class="small" style="margin-top:8px"><b>Q: Ads এ টাকা আসে না কেন?</b><br>VPN বন্ধ করে চেষ্টা করুন</p></div>
-</div>
-
-<!-- PROFILE - SUNDOR DESIGN -->
-<div id="profile" class="page">
-  <div class="glass" style="text-align:center">
-    <div class="proImg" id="pImg">👤</div>
-    <h2 id="pName" style="margin-top:10px">User Name</h2>
-    <p id="pUser" style="color:#8b5cf6;font-size:13px">@username</p>
-    <p id="pId" style="color:#64748b;font-size:11px">ID: --</p>
-    <div style="margin-top:14px;text-align:left;background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #1e293b">
-      <div style="display:flex;justify-content:space-between;font-size:12px"><span>💎 Diamond</span><span><span id="pDmd">2030</span> / 5000</span></div>
-      <div class="levelBar"><div class="levelFill" id="pBar" style="width:40%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px"><span>Level 1</span><span>Level 2 - 5000 Diamond লাগবে</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-      <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #1e293b"><b>৳<span class="bal2">20.3</span></b><br><small>Balance</small></div>
-      <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #1e293b"><b id="pAds">0</b><br><small>Ads</small></div>
-      <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #1e293b"><b>0</b><br><small>Refer</small></div>
-      <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #1e293b"><b id="pLvl">1</b><br><small>Level</small></div>
-    </div>
-  </div>
-  <div class="glass" id="vipBox"></div>
-  <div class="glass"><b>📝 নোট লিখুন</b><textarea class="inputDark" rows="3" placeholder="এখানে কিছু লিখুন... এটা প্রোফাইলে থাকবে"></textarea><button class="btn" onclick="alert('✅ সেভ হয়েছে')">Save Note</button></div>
-</div>
-
-<div class="btm">
-  <div class="on" onclick="go('home',this)"><span>🏠</span>Home</div>
-  <div onclick="go('tasks',this)"><span>🎯</span>Tasks</div>
-  <div onclick="go('refer',this)"><span>👥</span>Refer</div>
-  <div onclick="go('support',this)"><span>💬</span>Support</div>
-  <div onclick="go('profile',this)"><span>👤</span>Profile</div>
-</div>
-
-<script>
-let bal=parseFloat(localStorage.getItem('bal')||20.3), c1=parseInt(localStorage.getItem('c1')||0), c2=parseInt(localStorage.getItem('c2')||0), ads=parseInt(localStorage.getItem('ads')||0), method='bk';
-function initAdmin(){
+function loadAdmin(){
+  try{
+    firebase.database().ref('config').on('value', snap=>{
+      if(snap.val()){ ADMIN = {...defaultAdmin, ...snap.val()}; renderAll(); if(isAdmin) fillAdminForm(); }
+    });
+  }catch(e){ renderAll(); }
+}
+function renderAll(){
   document.getElementById('appName').innerText=ADMIN.appName;
   document.getElementById('cRate').innerText='৳'+ADMIN.companyRate;
   document.getElementById('pRate').innerText='৳'+ADMIN.popupRate;
+  document.getElementById('minW').innerText='৳'+ADMIN.minWithdraw;
   document.getElementById('bigBox').innerHTML=ADMIN.bigOffer;
+  document.getElementById('noticeBox').innerHTML='<small style="color:#fbbf24">'+ADMIN.notice+'</small>';
   document.getElementById('vipBox').innerHTML=ADMIN.vipText;
-  document.getElementById('noticeBox').innerHTML='<small style="white-space:pre-line;color:#fbbf24">'+ADMIN.notice+'</small>';
-  document.getElementById('noticeSmall').innerText='⚠️ রাত ১০টার পর Withdraw বন্ধ - Min ৳'+ADMIN.minWithdraw;
-  document.getElementById('refAmt').innerText=ADMIN.referBonus;
-  updateUI();
 }
-function updateUI(){
-  document.getElementById('bal').innerText=bal.toFixed(1);
-  document.querySelectorAll('.bal2').forEach(e=>e.innerText=bal.toFixed(1));
-  document.getElementById('c1').innerText=c1+'/30'; document.getElementById('c2').innerText=c2+'/30';
-  document.getElementById('adInfo').innerText=ads+'/80 Ads'; document.getElementById('pAds').innerText=ads;
-  let pct=Math.min((2030+ads*10)/5000*100,100); document.getElementById('homeBar').style.width=pct+'%'; document.getElementById('pBar').style.width=pct+'%';
-  localStorage.setItem('bal',bal); localStorage.setItem('c1',c1); localStorage.setItem('c2',c2); localStorage.setItem('ads',ads);
+
+const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'siblen123';
+if(isAdmin){
+  document.getElementById('userPage').style.display='none';
+  document.getElementById('adminPage').style.display='block';
 }
-function watchAd(id){
-  let amt=id=='c1'?ADMIN.companyRate:ADMIN.popupRate; let link=id=='c1'?ADMIN.directLink1:ADMIN.directLink2;
-  let btn=event.target; btn.innerText='Loading...'; btn.disabled=true;
-  if(window.Telegram && Telegram.WebApp.openLink) Telegram.WebApp.openLink(link); else window.open(link,'_blank');
-  setTimeout(()=>{bal+=amt; if(id=='c1')c1++; else c2++; ads++; updateUI(); btn.innerText=id=='c1'?'Start':'Watch'; btn.disabled=false; if(window.Telegram) Telegram.WebApp.HapticFeedback.notificationOccurred('success');},4000);
+function fillAdminForm(){
+  a_name.value=ADMIN.appName; a_cRate.value=ADMIN.companyRate; a_pRate.value=ADMIN.popupRate;
+  a_min.value=ADMIN.minWithdraw; a_ref.value=ADMIN.referBonus; a_l1.value=ADMIN.directLink1;
+  a_l2.value=ADMIN.directLink2; a_tg.value=ADMIN.telegramLink; a_offer.value=ADMIN.bigOffer; a_notice.value=ADMIN.notice;
 }
-function doTask(r,link){ if(window.Telegram && Telegram.WebApp.openLink) Telegram.WebApp.openLink(link); else window.open(link,'_blank'); setTimeout(()=>{bal+=r; ads++; updateUI(); alert('✅ ৳'+r+' Added!');},3000); }
-function sel(m){method=m; document.getElementById('bk').classList.toggle('on',m=='bk'); document.getElementById('ng').classList.toggle('on',m=='ng');}
-function withdraw(){
-  let num=document.getElementById('num').value, amt=parseFloat(document.getElementById('amt').value);
-  if(!num) return alert('Number দিন'); if(!amt || amt<ADMIN.minWithdraw) return alert('Min Withdraw ৳'+ADMIN.minWithdraw); if(amt>bal) return alert('Balance কম আছে');
-  bal-=amt; updateUI(); alert('✅ Withdraw Request পাঠানো হয়েছে\n'+(method=='bk'?'bKash':'Nagad')+': '+num+'\nAmount: ৳'+amt);
+function saveAdmin(){
+  let newCfg={
+    appName:a_name.value, companyRate:parseFloat(a_cRate.value), popupRate:parseFloat(a_pRate.value),
+    minWithdraw:parseInt(a_min.value), referBonus:parseInt(a_ref.value),
+    directLink1:a_l1.value, directLink2:a_l2.value, telegramLink:a_tg.value,
+    bigOffer:a_offer.value, notice:a_notice.value, vipText:ADMIN.vipText
+  };
+  firebase.database().ref('config').set(newCfg).then(()=>{
+    document.getElementById('a_ok').style.display='block';
+    setTimeout(()=>document.getElementById('a_ok').style.display='none',2000);
+  }).catch(()=>{ localStorage.setItem('ADMIN_CFG', JSON.stringify(newCfg)); alert('Firebase Config ভুল, Local এ Save হলো'); });
 }
-function go(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0)}
-function copyRef(){navigator.clipboard.writeText(document.getElementById('refLink').innerText); alert('Copied!');}
-function sendSup(){let m=document.getElementById('supMsg').value; if(!m) return alert('মেসেজ লিখুন'); document.getElementById('supOk').style.display='block'; document.getElementById('supMsg').value=''; setTimeout(()=>document.getElementById('supOk').style.display='none',3000);}
-if(window.Telegram && Telegram.WebApp){
-  Telegram.WebApp.ready(); Telegram.WebApp.expand();
-  let u=Telegram.WebApp.initDataUnsafe.user;
-  if(u){
-    document.getElementById('topUser').innerText=u.first_name+' ✅'; document.getElementById('pName').innerText=u.first_name+' '+(u.last_name||''); document.getElementById('pUser').innerText='@'+(u.username||'no username'); document.getElementById('pId').innerText='ID: '+u.id; document.getElementById('refLink').innerText='https://t.me/ProtidinerKaj_BD_Bot?start='+u.id;
-    if(u.photo_url) document.getElementById('pImg').innerHTML='<img src="'+u.photo_url+'">';
-  }
-}
-initAdmin();
+function watchAd(t){ let url = t==='company'? ADMIN.directLink1 : ADMIN.directLink2; window.open(url,'_blank'); let b=parseFloat(localStorage.getItem('bal')||0); b+= t==='company'? ADMIN.companyRate: ADMIN.popupRate; localStorage.setItem('bal', b); document.getElementById('bal').innerText='৳'+b.toFixed(2); }
+function withdraw(){ alert('Withdraw Request Sent: '+wAmount.value); }
+loadAdmin();
+document.getElementById('bal').innerText='৳'+(parseFloat(localStorage.getItem('bal')||0).toFixed(2));
 </script>
 </body>
 </html>
