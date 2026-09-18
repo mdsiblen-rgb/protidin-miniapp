@@ -2,8 +2,8 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>প্রতিদিনের কাজ বিডি</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>প্রতিদিনের কাজ বিডি - Final Level Fix</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:120px}
@@ -15,115 +15,90 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 .btm div{flex:1;text-align:center;color:#6B7280;font-size:11px;font-weight:700;cursor:pointer}.btm div.on{color:#8B5CF6}.btm div span{font-size:22px;display:block}
 .input{width:100%;padding:14px;border-radius:12px;border:1px solid #2A335E;background:#0B0E1C;color:#fff;margin-top:10px}
 .meth{flex:1;padding:12px;border-radius:14px;border:1px solid #2A335E;text-align:center;background:#0B0E1C;font-weight:700;cursor:pointer}.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
-.level-box{height:18px;background:#0B0E1C;border-radius:100px;overflow:hidden;border:1px solid #2A335E;margin-top:8px}
-.level-fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e,#FF9F0A);transition:0.8s}
+.level-box{height:20px;background:#0B0E1C;border-radius:100px;overflow:hidden;border:1px solid #2A335E;margin-top:10px}
+.level-fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e,#FF9F0A);transition:0.8s;width:0%}
 </style>
 </head>
 <body>
 <script>
-// ===== ADMIN CONTROL - এখান থেকে সব কন্ট্রোল করবে =====
+// ===== FINAL ADMIN CONTROL - লেভেল সীমা এখান থেকে বদলাবে =====
 const ADMIN = {
-  diamondText: "Diamond 2030",
   cPrice: 0.25,
   pPrice: 0.20,
-  vipPrice: 199,
-  referBonus: 20,
+  diamondPerAd: 15,
+  levels: [
+    {lv:1, name:"Beginner", min:0, max:200},
+    {lv:2, name:"Bronze", min:201, max:600},
+    {lv:3, name:"Silver", min:601, max:1500},
+    {lv:4, name:"Gold", min:1501, max:3000},
+    {lv:5, name:"Platinum", min:3001, max:6000},
+    {lv:6, name:"Diamond", min:6001, max:10000},
+    {lv:7, name:"Master", min:10001, max:20000},
+    {lv:8, name:"Grand Master", min:20001, max:40000},
+    {lv:9, name:"Legend", min:40001, max:70000},
+    {lv:10, name:"King MAX", min:70001, max:999999}
+  ],
   sponsorTitle: "🔥 Biggest Offer",
-  sponsorDesc: "প্রতিদিন কাজ করে বোনাস নিন",
-  referContest: "Refer Contest চলছে! - ৳5000 পুরস্কার",
-  supportTelegram: "@support",
-  channelTelegram: "@ProtidinBD"
+  referContest: "Refer Contest চলছে! - ৳5000 পুরস্কার"
 };
 </script>
 
-<!-- HOME -->
 <div id="p-home" class="page active">
 <div class="glass" style="display:flex;justify-content:space-between"><b>👑 প্রতিদিনের কাজ বিডি</b><span style="color:#22c55e;font-size:12px">● Online</span></div>
 <div class="glass" style="background:linear-gradient(135deg,#1E2346,#2A2058)">
 <small style="color:#94a3b8">Balance</small>
 <h1 id="bal" style="font-size:38px;font-weight:900">৳140.75</h1>
-<p style="margin-top:6px;font-size:13px;color:#94a3b8;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+<p style="margin-top:8px;font-size:13px;color:#94a3b8;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
 Ads: <b id="ads" style="color:#fff">0</b>/30 |
-<span style="font-size:24px;filter:drop-shadow(0 0 10px #38bdf8)">💎</span>
-<b id="diamondTxt" style="color:#38bdf8;font-size:18px;font-weight:900">Diamond 2030</b> | Level <span id="lvlTop">1</span>
+<span style="font-size:22px">💎</span><b id="diamondTxt" style="color:#38bdf8;font-size:16px">0 Diamond</b> |
+<span id="lvlTop" style="color:#FF9F0A;font-weight:800">Lv 1</span>
 </p>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 12px">
-<div class="glass" style="margin:0;text-align:center"><small>Company Ads</small><h2 style="color:#22c55e;font-size:28px;margin:8px 0">৳<span id="cPrice">0.25</span></h2><p id="cCount" style="font-size:12px;color:#94a3b8">0/30 Complete</p><button class="btn" style="margin-top:10px" onclick="watchAd('c')">▶️ Start</button></div>
-<div class="glass" style="margin:0;text-align:center"><small>Popup Ads</small><h2 style="color:#FF9F0A;font-size:28px;margin:8px 0">৳<span id="pPrice">0.20</span></h2><p id="pCount" style="font-size:12px;color:#94a3b8">0/30 Complete</p><button class="btn btn-o" style="margin-top:10px" onclick="watchAd('p')">▶️ Watch</button></div>
+<div class="glass" style="margin:0;text-align:center"><small>Company Ads</small><h2 style="color:#22c55e;font-size:28px;margin:8px 0">৳0.25</h2><p id="cCount" style="font-size:12px;color:#94a3b8">0/30</p><button class="btn" style="margin-top:10px" onclick="watchAd('c')">▶️ Start - ৳0.25</button></div>
+<div class="glass" style="margin:0;text-align:center"><small>Popup Ads</small><h2 style="color:#FF9F0A;font-size:28px;margin:8px 0">৳0.20</h2><p id="pCount" style="font-size:12px;color:#94a3b8">0/30</p><button class="btn btn-o" style="margin-top:10px" onclick="watchAd('p')">▶️ Watch - ৳0.20</button></div>
 </div>
-<div class="glass"><b>💸 Withdraw (Min ৳500)</b><div style="display:flex;gap:8px;margin-top:10px"><div class="meth on" onclick="selMeth(this)">bKash</div><div class="meth" onclick="selMeth(this)">Nagad</div><div class="meth" onclick="selMeth(this)">Rocket</div></div><input class="input" placeholder="Amount"><input class="input" placeholder="Number"><button class="btn" style="margin-top:10px">Withdraw Now</button></div>
-<div class="glass" style="border:2px solid #FF9F0A"><b id="sponsorTitle">🔥 Biggest Offer</b><p id="sponsorDesc" style="font-size:12px;color:#94a3b8;margin-top:6px">প্রতিদিন কাজ করে বোনাস নিন</p><button class="btn btn-o" style="margin-top:10px">Claim Now</button></div>
-</div>
-
-<!-- TASKS ভরপুর -->
-<div id="p-tasks" class="page">
-<div class="glass"><h3>🎯 Tasks & Company Links</h3><p style="font-size:12px;color:#94a3b8">প্রতি Task এ ৳20-25 + Diamond</p></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🌐 Visit Company Website</b><br><small style="color:#22c55e">৳20 + 10 Diamond</small></div><button class="btn" style="width:auto;padding:10px 16px" onclick="watchAd('c')">Go</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>▶️ Watch Video Task</b><br><small style="color:#FF9F0A">৳25 + 15 Diamond</small></div><button class="btn btn-o" style="width:auto;padding:10px 16px" onclick="watchAd('p')">Go</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Join Telegram Channel</b><br><small style="color:#22c55e">৳15 + 5 Diamond</small></div><button class="btn" style="width:auto;padding:10px 16px;background:#229ED9">Join</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>✅ Daily Check-in Bonus</b><br><small style="color:#22c55e">৳10 + 20 Diamond</small></div><button class="btn" style="width:auto;padding:10px 16px;background:#22c55e">Check-in</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🎡 Spin & Win</b><br><small style="color:#FF9F0A">৳5-100 + Diamond</small></div><button class="btn btn-o" style="width:auto;padding:10px 16px">Spin</button></div>
-<div class="glass" style="border:1px dashed #7C5CFF;background:linear-gradient(135deg,#1E2346,#2A2058)"><b>💎 VIP Daily Task</b><p style="font-size:12px;color:#94a3b8;margin-top:6px">VIP দের জন্য Extra Task - Admin থেকে চেঞ্জ হবে</p><button class="btn" style="margin-top:10px">👑 View VIP Tasks</button></div>
+<div class="glass"><b>💸 Withdraw (Min ৳500)</b><div style="display:flex;gap:8px;margin-top:10px"><div class="meth on">bKash</div><div class="meth">Nagad</div><div class="meth">Rocket</div></div><input class="input" placeholder="Amount"><input class="input" placeholder="Number"><button class="btn" style="margin-top:10px">Withdraw Now</button></div>
 </div>
 
-<!-- REFER ভরপুর -->
-<div id="p-refer" class="page">
-<div class="glass">
-<div id="referContest" style="background:#FF9F0A;border-radius:12px;padding:10px;text-align:center;font-weight:800;color:#000">🎉 Refer Contest চলছে! - ৳5000 পুরস্কার</div>
-<h2 style="text-align:center;margin-top:12px">👥 Refer & Earn</h2>
-<div style="background:#0B0E1C;border:1px solid #2A335E;border-radius:12px;padding:12px;margin-top:12px;font-size:12px;word-break:break-all;text-align:center">https://t.me/ProtidinMiniAppBot?start=12345</div>
-<button class="btn" style="margin-top:10px" onclick="navigator.clipboard.writeText('https://t.me/ProtidinMiniAppBot?start=12345');alert('Copied!')">📋 Copy Link</button>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn" style="background:#25D366">WhatsApp</button><button class="btn" style="background:#229ED9">Telegram</button></div>
-</div>
-<div class="glass" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
-<div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b style="color:#22c55e;font-size:18px">0</b><br><small>Total Refer</small></div>
-<div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b style="color:#FF9F0A;font-size:18px">৳0</b><br><small>Refer Earn</small></div>
-<div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b style="color:#7C5CFF;font-size:18px">৳0</b><br><small>Pending</small></div>
-</div>
-<div class="glass"><b>📜 Refer Rules</b><div style="margin-top:10px;font-size:13px;line-height:22px;color:#cbd5e1">1. বন্ধুকে লিংক শেয়ার করো<br>2. বন্ধু Join করলে ৳20 পাবে<br>3. বন্ধু Ads দেখলে 15% Lifetime Commission<br>4. 10 জন Refer করলে ৳200 বোনাস</div></div>
-<div class="glass" style="border:2px solid #FF9F0A"><b>💎 Special Sponsor</b><p style="font-size:12px;color:#94a3b8;margin-top:6px">Admin থেকে কন্ট্রোল বক্স - যেকোনো লেখা, দাম, লিংক বসাতে পারবে</p><button class="btn btn-o" style="margin-top:10px">Claim ৳100</button></div>
-</div>
+<div id="p-tasks" class="page"><div class="glass"><h3>🎯 Tasks</h3></div><div class="glass"><b>🌐 Visit Website</b><br><small style="color:#22c55e">৳20 + 15 Diamond</small><br><button class="btn" style="margin-top:8px" onclick="watchAd('c')">Go</button></div></div>
+<div id="p-refer" class="page"><div class="glass"><div id="referContest" style="background:#FF9F0A;border-radius:12px;padding:10px;text-align:center;font-weight:800;color:#000">🎉 Refer Contest চলছে! - ৳5000</div><h2 style="text-align:center;margin-top:10px">👥 Refer & Earn</h2></div></div>
+<div id="p-support" class="page"><div class="glass"><h3>💬 Support</h3><p style="font-size:12px;color:#94a3b8">Telegram: @support - 24/7 Online</p></div><div class="glass" style="border:2px solid #FF9F0A"><b>🔥 Sponsor Box</b><p style="font-size:12px;color:#94a3b8;margin-top:6px">Admin থেকে কন্ট্রোল হবে</p></div></div>
 
-<!-- SUPPORT ভরপুর - নতুন -->
-<div id="p-support" class="page">
-<div class="glass" style="background:linear-gradient(135deg,#1E2346,#2A2058);border:2px solid #7C5CFF"><h2>💬 Support Center</h2><p style="font-size:12px;color:#94a3b8;margin-top:6px">যেকোনো সমস্যায় যোগাযোগ করুন - 24/7 Active</p></div>
-<div class="glass" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div style="background:#0B0E1C;padding:14px;border-radius:12px;text-align:center;border:1px solid #2A335E"><span style="font-size:24px">📢</span><br><b style="font-size:13px">Telegram Channel</b><br><small style="color:#22c55e" id="chName">@ProtidinBD</small><br><button class="btn" style="padding:8px;margin-top:8px;background:#229ED9;font-size:12px">Join Now</button></div>
-<div style="background:#0B0E1C;padding:14px;border-radius:12px;text-align:center;border:1px solid #2A335E"><span style="font-size:24px">💬</span><br><b style="font-size:13px">Telegram Support</b><br><small style="color:#FF9F0A" id="supName">@support</small><br><button class="btn btn-o" style="padding:8px;margin-top:8px;font-size:12px">Message</button></div>
-</div>
-<div class="glass"><b>📋 Common Questions</b>
-<div style="margin-top:12px">
-<details style="background:#0B0E1C;padding:12px;border-radius:10px;margin-top:8px;border:1px solid #2A335E"><summary style="font-weight:700;font-size:13px">টাকা কখন পাবো?</summary><p style="font-size:12px;color:#94a3b8;margin-top:6px">উইথড্র দেওয়ার ২৪ ঘন্টার মধ্যে পেমেন্ট করা হয়।</p></details>
-<details style="background:#0B0E1C;padding:12px;border-radius:10px;margin-top:8px;border:1px solid #2A335E"><summary style="font-weight:700;font-size:13px">এড দেখলে টাকা আসে না কেন?</summary><p style="font-size:12px;color:#94a3b8;margin-top:6px">১৫ সেকেন্ড পুরা এড দেখতে হবে, তারপর Close করলে অটো যোগ হবে।</p></details>
-<details style="background:#0B0E1C;padding:12px;border-radius:10px;margin-top:8px;border:1px solid #2A335E"><summary style="font-weight:700;font-size:13px">Refer বোনাস কিভাবে পাবো?</summary><p style="font-size:12px;color:#94a3b8;margin-top:6px">তোমার লিংক থেকে কেউ জয়েন করলেই ৳20 + 15% Lifetime.</p></details>
-</div>
-</div>
-<div class="glass" style="border:2px solid #FF9F0A"><b>🔥 Sponsor Support Box</b><p style="font-size:12px;color:#94a3b8;margin-top:6px">এই বক্সটা এডমিন থেকে কন্ট্রোল হবে। যেকোনো অফার বসাতে পারবে।</p><button class="btn btn-o" style="margin-top:10px">📞 Contact Admin</button></div>
-<div class="glass" style="text-align:center;border:1px dashed #22c55e"><b>⚡ Live Support Status</b><br><span style="color:#22c55e;font-size:13px">● 3 জন Admin Online আছে</span><br><small style="color:#94a3b8">Avg Reply: 5 মিনিট</small><br><button class="btn" style="margin-top:10px;background:#22c55e">💬 Live Chat</button></div>
-<div class="glass"><b>📝 মেসেজ পাঠাও</b><input class="input" placeholder="তোমার নাম"><textarea class="input" style="height:80px;resize:none" placeholder="সমস্যা লিখো..."></textarea><button class="btn" style="margin-top:10px">✉️ Send Message</button></div>
-</div>
-
-<!-- PROFILE ছবি+নাম পার্মানেন্ট -->
+<!-- PROFILE - FINAL LEVEL AREA -->
 <div id="p-profile" class="page">
 <div class="glass" style="text-align:center">
 <div style="width:110px;height:110px;border-radius:22px;background:#0B0E1C;border:2px dashed #7C5CFF;display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden;cursor:pointer" onclick="document.getElementById('fileIn').click()">
-<span id="proIcon" style="font-size:30px">📷<br><small style="font-size:11px">ছবি লাগাও</small></span>
+<span id="proIcon">📷<br><small style="font-size:11px">ছবি লাগাও</small></span>
 <img id="proPreview" style="width:100%;height:100%;object-fit:cover;display:none">
 </div>
 <input type="file" id="fileIn" style="display:none" accept="image/*" onchange="saveImg(event)">
 <h3 id="userName" style="margin-top:10px" onclick="editName()">Md Siblen</h3>
 <p style="font-size:11px;color:#94a3b8">নাম বদলাতে ক্লিক করো</p>
-<p style="font-size:12px;color:#94a3b8">@siblen • ID: 12345</p>
-<p id="bal2" style="color:#22c55e;font-weight:800;font-size:22px;margin-top:6px">৳140.75</p>
+<p id="bal2" style="color:#22c55e;font-weight:800;font-size:22px">৳140.75</p>
 </div>
-<div class="glass"><b>💎 VIP Level</b><div class="level-box"><div id="levelFill" class="level-fill" style="width:30%"></div></div><p id="lvlPer" style="font-size:12px;margin-top:6px">30%</p></div>
+
+<div class="glass" style="border:2px solid #7C5CFF">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<b>💎 <span id="levelName">Beginner</span></b>
+<b id="levelNum" style="color:#FF9F0A">Level 1</b>
+</div>
+<div class="level-box"><div id="levelFill" class="level-fill"></div></div>
+<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px">
+<span id="lvlPer" style="color:#cbd5e1">0/200 Diamond - 0%</span>
+<span id="lvlNext" style="color:#22c55e">Next: 201 Diamond</span>
+</div>
+<div style="background:#0B0E1C;border-radius:10px;padding:10px;margin-top:10px;border:1px solid #2A335E;font-size:12px;color:#94a3b8">
+<b style="color:#fff">📊 Level Details:</b><br>
+<span id="levelDetail">Level 1 হতে 0-200 Diamond লাগবে। এখন 0 Diamond আছে।</span>
+</div>
+</div>
+
 <div class="glass" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
 <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b id="ads2">0</b><br><small>Total Ads</small></div>
-<div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b>0</b><br><small>Refer</small></div>
+<div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b id="diamondTotal" style="color:#38bdf8">0</b><br><small>Diamond</small></div>
 <div style="background:#0B0E1C;padding:12px;border-radius:12px;border:1px solid #2A335E"><b id="earnedTotal" style="color:#22c55e">৳0</b><br><small>Earned</small></div>
 </div>
-<div class="glass" style="border:2px solid #7C5CFF"><b>💎 VIP Membership</b><p style="font-size:12px;color:#94a3b8;margin-top:6px">VIP হলে বেশি ইনকাম</p><button class="btn" style="margin-top:10px">👑 Upgrade VIP - ৳<span id="vipPrice">199</span></button></div>
 </div>
 
 <div class="btm">
@@ -137,44 +112,50 @@ Ads: <b id="ads" style="color:#fff">0</b>/30 |
 <script>
 let bal=parseFloat(localStorage.getItem('bal')||'140.75');
 let c=parseInt(localStorage.getItem('cCount')||'0');
+let diamond=parseInt(localStorage.getItem('diamond')||'0');
+
+function getLevel(d){
+  for(let l of ADMIN.levels){ if(d>=l.min && d<=l.max) return l; }
+  return ADMIN.levels[9];
+}
 function render(){
  document.getElementById('bal').innerText='৳'+bal.toFixed(2);
  document.getElementById('bal2').innerText='৳'+bal.toFixed(2);
  document.getElementById('ads').innerText=c;
  document.getElementById('ads2').innerText=c;
- document.getElementById('cCount').innerText=c+'/30 Complete';
- document.getElementById('pCount').innerText=c+'/30 Complete';
+ document.getElementById('cCount').innerText=c+'/30';
+ document.getElementById('pCount').innerText=c+'/30';
+ document.getElementById('diamondTotal').innerText=diamond;
+ document.getElementById('diamondTxt').innerText=diamond+' Diamond';
  document.getElementById('earnedTotal').innerText='৳'+(c*ADMIN.cPrice).toFixed(2);
- let pct=Math.min((c/30)*100,100);
- document.getElementById('levelFill').style.width=pct+'%';
- document.getElementById('lvlPer').innerText=Math.round(pct)+'% Complete';
- document.getElementById('lvlTop').innerText=c>=9?2:1;
- document.getElementById('diamondTxt').innerText=ADMIN.diamondText;
- document.getElementById('cPrice').innerText=ADMIN.cPrice;
- document.getElementById('pPrice').innerText=ADMIN.pPrice;
- document.getElementById('vipPrice').innerText=ADMIN.vipPrice;
- document.getElementById('sponsorTitle').innerText=ADMIN.sponsorTitle;
- document.getElementById('sponsorDesc').innerText=ADMIN.sponsorDesc;
- document.getElementById('referContest').innerText='🎉 '+ADMIN.referContest;
- document.getElementById('chName').innerText=ADMIN.channelTelegram;
- document.getElementById('supName').innerText=ADMIN.supportTelegram;
+ let info=getLevel(diamond);
+ let range=info.max-info.min;
+ let prog=range>0?((diamond-info.min)/range)*100:100;
+ prog=Math.min(Math.max(prog,0),100);
+ document.getElementById('levelFill').style.width=prog+'%';
+ document.getElementById('levelName').innerText=info.name;
+ document.getElementById('levelNum').innerText='Level '+info.lv;
+ document.getElementById('lvlTop').innerText='Lv '+info.lv;
+ document.getElementById('lvlPer').innerText=diamond+'/'+info.max+' Diamond - '+Math.round(prog)+'%';
+ document.getElementById('lvlNext').innerText=info.lv<10?'Next: '+(info.max+1)+' Diamond':'MAX LEVEL';
+ document.getElementById('levelDetail').innerText='Level '+info.lv+' ('+info.name+') - '+info.min+' থেকে '+info.max+' Diamond পর্যন্ত। এখন '+diamond+' Diamond আছে। পরের লেভেলে যেতে আরো '+(info.lv<10?(info.max+1-diamond):0)+' Diamond লাগবে।';
  localStorage.setItem('bal',bal);
  localStorage.setItem('cCount',c);
+ localStorage.setItem('diamond',diamond);
 }
 function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');}
-function selMeth(e){document.querySelectorAll('.meth').forEach(m=>m.classList.remove('on'));e.classList.add('on');}
 function watchAd(t){
  let ov=document.createElement('div');
- ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:100000;display:flex;align-items:center;justify-content:center;padding:20px';
- ov.innerHTML=`<div style="background:#161C36;border:2px solid #7C5CFF;border-radius:20px;padding:20px;width:100%;max-width:360px;text-align:center"><h3>📢 Ad - 15s</h3><h2 id="tm" style="color:#22c55e;margin:14px 0">⏳ 15s</h2><button id="cl" style="width:100%;padding:14px;border:none;border-radius:12px;background:#334155;color:#fff;font-weight:800">অপেক্ষা করুন...</button></div>`;
+ ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.93);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px';
+ ov.innerHTML=`<div style="background:#161C36;border:2px solid #7C5CFF;border-radius:20px;padding:20px;width:100%;max-width:340px;text-align:center"><h3>📢 Ad - 15s</h3><h2 id="tm" style="color:#22c55e;margin:12px 0">⏳ 15s</h2><button id="cl" style="width:100%;padding:14px;border:none;border-radius:12px;background:#334155;color:#fff;font-weight:800">অপেক্ষা করুন...</button></div>`;
  document.body.appendChild(ov);
  let f=document.createElement('iframe');f.style.display='none';f.src=t==='c'?'https://omg10.com/4/11760259':'https://omg10.com/4/11760264';document.body.appendChild(f);
  let sec=15,tm=ov.querySelector('#tm'),btn=ov.querySelector('#cl');
- let iv=setInterval(()=>{sec--;tm.innerText='⏳ '+sec+'s';if(sec<=0){clearInterval(iv);bal+=ADMIN.cPrice;c++;render();tm.innerText='✅ ৳'+ADMIN.cPrice+' যোগ হয়েছে!';btn.style.background='#22c55e';btn.innerText='✓ Close';btn.onclick=()=>{ov.remove();f.remove();}}},1000);
+ let iv=setInterval(()=>{sec--;tm.innerText='⏳ '+sec+'s';if(sec<=0){clearInterval(iv);bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();tm.innerText='✅ +'+ADMIN.diamondPerAd+' Diamond! ৳'+ADMIN.cPrice;btn.style.background='#22c55e';btn.innerText='✓ Close';btn.onclick=()=>{ov.remove();f.remove();}}},1000);
 }
-function saveImg(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(e){let d=e.target.result;localStorage.setItem('userImg',d);document.getElementById('proPreview').src=d;document.getElementById('proPreview').style.display='block';document.getElementById('proIcon').style.display='none';};r.readAsDataURL(f);}
-function editName(){let n=prompt('তোমার নাম লিখো:',localStorage.getItem('userName')||'Md Siblen');if(n){localStorage.setItem('userName',n);document.getElementById('userName').innerText=n;}}
-window.addEventListener('load',()=>{let img=localStorage.getItem('userImg');if(img){document.getElementById('proPreview').src=img;document.getElementById('proPreview').style.display='block';document.getElementById('proIcon').style.display='none';}let name=localStorage.getItem('userName');if(name)document.getElementById('userName').innerText=name;render();});
+function saveImg(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=e=>{let d=e.target.result;localStorage.setItem('userImg',d);document.getElementById('proPreview').src=d;document.getElementById('proPreview').style.display='block';document.getElementById('proIcon').style.display='none';};r.readAsDataURL(f);}
+function editName(){let n=prompt('নাম লিখো:',localStorage.getItem('userName')||'Md Siblen');if(n){localStorage.setItem('userName',n);document.getElementById('userName').innerText=n;}}
+window.addEventListener('load',()=>{let img=localStorage.getItem('userImg');if(img){document.getElementById('proPreview').src=img;document.getElementById('proPreview').style.display='block';document.getElementById('proIcon').style.display='none';}let nm=localStorage.getItem('userName');if(nm)document.getElementById('userName').innerText=nm;render();});
 render();
 </script>
 </body>
