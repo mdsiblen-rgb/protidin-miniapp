@@ -25,12 +25,12 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 <body>
 <script>
 let ADMIN=JSON.parse(localStorage.getItem('ADMIN_CFG')||'{"cPrice":0.25,"pPrice":0.2,"diamondPerAd":15,"checkinTaka":10,"checkinDiamond":20,"withdrawMin":500,"sponsorBonus":100,"telegramLink":"https://t.me/ProtidinBD"}');
-let bal=parseFloat(localStorage.getItem('bal')||'0),c=parseInt(localStorage.getItem('cCount')||'0'),diamond=parseInt(localStorage.getItem('diamond')||'0);
+let bal=parseFloat(localStorage.getItem('bal')||'155'),c=parseInt(localStorage.getItem('cCount')||'26'),diamond=parseInt(localStorage.getItem('diamond')||'155');
 function today(){return new Date().toISOString().slice(0,10);}
 function getLevel(d){if(d<=200)return{lv:1,name:"Beginner",max:200,min:0};if(d<=600)return{lv:2,name:"Bronze",max:600,min:201};if(d<=1500)return{lv:3,name:"Silver",max:1500,min:601};if(d<=3000)return{lv:4,name:"Gold",max:3000,min:1501};return{lv:5,name:"Platinum",max:6000,min:3001};}
 function render(){
   document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);
-  document.getElementById('ads').innerText=c;document.getElementById('ads2').innerText=c;if(c>30)c=30;
+  document.getElementById('ads').innerText=c;document.getElementById('ads2').innerText=c;
   document.getElementById('cCount').innerText=c+'/30';document.getElementById('pCount').innerText=c+'/30';
   document.getElementById('diamondTotal').innerText=diamond;document.getElementById('diamondTxt').innerText=diamond+' Diamond';document.getElementById('diamondBig').innerText=diamond;
   document.getElementById('earnedTotal').innerText='৳'+(c*ADMIN.cPrice).toFixed(2);
@@ -48,9 +48,7 @@ function render(){
 }
 function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0);}
 function selMeth(e){document.querySelectorAll('.meth').forEach(m=>m.classList.remove('on'));e.classList.add('on');}
-function watchAd(){
-if(c>=30){alert('Ajker 30 ta sesh');return;}
-if(typeof show_11798857==='function'){show_11798857().then(()=>{bal+=0.25;c++;diamond++;render();});}else{bal+=0.25;c++;diamond++;render();}}
+function watchAd(){if(typeof show_11798857==='function'){show_11798857().then(()=>{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();});}else{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();}}
 function doCheckin(){if(localStorage.getItem('lastCheckinDate')===today()){alert('আজ Done!');return;}bal+=ADMIN.checkinTaka;diamond+=ADMIN.checkinDiamond;localStorage.setItem('lastCheckinDate',today());render();}
 function doSponsorClaim(){if(localStorage.getItem('sponsorClaimed')){alert('Done!');return;}bal+=ADMIN.sponsorBonus;localStorage.setItem('sponsorClaimed','1');render();alert('✅ Sponsor Done! ৳'+ADMIN.sponsorBonus);}
 function doWithdraw(){let amt=parseFloat(document.getElementById('wAmt').value);let num=document.getElementById('wNum').value;if(!amt||amt<ADMIN.withdrawMin){alert('Min ৳'+ADMIN.withdrawMin);return;}if(amt>bal){alert('Balance কম');return;}if(!num){alert('Number দাও');return;}bal-=amt;render();alert('✅ Withdraw Sent');}
@@ -61,8 +59,8 @@ function saveName(){let n=prompt('নাম লিখো:',localStorage.getItem(
 <div id="p-home" class="page active">
 <div class="glass" style="display:flex;justify-content:space-between"><b>👑 প্রতিদিনের কাজ বিডি✅</b><span style="color:#22c55e;font-size:11px">● Online</span></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#1C2145,#161C36)">
-<div><small style="color:#94a3b8">Balance</small><h1 id="bal" style="font-size:36px;font-weight:900"0>৳0.00</h1><p style="margin-top:6px;font-size:12px;color:#94a3b8">Ads: <b id="ads">0</b>/30 | <span style="color:#38bdf8" id="diamondTxt">0 Diamond</span></p></div>
-<div style="text-align:center"><div class="big-diamond">💎</div><div id="diamondBig" style="font-weight:900;color:#38bdf8;font-size:22px"></div><small style="color:#94a3b8;font-size:10px">Diamond</small></div>
+<div><small style="color:#94a3b8">Balance</small><h1 id="bal" style="font-size:36px;font-weight:900">৳155.00</h1><p style="margin-top:6px;font-size:12px;color:#94a3b8">Ads: <b id="ads">26</b>/30 | <span style="color:#38bdf8" id="diamondTxt">155 Diamond</span></p></div>
+<div style="text-align:center"><div class="big-diamond">💎</div><div id="diamondBig" style="font-weight:900;color:#38bdf8;font-size:22px">155</div><small style="color:#94a3b8;font-size:10px">Diamond</small></div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 12px">
 <div class="glass" style="margin:0;text-align:center"><small>Company Ads</small><h2 style="color:#22c55e;font-size:26px;margin:8px 0">৳<span id="cPriceTxt">0.25</span></h2><p id="cCount">26/30</p><button class="btn" onclick="watchAd()">▶️ Start</button></div>
@@ -77,57 +75,7 @@ function saveName(){let n=prompt('নাম লিখো:',localStorage.getItem(
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🌐 Visit Company</b><br><small style="color:#94a3b8">৳20 + 15 Diamond</small></div><button class="btn" style="width:auto" onclick="watchAd()">Go</button></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center;border:2px solid #22c55e"><div><b>✅ Daily Check-in</b><br><small id="chkStatus">Ready</small></div><button id="chkBtn" class="btn btn-g" style="width:auto;padding:12px 22px" onclick="doCheckin()">Check-in</button></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Join Telegram</b><br><small style="color:#94a3b8">Bonus ৳10</small></div><button class="btn" style="width:auto;background:#229ED9" onclick="window.open(ADMIN.telegramLink)">Join</button></div>
-<div class="glass" style="text-align:center;overflow:hidden">
-<b>🎡 Spin & Win</b>
-<p style="font-size:11px;color:#94a3b8">যেখানে থামবে সেটাই পাবে</p>
-
-<div style="width:200px;height:200px;margin:14px auto;position:relative">
-<div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:10;font-size:20px">▼</div>
-<div id="wheel" style="width:100%;height:100%;border-radius:50%;border:6px solid #2A335E;background:conic-gradient(#22c55e 0deg 60deg,#FF9F0A 60deg 120deg,#229ED9 120deg 180deg,#FF4D6D 180deg 240deg,#7C5CFF 240deg 300deg,#f59e0b 300deg 360deg);transition:transform 3.2s cubic-bezier(0.17,0.67,0.12,0.99);position:relative">
-<!-- লেখা গুলো -->
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(30deg) translateY(-65px) rotate(-30deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">5 💎</span>
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(90deg) translateY(-65px) rotate(-90deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">10 💎</span>
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(150deg) translateY(-65px) rotate(-150deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">20 💎</span>
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(210deg) translateY(-65px) rotate(-210deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">5 💎</span>
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(270deg) translateY(-65px) rotate(-270deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">50 💎</span>
-<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(330deg) translateY(-65px) rotate(-330deg);font-weight:900;color:#fff;text-shadow:0 1px 3px #000">15 💎</span>
-</div>
-<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:5">💎</div>
-</div>
-
-<button id="spinBtn" class="btn btn-o" onclick="doDailySpin()">🎡 ঘুরাও</button>
-<p id="spinInfo" style="font-size:13px;color:#22c55e;margin-top:8px;font-weight:800"></p>
-<div id="flyArea" style="position:relative;height:0"></div>
-<style>@keyframes flyD{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.2);opacity:0}}.fly-d{position:absolute;left:50%;top:-130px;font-size:20px;animation:flyD.8s ease-in forwards}</style>
-</div>
-
-<script>
-function ting(){try{let c=new (window.AudioContext||window.webkitAudioContext)();let o=c.createOscillator(),g=c.createGain();o.frequency.value=900;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(.3,c.currentTime);g.gain.exponentialRampToValueAtTime(.01,c.currentTime+.25);o.start();o.stop(c.currentTime+.25);}catch(e){}}
-function doDailySpin(){
- let today=new Date().toDateString();
- if(localStorage.getItem('lastSpin')===today){alert('আজ শেষ! কাল আবার');return;}
- let btn=document.getElementById('spinBtn'),wheel=document.getElementById('wheel');
- btn.disabled=true;btn.innerText='ঘুরছে...';
- // চাকার ৬ ভাগের মান
- let prizes=[5,10,20,5,50,15];
- let winIndex=Math.floor(Math.random()*6);
- let win=prizes[winIndex];
- // যেখানে পড়বে সেটা হিসাব করে ঘুরবে
- let deg= 1800 + (360-winIndex*60-30) + (Math.random()*40-20);
- wheel.style.transform='rotate('+deg+'deg)';
- setTimeout(()=>{
-   document.getElementById('spinInfo').innerText='🎉 চাকা থামছে '+win+' Diamond এ!';
-   let cnt=0, box=document.getElementById('flyArea'); box.innerHTML='';
-   let inter=setInterval(()=>{
-     cnt++; let d=document.createElement('div');d.className='fly-d';d.innerText='💎';
-     d.style.setProperty('--x',(Math.random()*80-40)+'px');d.style.setProperty('--y','-280px');
-     box.appendChild(d); ting(); diamond++; render(); setTimeout(()=>d.remove(),800);
-     if(cnt>=win){clearInterval(inter);localStorage.setItem('lastSpin',today);btn.innerText='Done ✓ আজ শেষ';document.getElementById('spinInfo').innerText='🎉 পেয়েছো '+win+' Diamond!';}
-   },150);
- },3300);
-}
-if(localStorage.getItem('lastSpin')===new Date().toDateString()){setTimeout(()=>{let b=document.getElementById('spinBtn');if(b){b.innerText='Done ✓ আজ শেষ';b.disabled=true;}},500);}
-</script>
+<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🎡 Spin & Win</b></div><button class="btn btn-o" style="width:auto" onclick="alert('Spin Soon')">Spin</button></div>
 <div class="glass" style="border:1px dashed #7C5CFF"><b>💎 VIP Task -</b><button class="btn" style="margin-top:8px" onclick="watchAd()">View VIP</button></div>
 </div>
 
