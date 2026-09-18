@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>প্রতিদিনের কাজ বিডি - FINAL V10</title>
 <script src="https://richinfo.co/richpartners/pops/js/richads-pops.js"></script>
 <style>
@@ -18,93 +17,85 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 .meth{flex:1;padding:12px;border-radius:14px;border:1px solid #2A335E;text-align:center;background:#0B0E1C;font-weight:700}.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
 .level-box{height:18px;background:#0B0E1C;border-radius:100px;overflow:hidden;border:1px solid #2A335E;margin-top:10px}
 .level-fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e,#FF9F0A);transition:.6s}
-.big-diamond{font-size:58px;filter:drop-shadow(0 0 12px #38bdf8);animation:float 2s infinite ease-in-out}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.big-diamond{font-size:68px;filter:drop-shadow(0 0 18px #38bdf8);animation:float 2s infinite ease-in-out;text-align:center;font-weight:900}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 </style>
 </head>
 <body>
 
-<!-- HOME PAGE - তোমার ছবির মতো -->
+<!-- HOME - 5 BUTTON DESIGN WITH BIG DIAMOND -->
 <div id="p-home" class="page active">
-  <div class="glass" style="display:flex;justify-content:space-between;align-items:center">
-    <div>
-      <div style="font-weight:800;font-size:18px">👑 <span id="userName">Md Siblen</span> <span onclick="saveName()" style="cursor:pointer">✏️</span></div>
-      <div style="color:#22c55e;font-size:13px;margin-top:2px">🟢 Online <span id="bal" style="color:#fff;font-weight:800">৳157.75</span></div>
+  <div class="glass" style="text-align:center">
+    <div style="display:flex;justify-content:space-between;align-items:center;text-align:left">
+      <div><b>👑 <span id="userName">Md Siblen</span> <span onclick="saveName()">✏️</span></b><br><small style="color:#22c55e">🟢 Online</small> <b id="bal">৳157.75</b></div>
+      <div style="font-size:12px;color:#94a3b8">Ads: <span id="ads">0</span>/30 | <span id="diamondTotal">0</span> Diamond</div>
     </div>
-    <div style="text-align:right">
-      <div style="font-size:13px;color:#94a3b8">Ads: <span id="ads">33</span>/30 | <span id="diamondTotal">265</span> Diamond</div>
-      <div id="diamondBig" class="big-diamond" style="text-align:right;font-weight:900;font-size:56px;line-height:1">265</div>
-    </div>
+    <div id="diamondBig" class="big-diamond">265</div>
+    <div id="diamondTxt" style="color:#38bdf8;font-weight:700">265 Diamond</div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px"><span id="levelName">Beginner</span><span id="levelNum">Level 1</span></div>
+    <div class="level-box"><div id="levelFill" class="level-fill" style="width:15%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;color:#94a3b8"><span id="lvlPer"></span><span id="lvlNext"></span></div>
   </div>
 
   <div class="glass">
-    <div style="display:flex;justify-content:space-between;font-weight:700"><span>💎 Diamond Company Ads</span><span>৳<span id="cPriceTxt">0.25</span> <span id="cCount">30/30</span></span></div>
-    <button class="btn btn-g" style="margin-top:12px;font-size:16px" onclick="watchAd()">▶️ Start Company Ad</button>
+    <div style="display:flex;justify-content:space-between"><span>💎 Diamond Company Ads</span><b>৳<span id="cPriceTxt">0.25</span> <span id="cCount">0/30</span></b></div>
+    <button class="btn btn-g" style="margin-top:10px" onclick="watchAd()">▶️ Start Company Ad</button>
   </div>
 
   <div class="glass">
-    <div style="display:flex;justify-content:space-between;font-weight:700"><span>Popup Ads</span><span>৳<span id="pPriceTxt">0.2</span> <span id="pCount">30/30</span></span></div>
-    <button class="btn" style="margin-top:12px;background:#8B5CF6;font-size:16px" onclick="watchAd()">▶️ Watch</button>
+    <div style="display:flex;justify-content:space-between"><span>Popup Ads</span><b>৳<span id="pPriceTxt">0.2</span> <span id="pCount">0/30</span></b></div>
+    <button class="btn" style="margin-top:10px;background:#8B5CF6" onclick="watchAd()">▶️ Watch</button>
+  </div>
+
+  <div class="glass" style="background:linear-gradient(90deg,#7C5CFF,#FF8C69)">
+    <b>🔥 Biggest Offer - 30 টা Ad দেখলে ৳200 Bonus!</b><br><small><span id="ads2">0</span>/30 Completed | <span id="earnedTotal">৳0.00</span></small><br>
+    <button class="btn" style="background:#fff;color:#000;margin-top:8px" onclick="doSponsorClaim()">🚀 Claim Now - ৳200</button>
   </div>
 
   <div class="glass">
-    <div style="font-weight:800">💸 Withdraw (Min ৳<span class="wMin">500</span>)</div>
-    <div style="display:flex;gap:10px;margin:12px 0"><div class="meth on" onclick="selMeth(this)">bKash</div><div class="meth" onclick="selMeth(this)">Nagad</div></div>
-    <input id="wNum" class="input" placeholder="Number দাও">
-    <input id="wAmt" class="input" placeholder="Amount" type="number">
-    <button class="btn" style="margin-top:12px;background:#8B5CF6" onclick="doWithdraw()">Withdraw Now</button>
-  </div>
-
-  <div class="glass" style="background:linear-gradient(90deg,#7C5CFF,#FF8C69);text-align:center">
-    <b>🔥 Biggest Offer - 30 টা Ad দেখলে ৳200 Bonus!</b><br>
-    <div style="margin:6px 0"><span id="ads2">22</span>/30 Completed - <span id="earnedTotal">৳0.00</span></div>
-    <button class="btn" style="background:#fff;color:#000" onclick="doSponsorClaim()">🚀 Claim Now - ৳200</button>
+    <b>💸 Withdraw (Min ৳<span class="wMin">500</span>)</b>
+    <div style="display:flex;gap:8px;margin:10px 0"><div class="meth on" onclick="selMeth(this)">bKash</div><div class="meth" onclick="selMeth(this)">Nagad</div></div>
+    <input id="wNum" class="input" placeholder="Number দাও"><input id="wAmt" class="input" placeholder="Amount" type="number">
+    <button class="btn" style="margin-top:10px" onclick="doWithdraw()">Withdraw Now</button>
   </div>
 </div>
 
-<!-- TASKS PAGE -->
-<div id="p-task" class="page">
-  <div class="glass">
-    <b>🎯 Tasks & Company</b><br><br>
-    <div>Level: <b id="levelName">Beginner</b> - <span id="levelNum">Level 1</span></div>
-    <div class="level-box"><div id="levelFill" class="level-fill" style="width:20%"></div></div>
-    <div id="lvlPer" style="font-size:12px;margin-top:5px"></div>
-    <div id="levelDetail" style="font-size:11px;color:#94a3b8;margin-top:6px"></div>
-    <br>
-    <button id="chkBtn" class="btn btn-g" onclick="doCheckin()">Daily Check-in - <span id="chkStatus">Ready</span></button><br><br>
-    <button id="sponsorBtn" class="btn btn-o" onclick="doSponsorClaim()">Claim Sponsor</button>
-  </div>
-</div>
+<!-- OTHER PAGES FOR 5 BUTTONS -->
+<div id="p-task" class="page"><div class="glass"><b>🎯 Tasks & Company</b><br><br><div>🌐 Visit Company ৳20 + 15 Diamond <button class="btn" style="width:auto" onclick="window.open(ADMIN.telegramLink)">Go</button></div><br><div>✅ Daily Check-in <span id="chkStatus"></span> <button id="chkBtn" class="btn btn-g" style="width:auto" onclick="doCheckin()">Check-in</button></div><br><div>📢 Sponsor <button id="sponsorBtn" class="btn btn-o" style="width:auto" onclick="doSponsorClaim()">Claim</button></div><br><small id="levelDetail" style="color:#94a3b8"></small></div></div>
+<div id="p-spin" class="page"><div class="glass" style="text-align:center"><h2>🎡 Spin & Win</h2><p>যেখানে থামবে সেটাই পাবে</p><button class="btn" style="margin-top:20px">SPIN</button></div></div>
+<div id="p-withdraw" class="page"><div class="glass"><h3>Withdraw History</h3><p style="color:#94a3b8">Min ৳<span class="wMin">500</span></p></div></div>
+<div id="p-profile" class="page"><div class="glass"><input type="file" onchange="saveImg(event)"><img id="proImg" style="width:80px;height:80px;border-radius:50%;display:none;margin-top:10px"><div id="proIcon" style="font-size:50px">👤</div><div id="bal2"></div></div></div>
 
-<!-- BOTTOM NAV -->
+<!-- 5 BUTTON BOTTOM NAV -->
 <div class="btm">
   <div class="on" onclick="openTab('home',this)"><span>🏠</span>Home</div>
   <div onclick="openTab('task',this)"><span>📋</span>Tasks</div>
-  <div onclick="alert('Profile coming')"><span>👤</span>Profile</div>
+  <div onclick="openTab('spin',this)"><span>🎡</span>Spin</div>
+  <div onclick="openTab('withdraw',this)"><span>💸</span>Withdraw</div>
+  <div onclick="openTab('profile',this)"><span>👤</span>Profile</div>
 </div>
 
 <script>
-// ঠিক করা লাইন - এখানেই ভুল ছিলো
 let ADMIN=JSON.parse(localStorage.getItem('ADMIN_CFG')||'{"cPrice":0.25,"pPrice":0.2,"diamondPerAd":1,"checkinTaka":10,"checkinDiamond":20,"withdrawMin":500,"sponsorBonus":100,"telegramLink":"https://t.me/ProtidinBD"}');
-let bal=parseFloat(localStorage.getItem('bal')||'157.75'),c=parseInt(localStorage.getItem('cCount')||'33'),diamond=parseInt(localStorage.getItem('diamond')||'265');
-
+let bal=parseFloat(localStorage.getItem('bal')||'157.75'),c=parseInt(localStorage.getItem('cCount')||'26'),diamond=parseInt(localStorage.getItem('diamond')||'265');
 function today(){return new Date().toISOString().slice(0,10);}
 function getLevel(d){if(d<=200)return{lv:1,name:"Beginner",max:200,min:0};if(d<=600)return{lv:2,name:"Bronze",max:600,min:201};if(d<=1500)return{lv:3,name:"Silver",max:1500,min:601};if(d<=3000)return{lv:4,name:"Gold",max:3000,min:1501};return{lv:5,name:"Platinum",max:6000,min:3001};}
 function render(){
  if(c>30)c=30;
- document.getElementById('bal').innerText='৳'+bal.toFixed(2);
- document.getElementById('ads').innerText=c;
- document.getElementById('cCount').innerText=c+'/30';document.getElementById('pCount').innerText=c+'/30';document.getElementById('ads2').innerText=c;
+ document.getElementById('bal').innerText='৳'+bal.toFixed(2);let b2=document.getElementById('bal2');if(b2)b2.innerText='৳'+bal.toFixed(2);
+ document.getElementById('ads').innerText=c;document.getElementById('cCount').innerText=c+'/30';document.getElementById('pCount').innerText=c+'/30';
+ let a2=document.getElementById('ads2');if(a2)a2.innerText=c;
  document.getElementById('diamondTotal').innerText=diamond;document.getElementById('diamondBig').innerText=diamond;
+ let dt=document.getElementById('diamondTxt');if(dt)dt.innerText=diamond+' Diamond';
  document.getElementById('earnedTotal').innerText='৳'+(c*ADMIN.cPrice).toFixed(2);
  document.getElementById('cPriceTxt').innerText=ADMIN.cPrice;document.getElementById('pPriceTxt').innerText=ADMIN.pPrice;
  document.querySelectorAll('.wMin').forEach(e=>e.innerText=ADMIN.withdrawMin);
  let lv=getLevel(diamond);let prog=((diamond-lv.min)/(lv.max-lv.min))*100;prog=Math.min(Math.max(prog,8),100);
  document.getElementById('levelName').innerText=lv.name;document.getElementById('levelNum').innerText='Level '+lv.lv;
  document.getElementById('levelFill').style.width=prog+'%';document.getElementById('lvlPer').innerText=diamond+' / '+lv.max+' - '+Math.round(prog)+'%';
- document.getElementById('levelDetail').innerText='Level '+lv.lv+' ('+lv.name+') - '+lv.min+' থেকে '+lv.max+' Diamond। এখন '+diamond+' আছে।';
+ document.getElementById('lvlNext').innerText='Next: '+(lv.max+1);document.getElementById('levelDetail').innerText='Level '+lv.lv+' ('+lv.name+') - '+lv.min+' থেকে '+lv.max+' Diamond। এখন '+diamond+' আছে। আরো '+(lv.max+1-diamond)+' Diamond হলে Level '+(lv.lv+1)+' হবে।';
  let last=localStorage.getItem('lastCheckinDate'),s=document.getElementById('chkStatus'),b=document.getElementById('chkBtn');
- if(s&&b){if(last===today()){s.innerText='Done Today ✅';b.innerText='Done ✓';b.style.background='#334155';b.disabled=true;}else{s.innerText='Ready';b.innerText='Check-in';b.style.background='#22c55e';b.disabled=false;}}
+ if(s&&b){if(last===today()){s.innerText='Done Today ✅';b.innerText='Done ✓';b.style.background='#334155';b.disabled=true;}else{s.innerText='Ready - প্রতিদিন ১ বার';b.innerText='Check-in';b.style.background='#22c55e';b.disabled=false;}}
  let cl=localStorage.getItem('sponsorClaimed'),sb=document.getElementById('sponsorBtn');
  if(sb){if(cl){sb.innerText='Done ✅ Claimed';sb.style.background='#334155';sb.disabled=true;}else{sb.innerText='Claim ৳'+ADMIN.sponsorBonus;sb.style.background='#FF9F0A';sb.disabled=false;}}
  localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('diamond',diamond);
@@ -112,13 +103,14 @@ function render(){
 function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0);}
 function selMeth(e){document.querySelectorAll('.meth').forEach(m=>m.classList.remove('on'));e.classList.add('on');}
 function watchAd(){
- if(c>=30){alert('Ajker 30 ta sesh! Kal abar pabe');return;}
+ if(c>=30){alert('Ajker 30 ta sesh');return;}
  if(typeof show_11798857==='function'){show_11798857().then(()=>{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();});}
  else{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();}
 }
 function doCheckin(){if(localStorage.getItem('lastCheckinDate')===today()){alert('আজ Done!');return;}bal+=ADMIN.checkinTaka;diamond+=ADMIN.checkinDiamond;localStorage.setItem('lastCheckinDate',today());render();}
 function doSponsorClaim(){if(localStorage.getItem('sponsorClaimed')){alert('Done!');return;}bal+=ADMIN.sponsorBonus;localStorage.setItem('sponsorClaimed','1');render();alert('✅ Sponsor Done! ৳'+ADMIN.sponsorBonus);}
 function doWithdraw(){let amt=parseFloat(document.getElementById('wAmt').value);let num=document.getElementById('wNum').value;if(!amt||amt<ADMIN.withdrawMin){alert('Min ৳'+ADMIN.withdrawMin);return;}if(amt>bal){alert('Balance কম');return;}if(!num){alert('Number দাও');return;}bal-=amt;render();alert('✅ Withdraw Sent');}
+function saveImg(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=e=>{localStorage.setItem('userImg',e.target.result);document.getElementById('proImg').src=e.target.result;document.getElementById('proImg').style.display='block';document.getElementById('proIcon').style.display='none';};r.readAsDataURL(f);}
 function saveName(){let n=prompt('নাম লিখো:',localStorage.getItem('userName')||'Md Siblen');if(n){localStorage.setItem('userName',n);document.getElementById('userName').innerText=n;}}
 render();
 </script>
