@@ -1,66 +1,109 @@
 <!DOCTYPE html>
-<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin Panel - প্রতিদিনের কাজ বিডি</title>
-<style>*{box-sizing:border-box;font-family:system-ui}body{background:#0A0D1E;color:#fff;max-width:500px;margin:auto;padding:20px}
-input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #2A335E;background:#161C36;color:#fff;margin:6px 0 12px}
-label{font-size:13px;color:#94a3b8}h2{margin:20px 0 10px;color:#7C5CFF}
-.btn{width:100%;padding:15px;border:none;border-radius:12px;background:#7C5CFF;color:#fff;font-weight:800;font-size:16px;margin-top:10px}
-.glass{background:#161C36;border:1px solid #2A335E;border-radius:14px;padding:14px;margin-bottom:14px}</style>
-</head><body>
-<h1>👑 Admin Panel</h1><p style="color:#22c55e;font-size:13px">এখানে যা লিখবা, এপ্সে সাথে সাথে চেঞ্জ হবে</p>
+<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Super Admin - A to Z Control</title>
+<style>*{box-sizing:border-box;font-family:system-ui}body{background:#070A1A;color:#fff;max-width:480px;margin:auto;padding:12px}h1{color:#7C5CFF}h2{color:#FF9F0A;margin:18px 0 8px;font-size:16px;border-bottom:1px solid #2A335E;padding-bottom:6px}label{font-size:12px;color:#94a3b8;display:block;margin-top:10px}input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #2A335E;background:#161C36;color:#fff;margin-top:4px;font-size:14px}textarea{height:70px}.btn{width:100%;padding:15px;border:none;border-radius:12px;background:#7C5CFF;color:#fff;font-weight:800;font-size:16px;margin-top:14px}.btn-g{background:#22c55e;color:#000}.glass{background:#161C36;border:1px solid #2A335E;border-radius:14px;padding:14px;margin-bottom:12px}.small{font-size:11px;color:#6B7280}</style></head><body>
+<h1>👑 Super Admin Panel</h1><p class="small">এখানে যা লিখবা, Apps এ সাথে সাথে চেঞ্জ হবে। Redmi তেও সব বক্সে লেখা যাবে।</p>
 
-<div class="glass"><h2>💰 টাকা ও লিমিট</h2>
-<label>Company Ad দাম</label><input id="ad" value="0.25">
-<label>Popup Ad দাম</label><input id="pop" value="0.20">
-<label>Min Withdraw</label><input id="min" value="500">
+<div class="glass">
+<h2>💰 টাকা ও লিমিট - Money Control</h2>
+<label>Company Ad দাম (৳)</label><input id="ad" value="0.25">
+<label>Popup Ad দাম (৳)</label><input id="pop" value="0.20">
+<label>Min Withdraw (৳)</label><input id="min" value="500">
+<label>Daily Check-in Taka (৳)</label><input id="chk_taka" value="10">
+<label>Daily Check-in Diamond</label><input id="chk_diamond" value="20">
+<label>Sponsor Bonus (৳)</label><input id="sponsor_bonus" value="100">
+<label>Diamond Per Ad</label><input id="diamond_per_ad" value="15">
+</div>
+
+<div class="glass">
+<h2>🏠 Home Page - প্রথম পেজ</h2>
+<label>App Name (উপরে)</label><input id="app_name" value="প্রতিদিনের কাজ বিডি">
+<label>Balance Box এর নিচের লেখা</label><input id="balance_sub" value="Ads: 26/30 | Diamond: 155">
+<label>Biggest Offer Box Title</label><input id="spon_title" value="🔥 Biggest Offer - সাদাসিধা লাইট">
+<label>Biggest Offer Description</label><textarea id="spon_desc">30 টা Ad দেখলে ৳200 Bonus! 22/30 Done</textarea>
+<label>Offer Button Text</label><input id="spon_btn" value="🚀 Claim Now - ৳200">
+<label>Offer Button Link</label><input id="spon_link" value="https://google.com">
+<label>Company Box 1 Name</label><input id="company1_name" value="Company Ads">
+<label>Company Box 2 Name</label><input id="company2_name" value="Popup Ads">
+</div>
+
+<div class="glass">
+<h2>🔗 Company Links - কোম্পানি লিংক</h2>
 <label>Company Ad Link 1</label><input id="link1" value="https://omg10.com/4/11760259">
 <label>Company Ad Link 2</label><input id="link2" value="https://omg10.com/4/11760264">
+<label>Company Ad Link 3</label><input id="link3" value="https://google.com">
 </div>
 
-<div class="glass"><h2>🏠 Home Page</h2>
-<label>App Name</label><input id="app_name" value="প্রতিদিনের কাজ বিডি">
-<label>Biggest Offer Title</label><input id="spon_title" value="Biggest Earning Offer">
-<label>Biggest Offer Desc</label><textarea id="spon_desc">প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন</textarea>
-<label>Offer Button Text</label><input id="spon_btn" value="🚀 Claim Now">
-<label>Offer Link</label><input id="spon_link" value="https://google.com">
-</div>
-
-<div class="glass"><h2>🎯 Tasks Page</h2>
-<label>Tasks Title</label><input id="task_page_title" value="Tasks & Company Links">
-<label>Tasks Sub</label><input id="task_page_sub" value="প্রতি Task এ ৳20-25 + Diamond">
-<label>Bottom Box Title</label><input id="task_bottom_title" value="🔥 Special Offer">
+<div class="glass">
+<h2>🎯 Tasks Page - টাস্ক পেজ</h2>
+<label>Tasks Page Title</label><input id="task_page_title" value="🎯 Tasks & Company - ভরপুর">
+<label>Tasks Sub Title</label><input id="task_page_sub" value="প্রতি Task এ ৳20-25 + Diamond">
+<label>Task 1 Name</label><input id="task1_name" value="🌐 Visit Company">
+<label>Task 2 Name (Check-in)</label><input id="task2_name" value="✅ Daily Check-in">
+<label>Task 3 Name</label><input id="task3_name" value="📢 Join Telegram">
+<label>Task 4 Name</label><input id="task4_name" value="🎡 Spin & Win">
+<label>Bottom Box Title</label><input id="task_bottom_title" value="💎 VIP Task - ভরপুর">
 <label>Bottom Box Desc</label><input id="task_bottom_desc" value="এই বক্স Admin থেকে চেঞ্জ হবে">
 </div>
 
-<div class="glass"><h2>👥 Refer Page</h2>
-<label>Refer Banner</label><input id="ref_banner" value="🎉 Refer Contest চলছে! - ৳5000 পুরস্কার">
-<label>Refer Rules</label><textarea id="ref_rules">1. বন্ধুকে লিংক শেয়ার করো
+<div class="glass">
+<h2>👥 Refer Page - রেফার পেজ</h2>
+<label>Refer Banner Text</label><input id="ref_banner" value="🎉 Refer Contest চলছে! - ৳5000 পুরস্কার">
+<label>Refer Page Title</label><input id="ref_title" value="👥 Refer & Earn - ভরপুর">
+<label>Refer Rules Box</label><textarea id="ref_rules">1. বন্ধুকে লিংক শেয়ার করো
 2. বন্ধু Join করলে ৳20 পাবে
-3. বন্ধু Ads দেখলে 15% Commission</textarea>
+3. বন্ধু Ads দেখলে 15% Commission
+4. 10 Refer = ৳200 Bonus</textarea>
+<label>Sponsor Box Title</label><input id="ref_sponsor_title" value="💎 Sponsor Bonus - ভরপুর">
+<label>My Refer List Title</label><input id="ref_list_title" value="👥 My Refer List - ভরপুর">
 </div>
 
-<div class="glass"><h2>💬 Support Page</h2>
-<label>Support Notice</label><textarea id="sup_notice">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
+<div class="glass">
+<h2>💬 Support Page - সাপোর্ট পেজ</h2>
+<label>Support Page Title</label><input id="sup_title" value="💬 Support Center - ভরপুর">
+<label>Support Notice Box</label><textarea id="sup_notice">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
 ✅ সকাল ৯টার পর আবার চালু হয়
-📢 Fake Account করলে ব্যান</textarea>
+📢 Fake Account করলে ব্যান করা হবে</textarea>
 <label>Telegram Link</label><input id="sup_tg" value="https://t.me/dailyworkbd">
-<label>WhatsApp</label><input id="sup_wa" value="https://wa.me/8801">
+<label>WhatsApp Link</label><input id="sup_wa" value="https://wa.me/8801">
+<label>Live Support Text</label><input id="sup_live" value="⚡ Live Support - 3 Admin Online - ভরপুর">
 </div>
 
-<button class="btn" onclick="save()">💾 Save All Settings</button>
-<p id="msg" style="text-align:center;margin-top:10px;color:#22c55e"></p>
+<div class="glass">
+<h2>👤 Profile Page - প্রোফাইল পেজ</h2>
+<label>Profile Settings Title</label><input id="profile_settings_title" value="⚙️ Settings - ভরপুর">
+<label>Withdraw History Title</label><input id="profile_history_title" value="📊 Withdraw History - ভরপুর">
+<label>Level Box Prefix</label><input id="level_prefix" value="💎 Level">
+</div>
+
+<button class="btn" onclick="saveAll()">💾 Save All - সব সেভ করো</button>
+<button class="btn btn-g" onclick="clearAll()">🔄 Reset - আগের মতো করো</button>
+<p id="msg" style="text-align:center;margin-top:12px;color:#22c55e;font-weight:700"></p>
 
 <script>
+const defaults={
+ad:"0.25",pop:"0.20",min:"500",chk_taka:"10",chk_diamond:"20",sponsor_bonus:"100",diamond_per_ad:"15",
+app_name:"প্রতিদিনের কাজ বিডি",balance_sub:"Ads: 26/30 | Diamond",spon_title:"🔥 Biggest Offer - সাদাসিধা লাইট",spon_desc:"30 টা Ad দেখলে ৳200 Bonus! 22/30 Done",spon_btn:"🚀 Claim Now - ৳200",spon_link:"https://google.com",company1_name:"Company Ads",company2_name:"Popup Ads",
+link1:"https://omg10.com/4/11760259",link2:"https://omg10.com/4/11760264",link3:"https://google.com",
+task_page_title:"🎯 Tasks & Company - ভরপুর",task_page_sub:"প্রতি Task এ ৳20-25 + Diamond",task1_name:"🌐 Visit Company",task2_name:"✅ Daily Check-in",task3_name:"📢 Join Telegram",task4_name:"🎡 Spin & Win",task_bottom_title:"💎 VIP Task - ভরপুর",task_bottom_desc:"এই বক্স Admin থেকে চেঞ্জ হবে",
+ref_banner:"🎉 Refer Contest চলছে! - ৳5000 পুরস্কার",ref_title:"👥 Refer & Earn - ভরপুর",ref_rules:"1. বন্ধুকে লিংক শেয়ার করো\n2. বন্ধু Join করলে ৳20 পাবে\n3. বন্ধু Ads দেখলে 15% Commission",ref_sponsor_title:"💎 Sponsor Bonus - ভরপুর",ref_list_title:"👥 My Refer List - ভরপুর",
+sup_title:"💬 Support Center - ভরপুর",sup_notice:"⚠️ রাত ১০টার পর Withdraw বন্ধ\n✅ সকাল ৯টার পর চালু",sup_tg:"https://t.me/dailyworkbd",sup_wa:"https://wa.me/8801",sup_live:"⚡ Live Support - 3 Admin Online",
+profile_settings_title:"⚙️ Settings - ভরপুর",profile_history_title:"📊 Withdraw History - ভরপুর",level_prefix:"💎 Level"
+};
 function load(){
- let s=JSON.parse(localStorage.getItem('appSettings')||'{}');
- for(let k in s){let el=document.getElementById(k);if(el)el.value=s[k];}
+let s=JSON.parse(localStorage.getItem('appSettings')||'{}');
+for(let k in defaults){
+let el=document.getElementById(k);
+if(el) el.value = s[k]!==undefined? s[k] : defaults[k];
 }
-function save(){
- let obj={};
- document.querySelectorAll('input,textarea').forEach(e=>obj[e.id]=e.value);
- localStorage.setItem('appSettings',JSON.stringify(obj));
- document.getElementById('msg').innerText='✅ Saved! এখন Home Page রিফ্রেশ দাও';
 }
+function saveAll(){
+let obj={};
+document.querySelectorAll('input,textarea').forEach(e=>obj[e.id]=e.value);
+localStorage.setItem('appSettings',JSON.stringify(obj));
+localStorage.setItem('ADMIN_CFG',JSON.stringify({cPrice:parseFloat(obj.ad),pPrice:parseFloat(obj.pop),withdrawMin:parseInt(obj.min),checkinTaka:parseInt(obj.chk_taka),checkinDiamond:parseInt(obj.chk_diamond),sponsorBonus:parseInt(obj.sponsor_bonus),diamondPerAd:parseInt(obj.diamond_per_ad),telegramLink:obj.sup_tg}));
+document.getElementById('msg').innerText='✅ Saved! এখন Apps রিফ্রেশ দিলে সব চেঞ্জ হয়ে যাবে।';
+}
+function clearAll(){localStorage.removeItem('appSettings');localStorage.removeItem('ADMIN_CFG');location.reload();}
 load();
 </script>
 </body></html>
