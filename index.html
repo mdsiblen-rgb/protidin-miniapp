@@ -48,7 +48,7 @@ function render(){
 }
 function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0);}
 function selMeth(e){document.querySelectorAll('.meth').forEach(m=>m.classList.remove('on'));e.classList.add('on');}
-function watchAd(){if(c>=30){alert('আজকের ৩০ টা শেষ!');return;}if(typeof show_11798857==='function'){show_11798857().then(()=>{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();});}else{bal+=ADMIN.cPrice;c++;diamond+=ADMIN.diamondPerAd;render();}}
+function watchAd(){if(c>=30){alert('আজকের ৩০ টা শেষ!');return;}if(typeof show_11798857==='function'){show_11798857().then(()=>{bal+=0.25;c++;diamond++;render();});}else{bal+=0.25;c++;diamond++;render();}}
 function doCheckin(){if(localStorage.getItem('lastCheckinDate')===today()){alert('আজ Done!');return;}bal+=ADMIN.checkinTaka;diamond+=ADMIN.checkinDiamond;localStorage.setItem('lastCheckinDate',today());render();}
 function doSponsorClaim(){if(localStorage.getItem('sponsorClaimed')){alert('Done!');return;}bal+=ADMIN.sponsorBonus;localStorage.setItem('sponsorClaimed','1');render();alert('✅ Sponsor Done! ৳'+ADMIN.sponsorBonus);}
 function doWithdraw(){let amt=parseFloat(document.getElementById('wAmt').value);let num=document.getElementById('wNum').value;if(!amt||amt<ADMIN.withdrawMin){alert('Min ৳'+ADMIN.withdrawMin);return;}if(amt>bal){alert('Balance কম');return;}if(!num){alert('Number দাও');return;}bal-=amt;render();alert('✅ Withdraw Sent');}
