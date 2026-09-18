@@ -2,158 +2,74 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>প্রতিদিনের কাজ বিডি</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui, -apple-system, BlinkMacSystemFont}
-body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;min-height:100vh;padding-bottom:115px}
-.glass{background:#1A2040;border:1px solid #242A45;border-radius:22px;padding:16px;margin:10px 14px}
-.btn{width:100%;padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6366f1);cursor:pointer;font-size:15px}
-.btn2{background:linear-gradient(135deg,#f59e0b,#f97316)}
-.inputDark{width:100%;padding:13px;border-radius:12px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:8px;outline:none}
-.page{display:none;padding-top:8px}.page.active{display:block}
-.btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#151A2D;display:flex;padding:10px 0 18px;border-radius:22px 22px 0 0;border-top:1px solid #242A45;z-index:9999}
-.btm div{flex:1;text-align:center;color:#64748b;font-size:11px;font-weight:700;cursor:pointer;line-height:1.2}
-.btm div.on{color:#8b5cf6}
-.task-card{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#0F1429;border:1px solid #1e293b;border-radius:16px;margin:8px 14px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0B0E1C;color:#fff;max-width:430px;margin:0 auto;padding-bottom:90px}
+.glass{background:#1A2040;border:1px solid #242A45;border-radius:20px;padding:16px;margin:10px 14px}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer}
+.btn2{background:#f59e0b}
 </style>
 </head>
 <body>
-
-<!-- ADMIN PANEL -->
-<div id="adminPage" style="display:none;padding:15px">
-<h2 style="text-align:center;margin:15px 0">👑 Admin Panel</h2>
-<div class="glass" style="margin:0">
-<label style="font-size:11px;color:#94a3b8">App Name</label><input id="a_name" class="inputDark">
-<label style="font-size:11px;color:#94a3b8">Company Ads Link</label><input id="a_l1" class="inputDark">
-<label style="font-size:11px;color:#94a3b8">Popup Ads Link</label><input id="a_l2" class="inputDark">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<div><label style="font-size:11px;color:#94a3b8">Company Rate</label><input id="a_cRate" class="inputDark"></div>
-<div><label style="font-size:11px;color:#94a3b8">Popup Rate</label><input id="a_pRate" class="inputDark"></div>
-<div><label style="font-size:11px;color:#94a3b8">Company Limit</label><input id="a_clim" class="inputDark"></div>
-<div><label style="font-size:11px;color:#94a3b8">Popup Limit</label><input id="a_plim" class="inputDark"></div>
-<div><label style="font-size:11px;color:#94a3b8">Min Withdraw</label><input id="a_min" class="inputDark"></div>
-<div><label style="font-size:11px;color:#94a3b8">Refer Bonus</label><input id="a_ref" class="inputDark"></div>
-</div>
-<label style="font-size:11px;color:#94a3b8">Sponsor Title</label><input id="a_sponT" class="inputDark">
-<label style="font-size:11px;color:#94a3b8">Sponsor Desc</label><textarea id="a_sponD" class="inputDark" rows="2"></textarea>
-<label style="font-size:11px;color:#94a3b8">Telegram Link</label><input id="a_tg" class="inputDark">
-<label style="font-size:11px;color:#94a3b8">Support Notice</label><textarea id="a_notice" class="inputDark" rows="3"></textarea>
-<button class="btn" style="margin-top:12px" onclick="saveAdmin()">🚀 Save All Settings</button>
-<p id="a_ok" style="display:none;color:#22c55e;text-align:center;margin-top:10px;font-weight:700">✅ Saved!</p>
-</div>
-<a href="./" style="display:block;text-align:center;color:#8b5cf6;margin-top:15px;text-decoration:none">← User App এ ফিরে যাও</a>
+<div class="glass" style="display:flex;justify-content:space-between">
+<b>প্রতিদিনের কাজ বিডি</b><span style="color:#22c55e;font-size:12px">● Online</span>
 </div>
 
-<!-- USER APP -->
-<div id="userPage">
-<!-- HOME -->
-<div id="p-home" class="page active">
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><b id="appName">প্রতিদিনের কাজ বিডি</b><span style="font-size:12px;color:#22c55e">● Online</span></div>
-<div class="glass" style="background:linear-gradient(135deg,#1A2040,#2D1B4E);border-color:#8b5cf6">
-<small style="color:#94a3b8">Balance</small><h1 id="bal" style="font-size:38px;margin:4px 0">৳138.10</h1>
-<p style="font-size:13px;color:#94a3b8">Ads: <b id="ads" style="color:#fff">0</b> | Today: <b id="today" style="color:#fff">0</b> | Refer: <b id="refC" style="color:#fff">0</b></p>
+<div class="glass" style="background:linear-gradient(135deg,#1A2040,#312e81)">
+<small style="color:#94a3b8">Balance</small>
+<h1 id="bal" style="font-size:36px">৳138.10</h1>
+<p style="color:#94a3b8;font-size:13px">Ads: <span id="ads" style="color:#fff">0</span>/30</p>
 </div>
+
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px">
-<div class="glass" style="margin:0;text-align:center"><small style="color:#94a3b8">Company Ads</small><h2 id="cRateShow" style="color:#22c55e;margin:6px 0">৳0.25</h2><button class="btn" onclick="watchAd('company')">▶️ Watch</button><p id="cTimer" style="font-size:11px;color:#22c55e;margin-top:6px"></p><small style="color:#64748b">Limit: <span id="cLimShow">30</span></small></div>
-<div class="glass" style="margin:0;text-align:center"><small style="color:#94a3b8">Popup Ads</small><h2 id="pRateShow" style="color:#f59e0b;margin:6px 0">৳0.20</h2><button class="btn btn2" onclick="watchAd('popup')">▶️ Watch</button><p id="pTimer" style="font-size:11px;color:#f59e0b;margin-top:6px"></p><small style="color:#64748b">Limit: <span id="pLimShow">30</span></small></div>
+<div class="glass" style="margin:0;text-align:center">
+<small>Company Ads</small>
+<h2 style="color:#22c55e;margin:6px 0">৳0.25</h2>
+<button class="btn" onclick="watchAd('company')">▶️ Watch</button>
+<p id="cTimer" style="font-size:11px;margin-top:6px;color:#22c55e"></p>
 </div>
-<div class="glass" style="border-color:#f59e0b;background:linear-gradient(135deg,#2D1B4E,#1A1033)"><b id="sponTitle">🔥 Biggest Earning Offer</b><p id="sponDesc" style="font-size:12px;color:#94a3b8;margin:8px 0">প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন</p><a id="sponLink" href="https://google.com" target="_blank"><button class="btn btn2">🚀 Claim Now</button></a></div>
-<div class="glass"><b>💸 Withdraw (Min ৳<span id="minShow">500</span>)</b><input id="wAmt" class="inputDark" placeholder="Amount - 500"><input id="wNum" class="inputDark" placeholder="Bkash / Nagad Number"><button class="btn" style="margin-top:10px" onclick="withdraw()">Withdraw Request</button></div>
+<div class="glass" style="margin:0;text-align:center">
+<small>Popup Ads</small>
+<h2 style="color:#f59e0b;margin:6px 0">৳0.20</h2>
+<button class="btn btn2" onclick="watchAd('popup')">▶️ Watch</button>
+<p id="pTimer" style="font-size:11px;margin-top:6px;color:#f59e0b"></p>
 </div>
-
-<!-- TASKS -->
-<div id="p-tasks" class="page">
-<div class="glass"><h3>🎯 Tasks & Company Links</h3><p style="font-size:12px;color:#94a3b8">প্রতি Task এ ৳20-25 + Diamond</p></div>
-<div class="task-card"><div><b>🌐 Visit Company Website</b><p style="font-size:12px;color:#94a3b8">Reward ৳20</p></div><button class="btn" style="width:auto;padding:8px 16px" onclick="watchAd('company')">Go</button></div>
-<div class="task-card"><div><b>▶️ Watch Video</b><p style="font-size:12px;color:#94a3b8">Reward ৳25</p></div><button class="btn btn2" style="width:auto;padding:8px 16px" onclick="watchAd('popup')">Go</button></div>
-<div class="task-card"><div><b>📢 Join Telegram</b><p style="font-size:12px;color:#94a3b8">Reward ৳30</p></div><a id="taskTg" href="https://t.me/" target="_blank"><button class="btn" style="width:auto;padding:8px 16px">Join</button></a></div>
-</div>
-
-<!-- REFER -->
-<div id="p-refer" class="page">
-<div class="glass" style="text-align:center;background:linear-gradient(135deg,#1e1b4b,#312e81)"><h2>👥 Refer & Earn</h2><p style="font-size:13px;color:#94a3b8;margin:8px 0">প্রতি রেফারে পাবে ৳<span id="refShow">20</span></p><div style="background:#0B0E1C;padding:12px;border-radius:12px;margin:10px 0;word-break:break-all;font-size:12px" id="refLink">https://t.me/ProtidinMiniAppBot?start=12345</div><button class="btn" onclick="copyRef()">📋 Copy Link</button></div>
-<div class="glass"><b>My Referrals: <span id="refC2">0</span></b><p style="font-size:12px;color:#94a3b8">Total Earn: ৳<span id="refEarn">0</span></p></div>
 </div>
 
-<!-- SUPPORT -->
-<div id="p-support" class="page">
-<div class="glass"><h3>💬 Support Center</h3><p id="supportNotice" style="font-size:12px;color:#94a3b8;margin-top:8px;white-space:pre-line">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
-✅ সকাল ৯টার পর আবার চালু হয়
-📢 Fake Account করলে ব্যান</p><a id="supTgLink" href="https://t.me/dailyworkbd" target="_blank"><button class="btn" style="margin-top:12px">💬 Telegram Support</button></a></div>
-</div>
-
-<!-- PROFILE -->
-<div id="p-profile" class="page">
-<div class="glass" style="text-align:center"><div style="width:70px;height:70px;background:#8b5cf6;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:32px">👤</div><h3 style="margin-top:8px">User</h3><p style="font-size:12px;color:#94a3b8">Balance: <b id="bal2" style="color:#22c55e">৳138.10</b></p></div>
-<div class="glass"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #242A45"><span>Total Ads</span><b id="ads2">0</b></div><div style="display:flex;justify-content:space-between;padding:8px 0"><span>Status</span><b style="color:#22c55e">Active</b></div></div>
-</div>
-
-<div class="btm">
-<div class="on" onclick="openTab('home',this)">🏠<br>Home</div>
-<div onclick="openTab('tasks',this)">🎯<br>Tasks</div>
-<div onclick="openTab('refer',this)">👥<br>Refer</div>
-<div onclick="openTab('support',this)">💬<br>Support</div>
-<div onclick="openTab('profile',this)">👤<br>Profile</div>
-</div>
+<div class="glass" style="border-color:#f59e0b">
+<b>🔥 Biggest Offer</b>
+<p style="font-size:12px;color:#94a3b8;margin-top:4px">প্রতিদিন 80 টা এড দেখলে বোনাস</p>
 </div>
 
 <script>
-let DEFAULT = {appName:"প্রতিদিনের কাজ বিডি",cRate:0.25,pRate:0.20,clim:30,plim:30,minW:500,refBonus:20,direct1:"https://omg10.com/4/11760259",direct2:"https://omg10.com/4/11760264",sponTitle:"🔥 Biggest Earning Offer",sponDesc:"প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন",sponLink:"https://google.com",tgLink:"https://t.me/dailyworkbd",notice:"⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে\n✅ সকাল ৯টার পর আবার চালু হয়"};
-let S = JSON.parse(localStorage.getItem('PRO_SETTINGS')||'null')||DEFAULT;
-let bal=parseFloat(localStorage.getItem('bal')||'138.10'); let cCount=parseInt(localStorage.getItem('cCount')||'0'); let pCount=parseInt(localStorage.getItem('pCount')||'0');
-
-function renderAll(){
- document.getElementById('appName').innerText=S.appName; document.title=S.appName;
- document.getElementById('cRateShow').innerText='৳'+S.cRate; document.getElementById('pRateShow').innerText='৳'+S.pRate;
- document.getElementById('cLimShow').innerText=S.clim; document.getElementById('pLimShow').innerText=S.plim;
- document.getElementById('minShow').innerText=S.minW; document.getElementById('refShow').innerText=S.refBonus;
- document.getElementById('sponTitle').innerText=S.sponTitle; document.getElementById('sponDesc').innerText=S.sponDesc;
- document.getElementById('sponLink').href=S.sponLink; document.getElementById('supTgLink').href=S.tgLink; document.getElementById('taskTg').href=S.tgLink;
- document.getElementById('supportNotice').innerText=S.notice;
- document.getElementById('bal').innerText='৳'+bal.toFixed(2); document.getElementById('bal2').innerText='৳'+bal.toFixed(2);
- document.getElementById('ads').innerText=cCount; document.getElementById('ads2').innerText=cCount; document.getElementById('today').innerText=pCount;
-}
-
-function openTab(name, el){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById('p-'+name).classList.add('active');
- document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));
- el.classList.add('on');
-}
+let bal = parseFloat(localStorage.getItem('bal')||'138.10');
+let count = parseInt(localStorage.getItem('cCount')||'0');
+document.getElementById('bal').innerText = '৳'+bal.toFixed(2);
+document.getElementById('ads').innerText = count;
 
 function watchAd(type){
- let link=type==='company'?S.direct1:S.direct2;
- let limit=type==='company'?S.clim:S.plim;
- let count=type==='company'?cCount:pCount;
- let reward=type==='company'?S.cRate:S.pRate;
- let timerEl=document.getElementById(type==='company'?'cTimer':'pTimer');
- if(count>=limit){alert('আজকের লিমিট শেষ! কাল আবার চেষ্টা করো');return;}
+ let link = type==='company' ? 'https://omg10.com/4/11760259' : 'https://omg10.com/4/11760264';
+ let el = document.getElementById(type==='company' ? 'cTimer' : 'pTimer');
+ if(count>=30){alert('আজকের লিমিট শেষ');return;}
  window.open(link,'_blank');
- let sec=12; timerEl.innerText='⏳ '+sec+'s অপেক্ষা করো...';
+ let sec=12;
+ el.innerText='⏳ '+sec+' সেকেন্ড অপেক্ষা করো...';
  let iv=setInterval(()=>{
-   sec--; timerEl.innerText='⏳ '+sec+'s...';
-   if(sec<=0){clearInterval(iv); bal+=reward;
-     if(type==='company'){cCount++; localStorage.setItem('cCount',cCount);}else{pCount++; localStorage.setItem('pCount',pCount);}
-     localStorage.setItem('bal',bal); renderAll();
-     timerEl.innerText='✅ ৳'+reward+' যোগ হয়েছে!'; setTimeout(()=>timerEl.innerText='',2500);
+   sec--; el.innerText='⏳ '+sec+'s...';
+   if(sec<=0){
+     clearInterval(iv);
+     bal+=0.25; count++;
+     localStorage.setItem('bal',bal);
+     localStorage.setItem('cCount',count);
+     document.getElementById('bal').innerText='৳'+bal.toFixed(2);
+     document.getElementById('ads').innerText=count;
+     el.innerText='✅ ৳0.25 যোগ হয়েছে!';
+     setTimeout(()=>el.innerText='',2000);
    }
  },1000);
 }
-
-function withdraw(){let amt=document.getElementById('wAmt').value; if(!amt) return alert('Amount লিখো'); if(parseFloat(amt)<S.minW) return alert('Min '+S.minW+' টাকা লাগবে'); alert('✅ Withdraw Request Sent: ৳'+amt);}
-function copyRef(){navigator.clipboard.writeText(document.getElementById('refLink').innerText); alert('✅ Copied!');}
-
-let isAdmin=new URLSearchParams(window.location.search).get('admin')==='siblen123';
-if(isAdmin){
- document.getElementById('userPage').style.display='none'; document.getElementById('adminPage').style.display='block';
- a_name.value=S.appName; a_l1.value=S.direct1; a_l2.value=S.direct2; a_cRate.value=S.cRate; a_pRate.value=S.pRate; a_clim.value=S.clim; a_plim.value=S.plim; a_min.value=S.minW; a_ref.value=S.refBonus; a_sponT.value=S.sponTitle; a_sponD.value=S.sponDesc; a_tg.value=S.tgLink; a_notice.value=S.notice;
-}
-function saveAdmin(){
- S={appName:a_name.value,direct1:a_l1.value,direct2:a_l2.value,cRate:parseFloat(a_cRate.value),pRate:parseFloat(a_pRate.value),clim:parseInt(a_clim.value),plim:parseInt(a_plim.value),minW:parseInt(a_min.value),refBonus:parseInt(a_ref.value),sponTitle:a_sponT.value,sponDesc:a_sponD.value,sponLink:S.sponLink,tgLink:a_tg.value,notice:a_notice.value};
- localStorage.setItem('PRO_SETTINGS', JSON.stringify(S)); document.getElementById('a_ok').style.display='block'; renderAll(); setTimeout(()=>document.getElementById('a_ok').style.display='none',2000);
-}
-renderAll();
 </script>
 </body>
 </html>
