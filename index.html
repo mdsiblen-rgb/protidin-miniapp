@@ -6,51 +6,107 @@
 <title>প্রতিদিনের কাজ বিডি</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;padding-bottom:120px}
-.glass{background:#1A2040;border:1px solid #2a2f4a;border-radius:22px;padding:18px;margin:12px}
-.btn{width:100%;padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer;margin-top:10px;font-size:15px}
-.btn2{background:#f59e0b}
+body{background:#080B1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:120px;min-height:100vh}
+.glass{background:#1C2342;border:1px solid #2A3358;border-radius:20px;padding:18px;margin:10px 12px}
+.btn{width:100%;padding:16px;border:none;border-radius:14px;font-weight:800;color:#fff;background:#7C5CFF;font-size:15px;cursor:pointer}
+.btn-orange{background:#FF9F0A}
 .page{display:none}.page.active{display:block}
-.btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#151A2D;display:flex;padding:12px 0 18px;border-radius:22px 22px 0 0;border-top:1px solid #1e293b;z-index:99}
-.btm div{flex:1;text-align:center;color:#64748b;font-size:11px;font-weight:700;cursor:pointer}.btm div.on{color:#8b5cf6}.btm div span{font-size:22px;display:block}
-.inputDark{width:100%;padding:13px;border-radius:12px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:10px}
-.task-card{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#0F1429;border:1px solid #1e293b;border-radius:18px;margin:10px 12px}
+.btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#12152B;display:flex;padding:12px 0 20px;border-radius:24px 24px 0 0;border-top:1px solid #2A3358;z-index:9999}
+.btm div{flex:1;text-align:center;color:#6B7280;font-size:11px;font-weight:700;cursor:pointer}
+.btm div.on{color:#8B5CF6}
+.btm div span{font-size:22px;display:block}
+.input{width:100%;padding:14px;border-radius:12px;border:1px solid #2A3358;background:#0B0E1C;color:#fff;margin-top:10px;outline:none}
+.meth{flex:1;padding:12px;border-radius:14px;border:1px solid #2A3358;text-align:center;background:#0B0E1C;font-weight:700;cursor:pointer}
+.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
 </style>
 </head>
 <body>
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 <div id="p-home" class="page active">
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:20px">প্রতিদিনের কাজ বিডি</b><span style="color:#22c55e;font-size:12px">● Online</span></div>
-<div class="glass" style="background:linear-gradient(135deg,#1A2040,#2D1B4E)"><small style="color:#94a3b8">Balance</small><h1 id="bal" style="font-size:40px">৳138.10</h1><p style="font-size:13px;color:#94a3b8">Ads: <b id="ads" style="color:#fff">0</b>/30 | Diamond: <b style="color:#fff">💎 2030</b></p></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 12px">
-<div class="glass" style="margin:0;text-align:center"><small>Company Ads</small><h2 style="color:#22c55e;font-size:28px;margin:6px 0">৳0.25</h2><p style="font-size:12px;color:#94a3b8">0/30</p><button class="btn" onclick="watchAd('c')">Start - ৳0.25</button><p id="cTimer" style="font-size:11px;color:#22c55e;margin-top:5px"></p></div>
-<div class="glass" style="margin:0;text-align:center"><small>Popup Ads</small><h2 style="color:#f59e0b;font-size:28px;margin:6px 0">৳0.20</h2><p style="font-size:12px;color:#94a3b8">0/30</p><button class="btn" style="background:#f59e0b" onclick="watchAd('p')">Watch - ৳0.20</button><p id="pTimer" style="font-size:11px;color:#f59e0b;margin-top:5px"></p></div>
+<div class="glass" style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px">
+<b style="font-size:18px">প্রতিদিনের কাজ বিডি</b><span style="color:#22c55e;font-size:12px">● Online</span>
 </div>
-<div class="glass" style="border-color:#f59e0b;background:linear-gradient(135deg,#2D1B4E,#1A1033);min-height:180px"><b>🔥 Biggest Earning Offer</b><p style="font-size:13px;color:#94a3b8;margin-top:6px">প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন</p><a href="https://google.com" target="_blank"><button class="btn btn2" style="margin-top:12px">🚀 Claim Now</button></a></div>
-<div class="glass"><b>💸 Withdraw (Min ৳500)</b><div style="display:flex;gap:10px;margin-top:10px"><div style="flex:1;padding:12px;border-radius:14px;border:1px solid #8b5cf6;text-align:center;background:rgba(139,92,246,.25)">bKash</div><div style="flex:1;padding:12px;border-radius:14px;border:1px solid #1e293b;text-align:center;background:#0B0E1C">Nagad</div></div><input class="inputDark" placeholder="Amount"><input class="inputDark" placeholder="Number"><button class="btn" style="margin-top:10px">Withdraw Now</button></div>
+<div class="glass" style="background:linear-gradient(135deg,#252A4A,#1E2340)">
+<small style="color:#94a3b8">Balance</small>
+<h1 id="bal" style="font-size:38px;font-weight:900">৳138.10</h1>
+<p style="font-size:13px;color:#94a3b8;margin-top:4px">Ads: <b id="ads" style="color:#fff">0</b>/30 | 💎 2030</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 12px">
+<div class="glass" style="margin:0;text-align:center">
+<p style="font-size:13px">Company Ads</p>
+<h2 style="color:#22c55e;font-size:30px;margin:8px 0">৳0.25</h2>
+<button class="btn" onclick="watchAd('c')">▶️ Watch</button>
+<p id="cT" style="font-size:11px;margin-top:6px;color:#22c55e"></p>
+</div>
+<div class="glass" style="margin:0;text-align:center">
+<p style="font-size:13px">Popup Ads</p>
+<h2 style="color:#FF9F0A;font-size:30px;margin:8px 0">৳0.20</h2>
+<button class="btn btn-orange" onclick="watchAd('p')">▶️ Watch</button>
+<p id="pT" style="font-size:11px;margin-top:6px;color:#FF9F0A"></p>
+</div>
+</div>
+<div class="glass" style="border:1px solid #FF9F0A;background:linear-gradient(135deg,#2D1B4E,#1A1033)">
+<b>🔥 Biggest Offer</b>
+<p style="font-size:12px;color:#94a3b8;margin-top:4px">প্রতিদিন 80 টা এড দেখলে বোনাস পাবেন</p>
+</div>
+<div class="glass">
+<b>💸 Withdraw (Min ৳500)</b>
+<div style="display:flex;gap:10px;margin-top:12px">
+<div class="meth on" onclick="selectMeth(this)">bKash</div>
+<div class="meth" onclick="selectMeth(this)">Nagad</div>
+</div>
+<input class="input" placeholder="Amount - যেমন 500">
+<input class="input" placeholder="Bkash/Nagad Number">
+<button class="btn" style="margin-top:12px" onclick="alert('Withdraw Request Sent!')">Withdraw Now</button>
+</div>
 </div>
 
 <!-- TASKS -->
 <div id="p-tasks" class="page">
-<div class="glass"><h3>🎯 Tasks & Company Links</h3><p style="font-size:12px;color:#94a3b8">প্রতি Task এ ৳20-25 + Diamond</p></div>
-<div class="task-card"><div><b>🌐 Visit Company Website - ৳20</b></div><button class="btn" style="width:auto;padding:8px 16px" onclick="watchAd('c')">Go</button></div>
-<div class="glass" style="border-color:#f59e0b"><b>🔥 Special Offer</b><p style="font-size:12px">এই বক্স Admin থেকে চেঞ্জ হবে</p><button class="btn btn2">Claim Now</button></div>
+<div class="glass"><h3>🎯 Tasks & Company Links</h3><p style="font-size:12px;color:#94a3b8;margin-top:4px">প্রতি Task এ ৳20-25 + Diamond</p></div>
+<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🌐 Visit Company Website - ৳20</b></div><button class="btn" style="width:auto;padding:10px 18px" onclick="watchAd('c')">Go</button></div>
+<div class="glass" style="border-color:#FF9F0A"><b>🔥 Special Offer</b><p style="font-size:12px;color:#94a3b8">এই বক্স Admin থেকে চেঞ্জ হবে</p><button class="btn btn-orange" style="margin-top:10px">Claim Now</button></div>
 </div>
 
 <!-- REFER -->
 <div id="p-refer" class="page">
-<div class="glass" style="text-align:center"><div style="background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;padding:12px;border-radius:14px;font-weight:800">🎉 Refer Contest চলছে! - ৳5000 পুরস্কার</div><h3 style="margin-top:12px">👥 Refer & Earn</h3><p style="font-size:12px;color:#94a3b8">বন্ধুদের Invite করে Unlimited আয়</p><div style="background:#0B0E1C;padding:12px;border-radius:12px;margin:10px 0;font-size:12px;word-break:break-all">https://t.me/ProtidinMiniAppBot?start=12345</div></div>
+<div class="glass" style="text-align:center">
+<div style="background:linear-gradient(90deg,#FF9F0A,#FF6A00);color:#000;padding:12px;border-radius:14px;font-weight:800;font-size:14px">🎉 Refer Contest চলছে! - ৳5000 পুরস্কার</div>
+<h2 style="margin-top:14px">👥 Refer & Earn</h2>
+<p style="font-size:12px;color:#94a3b8;margin-top:4px">বন্ধুদের Invite করে Unlimited আয়</p>
+<div style="background:#080B1A;padding:12px;border-radius:12px;margin:12px 0;font-size:12px;word-break:break-all;border:1px solid #2A3358">https://t.me/ProtidinMiniAppBot?start=12345</div>
+<button class="btn" onclick="navigator.clipboard.writeText('https://t.me/ProtidinMiniAppBot?start=12345');alert('Copied!')">📋 Copy Link</button>
+</div>
+<div class="glass"><p style="font-size:12px;white-space:pre-line">1. বন্ধুকে লিংক শেয়ার করো
+2. বন্ধু Join করলে ৳20 পাবে
+3. বন্ধু Ads দেখলে 15% Commission</p></div>
 </div>
 
 <!-- SUPPORT -->
-<div id="p-support" class="page"><div class="glass"><h3>💬 Support Center</h3><p style="font-size:12px;white-space:pre-line;margin-top:8px;color:#94a3b8">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
+<div id="p-support" class="page">
+<div class="glass">
+<h3>💬 Support Center</h3>
+<p style="font-size:13px;white-space:pre-line;margin-top:10px;line-height:1.7">
+⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
 ✅ সকাল ৯টার পর আবার চালু হয়
-📢 Fake Account করলে ব্যান</p></div></div>
+📢 Fake Account করলে ব্যান
+</p>
+<a href="https://t.me/dailyworkbd" target="_blank"><button class="btn" style="margin-top:14px">Telegram Support</button></a>
+</div>
+</div>
 
 <!-- PROFILE -->
-<div id="p-profile" class="page"><div class="glass" style="text-align:center"><div style="width:90px;height:90px;background:#0B0E1C;border:2px solid #8b5cf6;border-radius:22px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:40px">👤</div><h3 style="margin-top:8px">User</h3><p id="bal2" style="color:#22c55e">৳138.10</p></div></div>
+<div id="p-profile" class="page">
+<div class="glass" style="text-align:center">
+<div style="width:80px;height:80px;background:#080B1A;border:2px solid #7C5CFF;border-radius:20px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:40px">👤</div>
+<h3 style="margin-top:10px">User</h3>
+<p id="bal2" style="color:#22c55e;font-weight:800;font-size:18px">৳138.10</p>
+</div>
+<div class="glass"><p>Total Ads: <b id="ads2">0</b> / 30</p><p style="margin-top:8px">Status: <b style="color:#22c55e">Active</b></p></div>
+</div>
 
+<!-- BOTTOM MENU -->
 <div class="btm">
 <div class="on" onclick="openTab('home',this)"><span>🏠</span>Home</div>
 <div onclick="openTab('tasks',this)"><span>🎯</span>Tasks</div>
@@ -60,21 +116,52 @@ body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;padding-bottom:12
 </div>
 
 <script>
-let bal=parseFloat(localStorage.getItem('bal')||'138.10');let c=parseInt(localStorage.getItem('cCount')||'0');let p=parseInt(localStorage.getItem('pCount')||'0');
-function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);document.getElementById('ads').innerText=c;}
+let bal=parseFloat(localStorage.getItem('bal')||'138.10');
+let c=parseInt(localStorage.getItem('cCount')||'0');
+function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);document.getElementById('ads').innerText=c;document.getElementById('ads2').innerText=c;}
 render();
-function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');}
+function openTab(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(d=>d.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0);}
+function selectMeth(e){document.querySelectorAll('.meth').forEach(m=>m.classList.remove('on'));e.classList.add('on');}
+
 function watchAd(t){
- // টেলিগ্রামের মতো ভিতরেই এড
- let popup=document.createElement('div');
- popup.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
- popup.innerHTML='<div style="background:#1A2040;border-radius:22px;padding:20px;width:100%;max-width:360px;text-align:center;border:2px solid #8b5cf6"><h3>📢 Company Ad</h3><p style="font-size:12px;color:#94a3b8;margin:8px 0">12 সেকেন্ড দেখুন</p><div style="background:#0B0E1C;height:180px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:12px 0"><p>Ad Loading...<br>omg10.com</p></div><p id="adT" style="color:#22c55e;font-weight:800;font-size:18px">⏳ 12s</p><button id="closeBtn" style="margin-top:12px;padding:12px 20px;border:none;border-radius:12px;background:#334155;color:#fff;width:100%">Close</button></div>';
- document.body.appendChild(popup);
- let link=t==='c'?'https://omg10.com/4/11760259':'https://omg10.com/4/11760264';
- window.open(link,'_blank');
- let sec=12;let el=popup.querySelector('#adT');
- let iv=setInterval(()=>{sec--;el.innerText='⏳ '+sec+'s...';if(sec<=0){clearInterval(iv);bal+=t==='c'?0.25:0.20;if(t==='c'){c++;localStorage.setItem('cCount',c);}else{p++;}localStorage.setItem('bal',bal);render();el.innerText='✅ ৳0.25 যোগ হয়েছে!';let b=popup.querySelector('#closeBtn');b.style.background='#22c55e';b.innerText='✓ Claim & Close';}},1000);
- popup.querySelector('#closeBtn').onclick=()=>popup.remove();
+  // টেলিগ্রামের মতো ভিতরেই পপ-আপ - বাইরের পেজ কালো আসলেও টাকা দিবে
+  let overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML=`
+    <div style="background:#1C2342;border:2px solid #7C5CFF;border-radius:22px;padding:20px;width:100%;max-width:360px;text-align:center">
+      <h3 style="font-size:18px">📢 Company Ads</h3>
+      <p style="font-size:12px;color:#94a3b8;margin-top:6px">এডটি 12 সেকেন্ড দেখুন, বাইরে ওপেন হবে</p>
+      <div style="background:#080B1A;height:160px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:14px 0;border:1px solid #2A3358">
+        <div><p style="font-size:30px">💎</p><p style="font-size:12px;margin-top:6px">Loading Ad...</p><p style="font-size:10px;color:#64748b">omg10.com</p></div>
+      </div>
+      <h2 id="timerText" style="color:#22c55e">⏳ 12s</h2>
+      <button id="claimBtn" style="width:100%;margin-top:12px;padding:14px;border:none;border-radius:12px;background:#334155;color:#fff;font-weight:700">অপেক্ষা করুন...</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  
+  let link = t==='c' ? 'https://omg10.com/4/11760259' : 'https://omg10.com/4/11760264';
+  window.open(link, '_blank'); // বাইরে ওপেন হবে আয়ের জন্য
+
+  let sec=12;
+  let timerEl=overlay.querySelector('#timerText');
+  let btn=overlay.querySelector('#claimBtn');
+  let iv=setInterval(()=>{
+    sec--;
+    timerEl.innerText='⏳ '+sec+'s';
+    if(sec<=0){
+      clearInterval(iv);
+      timerEl.innerText='✅ ৳0.25 যোগ হয়েছে!';
+      bal+= t==='c' ? 0.25 : 0.20;
+      c++;
+      localStorage.setItem('bal',bal);
+      localStorage.setItem('cCount',c);
+      render();
+      btn.style.background='#22c55e';
+      btn.innerText='✓ Claim & Close';
+      btn.onclick=()=>overlay.remove();
+    }
+  },1000);
 }
 </script>
 </body>
