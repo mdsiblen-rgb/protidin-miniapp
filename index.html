@@ -1,137 +1,137 @@
+from flask import Flask, jsonify, render_template_string, request
+import json, os
+
+app = Flask(__name__)
+DB_FILE = "db.json"
+
+# তোমার ডিফল্ট সেটিং
+SETTINGS = {
+ "app_name": "প্রতিদিনের কাজ বিডি",
+ "ad": 0.25, "pop": 0.20, "clim": 30, "plim": 30, "min": 500, "ref": 20,
+ "direct_link1": "https://omg10.com/4/11760259",  # কোম্পানি এড লিংক
+ "direct_link2": "https://omg10.com/4/11760264",  # পপআপ এড লিংক
+ "company_ad_id": "11764581",
+ "popup_ad_id": "11798857",
+ "spon_title": "🔥 Biggest Offer", "spon_desc": "প্রতিদিন 80 টা এড দেখলে বোনাস"
+}
+
+def load_db():
+    if not os.path.exists(DB_FILE):
+        return {"users":{}, "settings": SETTINGS, "wds":[]}
+    try:
+        db=json.load(open(DB_FILE,"r",encoding="utf-8"))
+        for k,v in SETTINGS.items(): db["settings"].setdefault(k,v)
+        return db
+    except: return {"users":{}, "settings": SETTINGS, "wds":[]}
+
+def save_db(db):
+    json.dump(db, open(DB_FILE,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
+
+@app.route('/')
+def index():
+    db=load_db(); s=db["settings"]
+    return render_template_string(f"""
 <!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>প্রতিদিনের কাজ বিডি</title>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>{s['app_name']}</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
-body{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;min-height:100vh;padding-bottom:90px}
-.glass{background:#1A2040;border:1px solid #242A45;border-radius:14px;padding:12px}
-.btn{padding:12px;border:none;border-radius:12px;font-weight:800;width:100%;color:#fff;background:linear-gradient(135deg,#8b5cf6,#6366f1);cursor:pointer}
-.inputDark{width:100%;padding:10px;border-radius:8px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:6px}
-.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#151A32;border-top:1px solid #242A45;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
-.bItem{text-align:center;color:#94a3b8;font-size:11px;cursor:pointer;flex:1}
-.bItem.active{color:#8b5cf6}
+*{{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}}
+body{{background:#0B0E1C;color:#fff;max-width:430px;margin:auto;padding-bottom:100px}}
+.glass{{background:#1A2040;border:1px solid #242A45;border-radius:18px;padding:14px;margin:10px 14px}}
+.btn{{width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer}}
+.btn2{{background:#f59e0b}}
 </style>
 </head>
 <body>
-<!-- ===== ADMIN PANEL ===== -->
-<div id="adminPage" style="display:none;padding:15px">
-<h2 style="text-align:center;margin:10px 0">👑 Admin Panel</h2>
-<div class="glass">
-<label>App Name</label><input id="a_name" class="inputDark">
-<label>Company Rate</label><input id="a_cRate" class="inputDark">
-<label>Popup Rate</label><input id="a_pRate" class="inputDark">
-<label>Min Withdraw (৳)</label><input id="a_min" class="inputDark">
-<label>Refer Bonus</label><input id="a_ref" class="inputDark">
-<label>Direct Link 1</label><input id="a_l1" class="inputDark">
-<label>Direct Link 2</label><input id="a_l2" class="inputDark">
-<label>Telegram Link</label><input id="a_tg" class="inputDark">
-<label>Big Offer Text</label><textarea id="a_offer" class="inputDark" rows="3"></textarea>
-<label>Notice</label><textarea id="a_notice" class="inputDark" rows="3"></textarea>
-<button class="btn" style="margin-top:12px" onclick="saveAdmin()">🚀 Save For All Users</button>
-<p id="a_ok" style="display:none;color:#22c55e;text-align:center;margin-top:10px">✅ Save হয়েছে!</p>
-</div>
-<p style="text-align:center;margin-top:15px"><a href="./" style="color:#94a3b8">← User App এ ফিরে যাও</a></p>
+<div class="glass" style="display:flex;justify-content:space-between"><b>{s['app_name']}</b><span style="color:#22c55e">● Online</span></div>
+<div class="glass" style="background:linear-gradient(135deg,#1A2040,#312e81)">
+<small>Balance</small><h1 id="bal" style="font-size:36px">৳138.10</h1>
+<p>Ads: <span id="ads">0</span>/{s['clim']} | Today: <span id="today">0</span>/{s['plim']}</p>
 </div>
 
-<!-- ===== USER APP ===== -->
-<div id="userPage">
-<div style="padding:15px">
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center">
-<b id="appName">প্রতিদিনের কাজ বিডি</b><span style="font-size:12px;color:#22c55e">● Online</span>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px">
+<div class="glass" style="margin:0;text-align:center">
+<small>Company Ads</small><h2 style="color:#22c55e">৳{s['ad']}</h2>
+<button class="btn" onclick="watchAd('company')">▶️ Watch</button>
+<p id="cTimer" style="font-size:11px;margin-top:5px;color:#94a3b8"></p>
 </div>
-<div class="glass" style="margin-top:10px;background:linear-gradient(135deg,#1A2040,#2a2f6a)">
-<p style="font-size:12px;color:#94a3b8">Balance</p><h1 id="bal">৳0.00</h1>
-<p style="font-size:12px;margin-top:6px">Today Ads: <b id="ads">0</b> | Refer: <b id="refCount">0</b></p>
-</div>
-<div id="bigBox" class="glass" style="margin-top:10px;border-color:#8b5cf6"></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
-<div class="glass" style="text-align:center"><small>Company Ads Rate</small><h3 id="cRate" style="color:#22c55e">৳0.25</h3><button class="btn" style="margin-top:8px;padding:8px" onclick="watchAd('company')">▶️ Watch</button></div>
-<div class="glass" style="text-align:center"><small>Popup Rate</small><h3 id="pRate" style="color:#f59e0b">৳0.20</h3><button class="btn" style="margin-top:8px;padding:8px;background:linear-gradient(135deg,#f59e0b,#f97316)" onclick="watchAd('popup')">▶️ Watch</button></div>
-</div>
-<div id="vipBox" class="glass" style="margin-top:10px"></div>
-<div id="noticeBox" class="glass" style="margin-top:10px"></div>
-<div class="glass" style="margin-top:10px"><b>Withdraw (Min <span id="minW">৳500</span>)</b><input id="wAmount" class="inputDark" placeholder="Amount"><input id="wMethod" class="inputDark" placeholder="Bkash/Nagad Number" style="margin-top:8px"><button class="btn" style="margin-top:8px" onclick="withdraw()">Withdraw Request</button></div>
-</div>
-<div class="bottom">
-<div class="bItem active">🏠<br>Home</div>
-<div class="bItem">🎯<br>Tasks</div>
-<div class="bItem">👥<br>Refer</div>
-<div class="bItem">💬<br>Support</div>
-<div class="bItem">👤<br>Profile</div>
+<div class="glass" style="margin:0;text-align:center">
+<small>Popup Ads</small><h2 style="color:#f59e0b">৳{s['pop']}</h2>
+<button class="btn btn2" onclick="watchAd('popup')">▶️ Watch</button>
+<p id="pTimer" style="font-size:11px;margin-top:5px;color:#94a3b8"></p>
 </div>
 </div>
+
+<div class="glass" id="bigBox"><b>{s['spon_title']}</b><p style="font-size:12px;color:#94a3b8">{s['spon_desc']}</p></div>
+
+<div class="glass"><b>Withdraw (Min ৳{s['min']})</b><input id="wAmt" placeholder="Amount" style="width:100%;padding:10px;border-radius:10px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:8px"><button class="btn" style="margin-top:8px">Withdraw</button></div>
 
 <script>
-// ===== FIREBASE CONFIG - তোমারটা বসাও =====
-const firebaseConfig = {
-  apiKey: "AIzaSyDummyKey-Replace-With-Yours",
-  authDomain: "protidin-kaj-bd.firebaseapp.com",
-  databaseURL: "https://protidin-kaj-bd-default-rtdb.firebaseio.com",
-  projectId: "protidin-kaj-bd",
-  storageBucket: "protidin-kaj-bd.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456:web:abcdef"
-};
-// ==========================================
-let defaultAdmin = {
-  appName:"প্রতিদিনের কাজ বিডি", companyRate:0.25, popupRate:0.20, minWithdraw:500, referBonus:20,
-  directLink1:"https://omg10.com/4/11760259", directLink2:"https://omg10.com/4/11760264",
-  telegramLink:"https://t.me/ProtidinerKaj_BD",
-  bigOffer:"🔥 Biggest Offer - 80 Ads = ৳500 Bonus",
-  notice:"⚠️ রাত ১০টার পর Withdraw বন্ধ",
-  vipText:"<b>💎 VIP</b><p>VIP হলে বেশি ইনকাম</p>"
-};
-let ADMIN = {...defaultAdmin};
-try{ firebase.initializeApp(firebaseConfig); }catch(e){}
+let SETTINGS = {json.dumps(s)};
+let bal = parseFloat(localStorage.getItem('bal')||'138.10');
+let cCount = parseInt(localStorage.getItem('cCount')||'0');
+let pCount = parseInt(localStorage.getItem('pCount')||'0');
+document.getElementById('bal').innerText='৳'+bal.toFixed(2);
+document.getElementById('ads').innerText=cCount;
+document.getElementById('today').innerText=pCount;
 
-function loadAdmin(){
-  try{
-    firebase.database().ref('config').on('value', snap=>{
-      if(snap.val()){ ADMIN = {...defaultAdmin, ...snap.val()}; renderAll(); if(isAdmin) fillAdminForm(); }
-    });
-  }catch(e){ renderAll(); }
-}
-function renderAll(){
-  document.getElementById('appName').innerText=ADMIN.appName;
-  document.getElementById('cRate').innerText='৳'+ADMIN.companyRate;
-  document.getElementById('pRate').innerText='৳'+ADMIN.popupRate;
-  document.getElementById('minW').innerText='৳'+ADMIN.minWithdraw;
-  document.getElementById('bigBox').innerHTML=ADMIN.bigOffer;
-  document.getElementById('noticeBox').innerHTML='<small style="color:#fbbf24">'+ADMIN.notice+'</small>';
-  document.getElementById('vipBox').innerHTML=ADMIN.vipText;
-}
-
-const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'siblen123';
-if(isAdmin){
-  document.getElementById('userPage').style.display='none';
-  document.getElementById('adminPage').style.display='block';
-}
-function fillAdminForm(){
-  a_name.value=ADMIN.appName; a_cRate.value=ADMIN.companyRate; a_pRate.value=ADMIN.popupRate;
-  a_min.value=ADMIN.minWithdraw; a_ref.value=ADMIN.referBonus; a_l1.value=ADMIN.directLink1;
-  a_l2.value=ADMIN.directLink2; a_tg.value=ADMIN.telegramLink; a_offer.value=ADMIN.bigOffer; a_notice.value=ADMIN.notice;
-}
-function saveAdmin(){
-  let newCfg={
-    appName:a_name.value, companyRate:parseFloat(a_cRate.value), popupRate:parseFloat(a_pRate.value),
-    minWithdraw:parseInt(a_min.value), referBonus:parseInt(a_ref.value),
-    directLink1:a_l1.value, directLink2:a_l2.value, telegramLink:a_tg.value,
-    bigOffer:a_offer.value, notice:a_notice.value, vipText:ADMIN.vipText
-  };
-  firebase.database().ref('config').set(newCfg).then(()=>{
-    document.getElementById('a_ok').style.display='block';
-    setTimeout(()=>document.getElementById('a_ok').style.display='none',2000);
-  }).catch(()=>{ localStorage.setItem('ADMIN_CFG', JSON.stringify(newCfg)); alert('Firebase Config ভুল, Local এ Save হলো'); });
-}
-function watchAd(t){ let url = t==='company'? ADMIN.directLink1 : ADMIN.directLink2; window.open(url,'_blank'); let b=parseFloat(localStorage.getItem('bal')||0); b+= t==='company'? ADMIN.companyRate: ADMIN.popupRate; localStorage.setItem('bal', b); document.getElementById('bal').innerText='৳'+b.toFixed(2); }
-function withdraw(){ alert('Withdraw Request Sent: '+wAmount.value); }
-loadAdmin();
-document.getElementById('bal').innerText='৳'+(parseFloat(localStorage.getItem('bal')||0).toFixed(2));
+function watchAd(type){{
+  let link = type==='company' ? SETTINGS.direct_link1 : SETTINGS.direct_link2;
+  let limit = type==='company' ? SETTINGS.clim : SETTINGS.plim;
+  let count = type==='company' ? cCount : pCount;
+  let reward = type==='company' ? SETTINGS.ad : SETTINGS.pop;
+  let timerEl = document.getElementById(type==='company' ? 'cTimer' : 'pTimer');
+  
+  if(count >= limit){{ alert('আজকের লিমিট শেষ! কাল আবার'); return; }}
+  
+  // কোম্পানি এড ওপেন
+  window.open(link, '_blank');
+  
+  let sec=12;
+  timerEl.innerText='⏳ '+sec+' সেকেন্ড অপেক্ষা করো...';
+  let iv=setInterval(()=>{{
+    sec--; timerEl.innerText='⏳ '+sec+' সেকেন্ড...';
+    if(sec<=0){{
+      clearInterval(iv);
+      bal+=reward;
+      if(type==='company'){{ cCount++; localStorage.setItem('cCount', cCount); document.getElementById('ads').innerText=cCount; }}
+      else {{ pCount++; localStorage.setItem('pCount', pCount); document.getElementById('today').innerText=pCount; }}
+      localStorage.setItem('bal', bal);
+      document.getElementById('bal').innerText='৳'+bal.toFixed(2);
+      timerEl.innerText='✅ ৳'+reward+' যোগ হয়েছে!';
+      setTimeout(()=>timerEl.innerText='',2000);
+    }}
+  }},1000);
+}}
 </script>
-</body>
-</html>
+</body></html>
+""")
+
+@app.route('/admin')
+def admin():
+    db=load_db(); s=db["settings"]
+    return render_template_string("""
+<h2 style="text-align:center">Admin - Company Ads</h2>
+<form method="POST" action="/save">
+Direct Link 1 (Company): <input name="direct_link1" value="{{s.direct_link1}}" style="width:100%"><br><br>
+Direct Link 2 (Popup): <input name="direct_link2" value="{{s.direct_link2}}" style="width:100%"><br><br>
+Company Rate: <input name="ad" value="{{s.ad}}"> Popup Rate: <input name="pop" value="{{s.pop}}"><br><br>
+Company Limit: <input name="clim" value="{{s.clim}}"> Popup Limit: <input name="plim" value="{{s.plim}}"><br><br>
+<button>Save</button>
+</form>
+""", s=s)
+
+@app.route('/save', methods=['POST'])
+def save():
+    db=load_db()
+    db["settings"]["direct_link1"]=request.form["direct_link1"]
+    db["settings"]["direct_link2"]=request.form["direct_link2"]
+    db["settings"]["ad"]=float(request.form["ad"])
+    db["settings"]["pop"]=float(request.form["pop"])
+    db["settings"]["clim"]=int(request.form["clim"])
+    db["settings"]["plim"]=int(request.form["plim"])
+    save_db(db)
+    return "Saved! <a href='/'>Home</a> | <a href='/admin'>Admin</a>"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
