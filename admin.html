@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - প্রতিদিনের কাজ বিডি</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:#0B0E1C;color:#fff;max-width:500px;margin:auto;padding:15px}
+.glass{background:#1A2040;border:1px solid #2a2f4a;border-radius:14px;padding:14px;margin:10px 0}
+.inputDark{width:100%;padding:10px;border-radius:8px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:6px}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer;margin-top:10px}
+label{font-size:12px;color:#94a3b8;margin-top:10px;display:block}
+</style>
+</head>
+<body>
+<h2 style="text-align:center;margin:15px 0">👑 Admin Panel</h2>
+<div class="glass">
+  <label>App Name</label><input id="appName" class="inputDark" value="প্রতিদিনের কাজ বিডি">
+  <label>Company Ads Rate</label><input id="cRate" class="inputDark" value="0.25">
+  <label>Popup Ads Rate</label><input id="pRate" class="inputDark" value="0.20">
+  <label>Min Withdraw</label><input id="minW" class="inputDark" value="500">
+  <label>Company Ads Link (Direct Link 1)</label><input id="link1" class="inputDark" value="https://omg10.com/4/11760259">
+  <label>Popup Ads Link (Direct Link 2)</label><input id="link2" class="inputDark" value="https://omg10.com/4/11760264">
+  <label>Telegram Link</label><input id="tg" class="inputDark" value="https://t.me/ProtidinerKaj_BD">
+  <label>Big Offer HTML</label><textarea id="offer" class="inputDark" rows="3">🔥 Biggest Offer - প্রতিদিন 80 টা এড দেখলে ৳500 বোনাস</textarea>
+  <label>Support Notice</label><textarea id="notice" class="inputDark" rows="3">⚠️ রাত ১০টার পর Withdraw বন্ধ</textarea>
+  <button class="btn" onclick="save()">💾 Save & Update App</button>
+  <p id="ok" style="display:none;color:#22c55e;text-align:center;margin-top:10px">✅ Save হয়েছে! এখন index.html অটো আপডেট হবে</p>
+</div>
+<div class="glass"><b>তোমার Admin লিংক:</b><br><small id="adminLink" style="color:#8b5cf6;word-break:break-all"></small><br><br><small style="color:#94a3b8">এই লিংকটা কাউকে দিও না। শুধু তুমি ঢুকবে।</small></div>
+
+<script>
+function save(){
+  let cfg={
+    appName: document.getElementById('appName').value,
+    companyRate: document.getElementById('cRate').value,
+    popupRate: document.getElementById('pRate').value,
+    minWithdraw: document.getElementById('minW').value,
+    directLink1: document.getElementById('link1').value,
+    directLink2: document.getElementById('link2').value,
+    telegramLink: document.getElementById('tg').value,
+    bigOffer: document.getElementById('offer').value,
+    notice: document.getElementById('notice').value
+  };
+  localStorage.setItem('ADMIN_CFG', JSON.stringify(cfg));
+  document.getElementById('ok').style.display='block';
+  alert('✅ Save হয়েছে! এখন User App এ গিয়ে রিফ্রেশ দাও');
+}
+document.getElementById('adminLink').innerText=window.location.href;
+let saved=JSON.parse(localStorage.getItem('ADMIN_CFG')||'null');
+if(saved){
+  document.getElementById('appName').value=saved.appName;
+  document.getElementById('cRate').value=saved.companyRate;
+  document.getElementById('pRate').value=saved.popupRate;
+}
+</script>
+</body>
+</html>
