@@ -1,58 +1,66 @@
 <!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin Panel - প্রতিদিনের কাজ বিডি</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{background:#0B0E1C;color:#fff;max-width:500px;margin:auto;padding:15px}
-.glass{background:#1A2040;border:1px solid #2a2f4a;border-radius:14px;padding:14px;margin:10px 0}
-.inputDark{width:100%;padding:10px;border-radius:8px;border:1px solid #2a2f4a;background:#0B0E1C;color:#fff;margin-top:6px}
-.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;color:#fff;background:#8b5cf6;cursor:pointer;margin-top:10px}
-label{font-size:12px;color:#94a3b8;margin-top:10px;display:block}
-</style>
-</head>
-<body>
-<h2 style="text-align:center;margin:15px 0">👑 Admin Panel</h2>
-<div class="glass">
-  <label>App Name</label><input id="appName" class="inputDark" value="প্রতিদিনের কাজ বিডি">
-  <label>Company Ads Rate</label><input id="cRate" class="inputDark" value="0.25">
-  <label>Popup Ads Rate</label><input id="pRate" class="inputDark" value="0.20">
-  <label>Min Withdraw</label><input id="minW" class="inputDark" value="500">
-  <label>Company Ads Link (Direct Link 1)</label><input id="link1" class="inputDark" value="https://omg10.com/4/11760259">
-  <label>Popup Ads Link (Direct Link 2)</label><input id="link2" class="inputDark" value="https://omg10.com/4/11760264">
-  <label>Telegram Link</label><input id="tg" class="inputDark" value="https://t.me/ProtidinerKaj_BD">
-  <label>Big Offer HTML</label><textarea id="offer" class="inputDark" rows="3">🔥 Biggest Offer - প্রতিদিন 80 টা এড দেখলে ৳500 বোনাস</textarea>
-  <label>Support Notice</label><textarea id="notice" class="inputDark" rows="3">⚠️ রাত ১০টার পর Withdraw বন্ধ</textarea>
-  <button class="btn" onclick="save()">💾 Save & Update App</button>
-  <p id="ok" style="display:none;color:#22c55e;text-align:center;margin-top:10px">✅ Save হয়েছে! এখন index.html অটো আপডেট হবে</p>
+<style>*{box-sizing:border-box;font-family:system-ui}body{background:#0A0D1E;color:#fff;max-width:500px;margin:auto;padding:20px}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #2A335E;background:#161C36;color:#fff;margin:6px 0 12px}
+label{font-size:13px;color:#94a3b8}h2{margin:20px 0 10px;color:#7C5CFF}
+.btn{width:100%;padding:15px;border:none;border-radius:12px;background:#7C5CFF;color:#fff;font-weight:800;font-size:16px;margin-top:10px}
+.glass{background:#161C36;border:1px solid #2A335E;border-radius:14px;padding:14px;margin-bottom:14px}</style>
+</head><body>
+<h1>👑 Admin Panel</h1><p style="color:#22c55e;font-size:13px">এখানে যা লিখবা, এপ্সে সাথে সাথে চেঞ্জ হবে</p>
+
+<div class="glass"><h2>💰 টাকা ও লিমিট</h2>
+<label>Company Ad দাম</label><input id="ad" value="0.25">
+<label>Popup Ad দাম</label><input id="pop" value="0.20">
+<label>Min Withdraw</label><input id="min" value="500">
+<label>Company Ad Link 1</label><input id="link1" value="https://omg10.com/4/11760259">
+<label>Company Ad Link 2</label><input id="link2" value="https://omg10.com/4/11760264">
 </div>
-<div class="glass"><b>তোমার Admin লিংক:</b><br><small id="adminLink" style="color:#8b5cf6;word-break:break-all"></small><br><br><small style="color:#94a3b8">এই লিংকটা কাউকে দিও না। শুধু তুমি ঢুকবে।</small></div>
+
+<div class="glass"><h2>🏠 Home Page</h2>
+<label>App Name</label><input id="app_name" value="প্রতিদিনের কাজ বিডি">
+<label>Biggest Offer Title</label><input id="spon_title" value="Biggest Earning Offer">
+<label>Biggest Offer Desc</label><textarea id="spon_desc">প্রতিদিন কাজ করে আয় করুন, বড় বোনাস নিন</textarea>
+<label>Offer Button Text</label><input id="spon_btn" value="🚀 Claim Now">
+<label>Offer Link</label><input id="spon_link" value="https://google.com">
+</div>
+
+<div class="glass"><h2>🎯 Tasks Page</h2>
+<label>Tasks Title</label><input id="task_page_title" value="Tasks & Company Links">
+<label>Tasks Sub</label><input id="task_page_sub" value="প্রতি Task এ ৳20-25 + Diamond">
+<label>Bottom Box Title</label><input id="task_bottom_title" value="🔥 Special Offer">
+<label>Bottom Box Desc</label><input id="task_bottom_desc" value="এই বক্স Admin থেকে চেঞ্জ হবে">
+</div>
+
+<div class="glass"><h2>👥 Refer Page</h2>
+<label>Refer Banner</label><input id="ref_banner" value="🎉 Refer Contest চলছে! - ৳5000 পুরস্কার">
+<label>Refer Rules</label><textarea id="ref_rules">1. বন্ধুকে লিংক শেয়ার করো
+2. বন্ধু Join করলে ৳20 পাবে
+3. বন্ধু Ads দেখলে 15% Commission</textarea>
+</div>
+
+<div class="glass"><h2>💬 Support Page</h2>
+<label>Support Notice</label><textarea id="sup_notice">⚠️ রাত ১০টার পর Withdraw বন্ধ থাকে
+✅ সকাল ৯টার পর আবার চালু হয়
+📢 Fake Account করলে ব্যান</textarea>
+<label>Telegram Link</label><input id="sup_tg" value="https://t.me/dailyworkbd">
+<label>WhatsApp</label><input id="sup_wa" value="https://wa.me/8801">
+</div>
+
+<button class="btn" onclick="save()">💾 Save All Settings</button>
+<p id="msg" style="text-align:center;margin-top:10px;color:#22c55e"></p>
 
 <script>
+function load(){
+ let s=JSON.parse(localStorage.getItem('appSettings')||'{}');
+ for(let k in s){let el=document.getElementById(k);if(el)el.value=s[k];}
+}
 function save(){
-  let cfg={
-    appName: document.getElementById('appName').value,
-    companyRate: document.getElementById('cRate').value,
-    popupRate: document.getElementById('pRate').value,
-    minWithdraw: document.getElementById('minW').value,
-    directLink1: document.getElementById('link1').value,
-    directLink2: document.getElementById('link2').value,
-    telegramLink: document.getElementById('tg').value,
-    bigOffer: document.getElementById('offer').value,
-    notice: document.getElementById('notice').value
-  };
-  localStorage.setItem('ADMIN_CFG', JSON.stringify(cfg));
-  document.getElementById('ok').style.display='block';
-  alert('✅ Save হয়েছে! এখন User App এ গিয়ে রিফ্রেশ দাও');
+ let obj={};
+ document.querySelectorAll('input,textarea').forEach(e=>obj[e.id]=e.value);
+ localStorage.setItem('appSettings',JSON.stringify(obj));
+ document.getElementById('msg').innerText='✅ Saved! এখন Home Page রিফ্রেশ দাও';
 }
-document.getElementById('adminLink').innerText=window.location.href;
-let saved=JSON.parse(localStorage.getItem('ADMIN_CFG')||'null');
-if(saved){
-  document.getElementById('appName').value=saved.appName;
-  document.getElementById('cRate').value=saved.companyRate;
-  document.getElementById('pRate').value=saved.popupRate;
-}
+load();
 </script>
-</body>
-</html>
+</body></html>
