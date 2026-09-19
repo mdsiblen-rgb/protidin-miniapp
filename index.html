@@ -26,23 +26,18 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 .wheelWrap{position:relative;width:300px;height:300px;margin:0 auto}
 .wheelPointer{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:32px;z-index:2}
 .bigBox{padding:20px;min-height:280px;white-space:pre-wrap;text-align:left;font-size:14px;line-height:20px}
-/* Welcome Modal */
 #welcomeModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
-#welcomeBox{background:#161C36;border:2px solid #7C5CFF;border-radius:22px;padding:20px;text-align:center;max-width:340px;width:100%;animation:pop.4s}
-@keyframes pop{0%{transform:scale(.7)}100%{transform:scale(1)}}
+#welcomeBox{background:#161C36;border:2px solid #7C5CFF;border-radius:22px;padding:20px;text-align:center;max-width:340px;width:100%}
 </style>
 </head>
 <body>
 
-<!-- Welcome Bonus Modal - কলিজা -->
 <div id="welcomeModal">
 <div id="welcomeBox">
 <div style="font-size:50px">🎉</div>
 <h2 style="margin:10px 0">স্বাগতম কলিজা!</h2>
-<p style="color:#8B90B8;font-size:13px;line-height:18px">Protidin Kaj BD তে আপনাকে স্বাগতম<br>আপনার জন্য বোনাস রেডি আছে</p>
-<div class="card" style="margin:12px 0;border:1.5px solid #22c55e;background:#0E122A">
-<b style="font-size:22px;color:#22c55e">৳10 + 50 💎</b><br><small>Welcome Bonus</small>
-</div>
+<p style="color:#8B90B8;font-size:13px">Protidin Kaj BD তে স্বাগতম</p>
+<div class="card" style="margin:12px 0;border:1.5px solid #22c55e"><b style="font-size:22px;color:#22c55e" id="welText">৳10 + 50 💎</b><br><small>Welcome Bonus</small></div>
 <button class="btn" style="background:#22c55e" onclick="claimWelcome()">🎁 বোনাস নিন</button>
 </div>
 </div>
@@ -54,8 +49,7 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 <div style="font-size:36px;font-weight:900" id="bal">৳0.00</div>
 <div style="display:flex;justify-content:space-between;margin-top:6px"><small id="lvl" style="color:#7C5CFF;font-weight:800">Level 1</small><small id="adsCount">0/60</small></div>
 <div class="bar"><div class="fill" id="fill"></div></div>
-<!-- Level System Professional - কলিজা -->
-<div id="levelNext" style="margin-top:8px;font-size:12px;color:#8B90B8;background:#0E122A;border:1px solid #252B4A;border-radius:10px;padding:8px;text-align:center">আরো 10 টা Ads করলে <b style="color:#7C5CFF">Level 2</b> হবে</div>
+<div id="levelNext" style="margin-top:8px;font-size:12px;color:#8B90B8;background:#0E122A;border:1px solid #252B4A;border-radius:10px;padding:8px;text-align:center">আরো 10 টা Ads করলে Level 2 হবে</div>
 <div style="display:flex;gap:8px;margin-top:10px">
 <div class="card" style="flex:1;text-align:center"><b id="cC">0/30</b><br><small>Company</small></div>
 <div class="card" style="flex:1;text-align:center"><b id="pC">0/30</b><br><small>Popup</small></div>
@@ -63,8 +57,8 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 </div>
 </div>
 <div style="display:flex">
-<div class="glass" style="flex:1;text-align:center"><small>COMPANY ADS</small><div style="font-size:22px;font-weight:900;color:#22c55e;margin:6px 0" id="cRate">৳0.25</div><div class="card"><b id="cCTxt">0/30</b></div><button class="btn" style="margin-top:8px" onclick="watchAd(this,'c')">▶️ Start</button></div>
-<div class="glass" style="flex:1;text-align:center"><small>POPUP ADS</small><div style="font-size:22px;font-weight:900;color:#FF9F0A;margin:6px 0" id="pRate">৳0.20</div><div class="card"><b id="pCTxt">0/30</b></div><button class="btn" style="margin-top:8px;background:#FF9F0A" onclick="watchAd(this,'p')">▶️ Watch</button></div>
+<div class="glass" style="flex:1;text-align:center"><small>COMPANY ADS</small><div style="font-size:22px;font-weight:900;color:#22c55e;margin:6px 0" id="cRate">৳0.25</div><div class="card"><b id="cCTxt">0/30</b></div><button class="btn" style="margin-top:8px" id="btnC" onclick="watchAd(this,'c')">▶️ Start</button></div>
+<div class="glass" style="flex:1;text-align:center"><small>POPUP ADS</small><div style="font-size:22px;font-weight:900;color:#FF9F0A;margin:6px 0" id="pRate">৳0.20</div><div class="card"><b id="pCTxt">0/30</b></div><button class="btn" style="margin-top:8px;background:#FF9F0A" id="btnP" onclick="watchAd(this,'p')">▶️ Watch</button></div>
 </div>
 <div class="glass"><b>💸 Withdraw</b><div style="display:flex;gap:8px;margin-top:8px"><div class="meth on" id="m1" onclick="setM('bKash')">bKash</div><div class="meth" id="m2" onclick="setM('Nagad')">Nagad</div></div><input class="input" id="wAmt" type="number" placeholder="Amount"><input class="input" id="wNum" placeholder="01XXXXXXXXX"><button class="btn" style="margin-top:8px;background:#22c55e" onclick="doW()">Withdraw Now</button></div>
 <div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">SPONSORED</small><div class="card bigBox" id="bigAdBox">Your Big Ad Here</div></div>
@@ -77,7 +71,7 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Join Channel</b></div><button class="btn" style="width:85px;background:#229ED9" onclick="openL('tg')">Join</button></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>▶️ Subscribe</b></div><button class="btn" style="width:85px;background:#FF0000" onclick="openL('yt')">Join</button></div>
 <div class="glass"><b>⚡ Bonus Tasks</b>
-<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>👀 Watch 5 Ads</b><br><small style="color:#22c55e">৳2 + 10 💎</small></div><button class="btn" style="width:75px;background:#FF9F0A" onclick="watchAd(this,'c')">Watch</button></div>
+<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>👀 Watch 5 Ads</b><br><small style="color:#22c55e">৳2 + 10 💎 • Daily</small></div><button class="btn" style="width:75px;background:#FF9F0A" id="bBonus" onclick="watchBonus(this)">Watch</button></div>
 <div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>🎡 Spin Wheel</b><br><small>Win 100 💎</small></div><button class="btn" style="width:75px" onclick="openP('spin')">Spin</button></div>
 <div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>👥 Invite 3 Friends</b><br><small style="color:#22c55e">৳60 Bonus</small></div><button class="btn" style="width:75px;background:#22c55e" onclick="openP('refer')">Invite</button></div>
 </div>
@@ -96,15 +90,15 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 <div id="p-refer" class="page">
 <div class="glass" style="border:1.5px solid #7C5CFF"><b style="font-size:18px">👥 Refer & Earn</b><div style="font-size:20px;font-weight:900;color:#22c55e;margin:10px 0" id="rHead">৳20 Per Refer + 15% Commission</div><div style="display:flex;gap:8px"><div class="card" style="flex:1"><b style="font-size:18px" id="myR">0</b><br><small>My Refer</small></div><div class="card" style="flex:1"><b style="font-size:18px" id="myE">৳0</b><br><small>Earn</small></div><div class="card" style="flex:1"><b style="font-size:18px" id="tJoin">0</b><br><small>Total</small></div></div><div class="card" style="text-align:left;margin-top:8px;font-size:14px" id="rList">No referrals yet.</div></div>
 <div class="glass"><b>🔗 Your Refer Link</b><div style="display:flex;gap:6px;margin-top:8px"><input id="refLink" class="input" style="margin:0" value="https://t.me/YourBot?start=123" readonly><button class="btn" style="width:75px" onclick="navigator.clipboard.writeText(refLink.value)">Copy</button></div></div>
-<div class="glass"><b style="font-size:16px">💡 How Refer Works</b><div class="card" style="text-align:left;font-size:15px;line-height:24px;padding:16px">1. Share your link with friends<br>2. Friend joins via your link<br>3. You get ৳20 instantly<br>4. 15% lifetime commission from ads<br><br>✅ Real users only • No fake</div></div>
-<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">REFER INFO - Admin Box</small><div class="card bigBox" id="referBox">এখানে Refer নিয়ে বড় কিছু লিখতে পারবা</div></div>
+<div class="glass"><b style="font-size:16px">💡 How Refer Works</b><div class="card" style="text-align:left;font-size:15px;line-height:24px;padding:16px">1. Share your link<br>2. Friend joins<br>3. You get ৳20<br>4. 15% lifetime commission</div></div>
+<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">REFER INFO - Admin Box</small><div class="card bigBox" id="referBox">Refer Box</div></div>
 </div>
 
 <div id="p-support" class="page">
 <div class="glass" style="border:1px solid #22c55e"><b>📢 Notice</b><div class="card" style="text-align:left" id="notice">Welcome</div></div>
 <div class="glass"><b>📞 Support</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn" style="flex:1;background:#229ED9" onclick="openL('tg')">Telegram</button><button class="btn" style="flex:1;background:#FF0000" onclick="openL('yt')">YouTube</button></div></div>
 <div class="glass"><b>💰 Payment Proof</b><div class="card" style="display:flex;justify-content:space-between"><span>Today Paid</span><b id="today">৳0</b></div><div class="card" style="display:flex;justify-content:space-between"><span>Total Paid</span><b id="total">৳0</b></div></div>
-<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">SUPPORT INFO - Admin Box</small><div class="card bigBox" id="supportBox">Support Info Box</div></div>
+<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">SUPPORT INFO</small><div class="card bigBox" id="supportBox">Support Box</div></div>
 </div>
 
 <div id="p-profile" class="page">
@@ -121,7 +115,7 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 </div>
 </div>
 <div class="glass"><b>📊 Stats</b><div class="card" style="display:flex;justify-content:space-between"><span>Ads Watched</span><b id="totalAds">0</b></div><div class="card" style="display:flex;justify-content:space-between"><span>Diamond</span><b id="totalDiamond">0 💎</b></div></div>
-<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">PROFILE INFO - Admin Box</small><div class="card bigBox" id="profileBox">Profile Info Box</div></div>
+<div class="glass" style="border:1px dashed #7C5CFF"><small style="color:#8B90B8">PROFILE INFO</small><div class="card bigBox" id="profileBox">Profile Box</div></div>
 <div class="glass" id="vBox" style="display:flex;justify-content:space-between;align-items:center;border:1px solid #22c55e">
 <div style="text-align:left"><b style="color:#22c55e">✅ Verified Account</b><br><small style="color:#8B90B8">Trusted User</small></div>
 <div style="background:#22c55e;padding:6px 14px;border-radius:20px;font-size:11px">Verified</div>
@@ -138,8 +132,8 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 <label>Support Big Box</label><textarea id="aSupport" class="adminInput" style="height:100px"></textarea>
 <label>Refer Big Box</label><textarea id="aReferBox" class="adminInput" style="height:100px"></textarea>
 <label>Profile Big Box</label><textarea id="aProfile" class="adminInput" style="height:100px"></textarea>
-<label>Spin Rewards ex: 5,10,15,20,50,100</label><input id="aSpin" class="adminInput">
-<label>Welcome Bonus Tk</label><input id="aWelTk" class="adminInput" type="number"><label>Welcome Bonus Diamond</label><input id="aWelDm" class="adminInput" type="number">
+<label>Spin Rewards</label><input id="aSpin" class="adminInput">
+<label>Welcome Tk</label><input id="aWelTk" class="adminInput" type="number"><label>Welcome Diamond</label><input id="aWelDm" class="adminInput" type="number">
 <label>Today Paid</label><input id="aToday" class="adminInput"><label>Total Paid</label><input id="aTotal" class="adminInput"><label>Total Joined</label><input id="aJoin" class="adminInput" type="number">
 <button class="btn" style="background:#22c55e;margin-top:10px" onclick="saveA()">Save All</button>
 <button class="btn" style="background:#FF3B30;margin-top:8px" onclick="resetAll()">Reset All to 0</button>
@@ -156,14 +150,12 @@ label{font-size:11px;color:#8B90B8;margin-top:8px;display:block}
 </div>
 
 <script>
-let cfg=JSON.parse(localStorage.getItem('cfg')||'{}');let def={tg:'https://t.me/ProtidinerKajBD',yt:'https://youtube.com',cRate:0.25,pRate:0.2,min:500,refBonus:20,referHead:'৳20 Per Refer + 15% Commission',notice:'Min withdraw 500 Tk • Payment 24h • Trusted',bigAd:'320x400 Sponsored Ad\nএখানে তুমি যা খুশি লিখতে পারো',supportBox:'Support Info\n• Payment 24h\n• Min 500 Tk',referBox:'Refer Info\nএখানে Refer নিয়ে লিখতে পারো',profileBox:'Profile Info\nএখানে Profile নিয়ে লিখতে পারো',spinRewards:[5,10,15,20,50,100],welcomeTk:10,welcomeDm:50,today:'৳0',total:'৳0',join:0};
+let cfg=JSON.parse(localStorage.getItem('cfg')||'{}');let def={tg:'https://t.me/ProtidinerKajBD',yt:'https://youtube.com',cRate:0.25,pRate:0.2,min:500,refBonus:20,referHead:'৳20 Per Refer + 15% Commission',notice:'Min withdraw 500 Tk • Payment 24h • Trusted',bigAd:'320x400 Sponsored Ad',supportBox:'Support Info',referBox:'Refer Info',profileBox:'Profile Info',spinRewards:[5,10,15,20,50,100],welcomeTk:10,welcomeDm:50,today:'৳0',total:'৳0',join:0};
 for(let k in def)if(cfg[k]==null)cfg[k]=def[k];
 let bal=+(localStorage.getItem('bal')||0),c=+(localStorage.getItem('cCount')||0),p=+(localStorage.getItem('pCount')||0),diamond=+(localStorage.getItem('diamond')||0),refer=+(localStorage.getItem('refer')||0);
 try{let tg=window.Telegram?.WebApp;if(tg){tg.ready();let u=tg.initDataUnsafe?.user;if(u){if(u.photo_url)localStorage.setItem('pic',u.photo_url);let fn=(u.first_name||'')+' '+(u.last_name||'');if(fn.trim())localStorage.setItem('name',fn.trim());}}}catch{}
-
 function openL(t){let u=t==='tg'?cfg.tg:cfg.yt;window.open(u,'_blank')}
 function setM(m){document.getElementById('m1').classList.toggle('on',m==='bKash');document.getElementById('m2').classList.toggle('on',m==='Nagad')}
-
 function render(){
 let total=c+p;
 let pct=Math.min(total/60*100,100);
@@ -171,10 +163,10 @@ document.getElementById('bal').innerText='৳'+bal.toFixed(2);
 document.getElementById('bal2').innerText='৳'+bal.toFixed(2);
 document.getElementById('dBig').innerText=diamond;
 document.getElementById('dTxt').innerText=diamond;
-document.getElementById('cC').innerText=c+'/30';
-document.getElementById('pC').innerText=p+'/30';
-document.getElementById('cCTxt').innerText=c+'/30';
-document.getElementById('pCTxt').innerText=p+'/30';
+document.getElementById('cC').innerText=Math.min(c,30)+'/30';
+document.getElementById('pC').innerText=Math.min(p,30)+'/30';
+document.getElementById('cCTxt').innerText=Math.min(c,30)+'/30';
+document.getElementById('pCTxt').innerText=Math.min(p,30)+'/30';
 document.getElementById('cRate').innerText='৳'+cfg.cRate;
 document.getElementById('pRate').innerText='৳'+cfg.pRate;
 document.getElementById('rHead').innerText=cfg.referHead;
@@ -185,63 +177,78 @@ document.getElementById('referBox').innerText=cfg.referBox;
 document.getElementById('profileBox').innerText=cfg.profileBox;
 document.getElementById('today').innerText=cfg.today;
 document.getElementById('total').innerText=cfg.total;
-document.getElementById('adsCount').innerText=total+'/60 Ads';
+document.getElementById('adsCount').innerText=Math.min(total,60)+'/60 Ads';
 document.getElementById('fill').style.width=pct+'%';
-// Level System Professional - কলিজা
-let level=Math.floor(total/10)+1;
-if(level>6)level=6;
-let nextLevel=level+1;
-let need=nextLevel*10 - total;
-let lvlEl=document.getElementById('lvl');
+let level=Math.floor(Math.min(total,60)/10)+1;if(level>6)level=6;
+let need=(level+1)*10-total;if(need<0)need=0;
+document.getElementById('lvl').innerText='Level '+level;
 let nextEl=document.getElementById('levelNext');
-lvlEl.innerText='Level '+level;
-if(level>=6){
-nextEl.innerHTML='🎉 <b style="color:#22c55e">Max Level 6 Reached!</b> আপনি প্রো ইউজার';
-}else{
-nextEl.innerHTML='আরো <b style="color:#7C5CFF">'+need+' টা</b> Ads করলে <b style="color:#22c55e">Level '+nextLevel+'</b> হবে';
-}
-document.getElementById('myR').innerText=refer;
-document.getElementById('pR').innerText=refer;
-document.getElementById('pJ').innerText=cfg.join>0?cfg.join:refer;
-document.getElementById('tJoin').innerText=cfg.join>0?cfg.join:refer;
-document.getElementById('myE').innerText='৳'+(refer*cfg.refBonus);
-document.getElementById('pI').innerText='৳'+(refer*cfg.refBonus);
-document.getElementById('rList').innerText=refer===0?'No referrals yet. Share your link.':refer+' users joined';
-document.getElementById('totalAds').innerText=total;
-document.getElementById('totalDiamond').innerText=diamond+' 💎';
+if(level>=6){nextEl.innerHTML='🎉 <b style="color:#22c55e">Max Level 6 Reached!</b>'}else{nextEl.innerHTML='আরো <b style="color:#7C5CFF">'+need+' টা</b> Ads করলে <b style="color:#22c55e">Level '+(level+1)+'</b> হবে'}
+document.getElementById('myR').innerText=refer;document.getElementById('pR').innerText=refer;document.getElementById('pJ').innerText=cfg.join>0?cfg.join:refer;document.getElementById('tJoin').innerText=cfg.join>0?cfg.join:refer;document.getElementById('myE').innerText='৳'+(refer*cfg.refBonus);document.getElementById('pI').innerText='৳'+(refer*cfg.refBonus);document.getElementById('rList').innerText=refer===0?'No referrals yet. Share your link.':refer+' users joined';document.getElementById('totalAds').innerText=total;document.getElementById('totalDiamond').innerText=diamond+' 💎';
 localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('pCount',p);localStorage.setItem('diamond',diamond);localStorage.setItem('refer',refer);
 check();drawWheel();
 }
-function check(){let t=new Date().toISOString().slice(0,10);let bd=document.getElementById('bDaily'),bc=document.getElementById('bCom');if(localStorage.getItem('daily')===t){bd.innerText='Done';bd.disabled=true}else{bd.innerText='Claim';bd.disabled=false}if(localStorage.getItem('com')===t){bc.innerText='Done';bc.disabled=true}else{bc.innerText='Go';bc.disabled=false}let sp=localStorage.getItem('spinDate');let sb=document.getElementById('spinBtn');if(sp===t){sb.innerText='Already Spun Today';sb.disabled=true}else{sb.innerText='🎡 SPIN NOW';sb.disabled=false}}
-
+function check(){
+let t=new Date().toISOString().slice(0,10);
+let bd=document.getElementById('bDaily'),bc=document.getElementById('bCom');
+if(localStorage.getItem('daily')===t){bd.innerText='Done';bd.disabled=true}else{bd.innerText='Claim';bd.disabled=false}
+if(localStorage.getItem('com')===t){bc.innerText='Done';bc.disabled=true}else{bc.innerText='Go';bc.disabled=false}
+let sp=localStorage.getItem('spinDate');let sb=document.getElementById('spinBtn');
+if(sp===t){sb.innerText='Already Spun Today';sb.disabled=true}else{sb.innerText='🎡 SPIN NOW';sb.disabled=false}
+let bo=localStorage.getItem('bonusDate');
+let bb=document.getElementById('bBonus');
+if(bo===t){bb.innerText='Done';bb.disabled=true}else{bb.innerText='Watch';bb.disabled=false}
+// Company/Popup lock 30
+let btnC=document.getElementById('btnC'),btnP=document.getElementById('btnP');
+if(c>=30){btnC.innerText='Done';btnC.disabled=true}else{btnC.innerText='▶️ Start';btnC.disabled=false}
+if(p>=30){btnP.innerText='Done';btnP.disabled=true}else{btnP.innerText='▶️ Watch';btnP.disabled=false}
+}
 function doDaily(){let t=new Date().toISOString().slice(0,10);if(localStorage.getItem('daily')===t)return;bal+=10;diamond+=20;localStorage.setItem('daily',t);render()}
 function doCom(){let t=new Date().toISOString().slice(0,10);if(localStorage.getItem('com')===t)return;openL('tg');bal+=20;diamond+=15;localStorage.setItem('com',t);render()}
-function watchAd(b,type){b.innerText='Loading';let z=type==='c'?'11764581':'11798857';let fn=window['show_'+z];if(typeof fn==='function'){try{let pr=fn();if(pr&&pr.then){pr.then(()=>{if(type==='c'){c++;bal+=+cfg.cRate}else{p++;bal+=+cfg.pRate}diamond++;render();b.innerText='Done'});return}}catch{}}setTimeout(()=>{if(type==='c'){c++;bal+=+cfg.cRate}else{p++;bal+=+cfg.pRate}diamond++;render();b.innerText='Done'},600)}
-function doW(){let a=+document.getElementById('wAmt').value;if(a<cfg.min)return alert('Minimum '+cfg.min);if(a>bal)return alert('Low balance');bal-=a;render();alert('Withdraw request sent')}
 
+// FIXED: 30 এর পর আর বাড়বে না
+function watchAd(b,type){
+if(type==='c'&&c>=30)return;
+if(type==='p'&&p>=30)return;
+b.innerText='Loading';
+let z=type==='c'?'11764581':'11798857';
+let fn=window['show_'+z];
+function success(){
+if(type==='c'){if(c<30){c++;bal+=+cfg.cRate}}else{if(p<30){p++;bal+=+cfg.pRate}}
+if(c<30||p<30)diamond++;
+render();
+b.innerText='Done';
+}
+if(typeof fn==='function'){
+try{let pr=fn();if(pr&&pr.then){pr.then(()=>{success()});return}}catch{}
+}
+setTimeout(()=>{success()},600);
+}
+
+// FIXED: Task এর Watch 5 Ads আলাদা - Company এর সাথে যুক্ত না
+function watchBonus(b){
+let t=new Date().toISOString().slice(0,10);
+if(localStorage.getItem('bonusDate')===t)return;
+b.innerText='Loading';
+let fn=window['show_11764581'];
+function bonusOk(){
+bal+=2;diamond+=10;localStorage.setItem('bonusDate',t);render();b.innerText='Done';
+}
+if(typeof fn==='function'){
+try{let pr=fn();if(pr&&pr.then){pr.then(()=>{bonusOk()});return}}catch{}
+}
+setTimeout(()=>{bonusOk()},600);
+}
+
+function doW(){let a=+document.getElementById('wAmt').value;if(a<cfg.min)return alert('Minimum '+cfg.min);if(a>bal)return alert('Low balance');bal-=a;render();alert('Withdraw request sent')}
 let wheelDeg=0;
 function drawWheel(){let canvas=document.getElementById('wheelCanvas');let ctx=canvas.getContext('2d');let rewards=cfg.spinRewards||[5,10,15,20,50,100];let colors=['#7C5CFF','#22c55e','#FF9F0A','#229ED9','#FF3B30','#8B5CF6'];let arc=2*Math.PI/rewards.length;ctx.clearRect(0,0,300,300);for(let i=0;i<rewards.length;i++){ctx.beginPath();ctx.fillStyle=colors[i%colors.length];ctx.moveTo(150,150);ctx.arc(150,150,150,i*arc,(i+1)*arc);ctx.lineTo(150,150);ctx.fill();ctx.save();ctx.translate(150,150);ctx.rotate(i*arc+arc/2);ctx.fillStyle='#fff';ctx.font='bold 16px Inter';ctx.fillText(rewards[i]+' 💎',70,5);ctx.restore();}}
 function doSpin(){let t=new Date().toISOString().slice(0,10);if(localStorage.getItem('spinDate')===t)return;let rewards=cfg.spinRewards||[5,10,15,20,50,100];let idx=Math.floor(Math.random()*rewards.length);let arc=360/rewards.length;let extra=360*5;let target=extra+(360-(idx*arc+arc/2));wheelDeg+=target;document.getElementById('wheelCanvas').style.transform='rotate('+wheelDeg+'deg)';document.getElementById('spinBtn').disabled=true;setTimeout(()=>{let win=rewards[idx];diamond+=win;bal+=win*0.1;localStorage.setItem('spinDate',t);document.getElementById('spinResult').innerText='🎉 You won '+win+' 💎!';render();},4000);}
-
-// Welcome Bonus - কলিজা
-function checkWelcome(){
-if(!localStorage.getItem('welcomed')){
-document.getElementById('welcomeModal').style.display='flex';
-document.querySelector('#welcomeBox.card b').innerText='৳'+cfg.welcomeTk+' + '+cfg.welcomeDm+' 💎';
-}
-}
-function claimWelcome(){
-bal+=+cfg.welcomeTk;
-diamond+=+cfg.welcomeDm;
-localStorage.setItem('welcomed','1');
-document.getElementById('welcomeModal').style.display='none';
-render();
-}
-
+function checkWelcome(){if(!localStorage.getItem('welcomed')){document.getElementById('welText').innerText='৳'+cfg.welcomeTk+' + '+cfg.welcomeDm+' 💎';document.getElementById('welcomeModal').style.display='flex';}}
+function claimWelcome(){bal+=+cfg.welcomeTk;diamond+=+cfg.welcomeDm;localStorage.setItem('welcomed','1');document.getElementById('welcomeModal').style.display='none';render();}
 let pic=localStorage.getItem('pic')||'';let nm=localStorage.getItem('name')||'';if(pic)document.getElementById('profPic').innerHTML='<img src="'+pic+'">';if(nm)document.getElementById('profName').value=nm;
 document.getElementById('picUp').addEventListener('change',function(){if(this.files[0]){let r=new FileReader();r.onload=e=>{pic=e.target.result;document.getElementById('profPic').innerHTML='<img src="'+pic+'">';localStorage.setItem('pic',pic);};r.readAsDataURL(this.files[0])}});
 function saveP(){localStorage.setItem('pic',pic);localStorage.setItem('name',document.getElementById('profName').value);alert('Saved')}
-
 let cl=0;document.getElementById('vBox').addEventListener('click',()=>{cl++;if(cl>=5){openA()}setTimeout(()=>cl=0,2500)});
 function openA(){openP('admin');aTg.value=cfg.tg;aYt.value=cfg.yt;aCR.value=cfg.cRate;aPR.value=cfg.pRate;aMin.value=cfg.min;aRef.value=cfg.refBonus;aHead.value=cfg.referHead;aNotice.value=cfg.notice;aAd.value=cfg.bigAd;aSupport.value=cfg.supportBox;aReferBox.value=cfg.referBox;aProfile.value=cfg.profileBox;aSpin.value=(cfg.spinRewards||[5,10,15,20,50,100]).join(',');aWelTk.value=cfg.welcomeTk;aWelDm.value=cfg.welcomeDm;aToday.value=cfg.today;aTotal.value=cfg.total;aJoin.value=cfg.join}
 function saveA(){cfg.tg=aTg.value;cfg.yt=aYt.value;cfg.cRate=aCR.value;cfg.pRate=aPR.value;cfg.min=+aMin.value;cfg.refBonus=+aRef.value;cfg.referHead=aHead.value;cfg.notice=aNotice.value;cfg.bigAd=aAd.value;cfg.supportBox=aSupport.value;cfg.referBox=aReferBox.value;cfg.profileBox=aProfile.value;cfg.spinRewards=aSpin.value.split(',').map(x=>parseInt(x.trim())).filter(x=>!isNaN(x));cfg.welcomeTk=+aWelTk.value;cfg.welcomeDm=+aWelDm.value;cfg.today=aToday.value;cfg.total=aTotal.value;cfg.join=+aJoin.value;localStorage.setItem('cfg',JSON.stringify(cfg));render();openP('home')}
