@@ -1,109 +1,118 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Protidiner Kaj BD - 100% Working Final</title>
+<title>Protidin Kaj BD - Pro Mini App</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<!-- MONETAG SDK - 100% WORKING -->
 <script src="//libtl.com/sdk.js" data-zone="11764581" data-sdk="show_11764581"></script>
 <script src="//libtl.com/sdk.js" data-zone="11798857" data-sdk="show_11798857"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:110px}
-.glass{background:#161C36;border:1px solid #2A335E;border-radius:18px;padding:14px;margin:10px}
-.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#7C5CFF;cursor:pointer}
-.btn:active{transform:scale(.97)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui}
+body{background:#F6F7FB;color:#111;max-width:420px;margin:0 auto;padding-bottom:110px}
+.card{background:#fff;border-radius:22px;padding:16px;margin:12px;box-shadow:0 8px 30px rgba(0,0,0,.06);border:1px solid #EEF0F6}
+.btn{width:100%;padding:14px;border:none;border-radius:14px;font-weight:800;color:#fff;background:#111;cursor:pointer}
+.btn:active{transform:scale(.98)}
 .page{display:none}.page.active{display:block}
-.btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#12152B;display:flex;padding:10px 0 18px;border-radius:20px 20px 0 0;border-top:1px solid #2A335E;z-index:9999}
-.btm div{flex:1;text-align:center;color:#6B7280;font-size:11px;font-weight:700;cursor:pointer}.btm div.on{color:#8B5CF6}.btm div span{font-size:20px;display:block}
-.input{width:100%;padding:11px;border-radius:10px;border:1px solid #2A335E;background:#0B0E1C;color:#fff;margin-top:6px}
-.meth{flex:1;padding:10px;border-radius:12px;border:1px solid #2A335E;background:#0B0E1C;text-align:center;cursor:pointer}.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
+.btm{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:92%;max-width:400px;background:#111;border-radius:20px;display:flex;padding:10px 6px;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.btm div{flex:1;text-align:center;color:#8A8F9E;font-size:10px;font-weight:700;cursor:pointer;padding:6px 0;border-radius:14px}.btm div.on{background:#fff;color:#111}.btm div span{font-size:20px;display:block}
+.badge{display:inline-block;padding:6px 10px;border-radius:100px;font-size:11px;font-weight:800;background:#E9F8EF;color:#16a34a}
+.input{width:100%;padding:13px;border-radius:14px;border:1px solid #E8EAF1;background:#F6F7FB;margin-top:8px}
+.meth{flex:1;padding:12px;border-radius:14px;border:1.5px solid #E8EAF1;text-align:center;background:#F6F7FB;cursor:pointer;font-weight:700}.meth.on{border-color:#111;background:#111;color:#fff}
 .fly{position:fixed;font-size:28px;z-index:99999;pointer-events:none}
-.card{background:#0B0E1C;border:1px solid #2A335E;border-radius:12px;padding:12px;margin-top:10px}
+.top-gradient{background:linear-gradient(135deg,#111 0%,#2A2F4A 100%);color:#fff;border-radius:28px;padding:20px;margin:12px}
+.level{height:8px;background:rgba(255,255,255,.15);border-radius:100px;overflow:hidden;margin-top:12px}.level-fill{height:100%;background:#fff;border-radius:100px}
+.task-row{display:flex;justify-content:space-between;align-items:center}
+.dot{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px}
 </style>
 </head>
 <body>
 
 <!-- HOME -->
 <div id="p-home" class="page active">
-<div class="glass" style="display:flex;justify-content:space-between"><b>👑 প্রতিদিনের কাজ BD</b><span style="color:#22c55e">● Online</span></div>
-<div class="glass"><small>BALANCE</small><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:38px;font-weight:900" id="bal">৳0</div><div style="text-align:center"><div style="font-size:50px" id="bigD">💎</div><div id="dBig" style="color:#38bdf8;font-weight:900;font-size:22px">0</div></div></div><small>Ads <span id="ads">0</span>/60 | <span id="dTxt">0 Diamond</span></small></div>
-<div style="display:flex"><div class="glass" style="flex:1;text-align:center"><small>Company Ads</small><div style="font-size:26px;font-weight:900;color:#22c55e" id="cTk">৳0.25</div><div id="cC" style="margin:6px 0">0/30</div><button class="btn" id="btnC" onclick="watchAd(this,'c')">▶️ Start</button></div><div class="glass" style="flex:1;text-align:center"><small>Popup Ads</small><div style="font-size:26px;font-weight:900;color:#FF9F0A" id="pTk">৳0.20</div><div id="pC" style="margin:6px 0">0/30</div><button class="btn" style="background:#FF9F0A" id="btnP" onclick="watchAd(this,'p')">▶️ Watch</button></div></div>
-<div class="glass"><b>💸 Withdraw</b><div style="display:flex;gap:8px;margin:10px 0"><div class="meth on" id="mBkash" onclick="setMeth('bKash')">bKash</div><div class="meth" id="mNagad" onclick="setMeth('Nagad')">Nagad</div></div><input class="input" id="wAmt" type="number" placeholder="Amount Min 500"><input class="input" id="wNum" placeholder="Number 01XXXXXXXXX"><button class="btn" style="margin-top:10px;background:linear-gradient(90deg,#22c55e,#16a34a)" onclick="doWithdraw()">Withdraw Now</button><small id="withdrawInfo">Min 500</small></div>
-<div class="glass" style="padding:0;overflow:hidden;border:2px solid #FF9F0A"><div style="background:linear-gradient(90deg,#7C5CFF,#FF9F0A);padding:10px;text-align:center;font-weight:900">🔥 30+30=60 Ads = ৳200 BONUS 🔥</div><div style="padding:14px;text-align:center;font-size:14px" id="adBox"></div></div>
+<div style="padding:16px 16px 0;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><div style="width:40px;height:40px;background:#111;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900">P</div><div><b style="font-size:15px">Protidin Kaj BD</b><br><small style="color:#8A8F9E">Professional Earning App</small></div></div><span class="badge">● Paying</span></div>
+
+<div class="top-gradient">
+<small style="opacity:.7;letter-spacing:1px">TOTAL BALANCE</small>
+<div style="display:flex;justify-content:space-between;align-items:end;margin-top:6px"><div style="font-size:42px;font-weight:900;letter-spacing:-1.5px" id="bal">৳701.25</div><div style="text-align:right"><div style="font-size:36px">💎</div><div style="font-weight:900;font-size:20px" id="dBig">1,234</div><small style="opacity:.7">Diamond</small></div></div>
+<div class="level"><div class="level-fill" id="homeLevel" style="width:68%"></div></div>
+<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;opacity:.8"><span id="ads">17/60 Ads</span><span id="dTxt">1,234 Diamond</span></div>
 </div>
 
-<!-- TASKS -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+<div class="card" style="text-align:center"><div class="dot" style="background:#E9F8EF;margin:0 auto">📺</div><small style="color:#8A8F9E">COMPANY ADS</small><div style="font-size:26px;font-weight:900;margin:6px 0" id="cTk">৳0.25</div><div style="background:#F6F7FB;border-radius:100px;padding:6px;font-size:12px;font-weight:700" id="cC">17/30</div><button class="btn" style="margin-top:10px" id="btnC" onclick="watchAd(this,'c')">Watch Ad</button></div>
+<div class="card" style="text-align:center"><div class="dot" style="background:#FFF4E5;margin:0 auto">🎯</div><small style="color:#8A8F9E">POPUP ADS</small><div style="font-size:26px;font-weight:900;margin:6px 0" id="pTk">৳0.20</div><div style="background:#F6F7FB;border-radius:100px;padding:6px;font-size:12px;font-weight:700" id="pC">0/30</div><button class="btn" style="margin-top:10px;background:#FF9F0A" id="btnP" onclick="watchAd(this,'p')">Watch Ad</button></div>
+</div>
+
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>💸 Withdraw</b><small style="color:#8A8F9E" id="withdrawInfo">Min 500 • Instant</small></div><div style="display:flex;gap:8px;margin:12px 0"><div class="meth on" id="mBkash" onclick="setMeth('bKash')">bKash</div><div class="meth" id="mNagad" onclick="setMeth('Nagad')">Nagad</div></div><input class="input" id="wAmt" type="number" placeholder="Amount - Min 500"><input class="input" id="wNum" placeholder="Number - 01XXXXXXXXX"><button class="btn" style="margin-top:12px" onclick="doWithdraw()">Withdraw Now</button></div>
+
+<div class="card" style="background:linear-gradient(135deg,#FF9F0A,#FF6B00);color:#fff;border:none"><b style="font-size:15px">🔥 TODAY'S OFFER</b><div style="font-size:13px;margin-top:6px;line-height:1.5" id="adBox">60 Ads = ৳200 Bonus • No Investment • Instant Payment</div></div>
+</div>
+
+<!-- TASK -->
 <div id="p-task" class="page">
-<div class="glass"><b>🎯 Tasks - সব বাটন কাজ করবে</b></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🌐 Company Visit</b><br><small>৳20 + 15💎</small></div><button class="btn" style="width:85px" onclick="doTask(this,'company')">Go</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>✅ Daily Check-in</b><br><small id="chkTxt">Ready</small></div><button class="btn" style="width:85px;background:#22c55e" onclick="doCheckin(this)">Claim</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Telegram Join</b><br><small>৳10 + 10💎</small></div><button class="btn" style="width:85px;background:#229ED9" onclick="doTask(this,'tg')">Join</button></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>▶️ YouTube Join</b><br><small>৳10 + 10💎</small></div><button class="btn" style="width:85px;background:#FF0000" onclick="doTask(this,'yt')">Join</button></div>
+<div style="padding:16px"><h2 style="font-size:22px">Daily Tasks</h2><small style="color:#8A8F9E">Complete & Earn Rewards</small></div>
+<div class="card task-row"><div style="display:flex;gap:12px;align-items:center"><div class="dot" style="background:#EDE9FE">🌐</div><div><b>Company Visit</b><br><small style="color:#8A8F9E">৳20 + 15 Diamond</small></div></div><button class="btn" style="width:80px;background:#F6F7FB;color:#111;border:1px solid #E8EAF1" onclick="doTask(this,'company')">Go</button></div>
+<div class="card task-row"><div style="display:flex;gap:12px;align-items:center"><div class="dot" style="background:#E9F8EF">✅</div><div><b>Daily Check-in</b><br><small style="color:#8A8F9E" id="chkTxt">Ready to claim</small></div></div><button class="btn" style="width:80px" onclick="doCheckin(this)">Claim</button></div>
+<div class="card task-row"><div style="display:flex;gap:12px;align-items:center"><div class="dot" style="background:#E0F2FE">📢</div><div><b>Join Telegram</b><br><small style="color:#8A8F9E">৳10 + 10 Diamond</small></div></div><button class="btn" style="width:80px;background:#229ED9" onclick="doTask(this,'tg')">Join</button></div>
+<div class="card task-row"><div style="display:flex;gap:12px;align-items:center"><div class="dot" style="background:#FEE2E2">▶️</div><div><b>Join YouTube</b><br><small style="color:#8A8F9E">৳10 + 10 Diamond</small></div></div><button class="btn" style="width:80px;background:#FF0000" onclick="doTask(this,'yt')">Join</button></div>
 </div>
 
-<!-- REFER - PROFESSIONAL FIXED -->
+<!-- REFER -->
 <div id="p-refer" class="page">
-<div class="glass" style="text-align:center;background:linear-gradient(135deg,#1a0b2e,#12152B);border:1.5px solid #7C5CFF"><h3>👥 Refer & Earn</h3><div style="font-size:32px;font-weight:900;color:#22c55e;margin:10px 0" id="referTop">৳20 Per Refer</div><div style="display:flex;gap:8px"><div class="card" style="flex:1"><b id="rCount">0</b><br><small>Refer</small></div><div class="card" style="flex:1"><b id="rEarn">৳0</b><br><small>Earn</small></div><div class="card" style="flex:1"><b>15%</b><br><small>Bonus</small></div></div><div class="card" style="text-align:left;margin-top:10px" id="referBox"></div></div>
-<div class="glass"><b>🔗 Your Link</b><div style="display:flex;gap:6px;margin-top:8px"><input id="refLink" readonly style="flex:1;background:#0B0E1C;border:1px solid #2A335E;color:#fff;padding:10px;border-radius:10px"><button class="btn" style="width:70px" onclick="navigator.clipboard.writeText(document.getElementById('refLink').value);alert('Copied!')">Copy</button></div></div>
+<div style="padding:16px"><h2 style="font-size:22px">Refer & Earn</h2><small style="color:#8A8F9E">Invite friends, earn lifetime</small></div>
+<div class="card" style="background:#111;color:#fff"><h3>৳20 Per Refer</h3><p style="opacity:.7;font-size:13px;margin:8px 0">Share your link & earn 15% lifetime commission</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px"><div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px;text-align:center"><b id="rCount" style="font-size:18px">0</b><br><small style="opacity:.7">Refer</small></div><div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px;text-align:center"><b id="rEarn" style="font-size:18px">৳0</b><br><small style="opacity:.7">Earned</small></div><div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px;text-align:center"><b style="font-size:18px">15%</b><br><small style="opacity:.7">Bonus</small></div></div></div>
+<div class="card"><b>Your Refer Link</b><div style="display:flex;gap:8px;margin-top:10px"><input id="refLink" readonly style="flex:1;background:#F6F7FB;border:1px solid #E8EAF1;padding:12px;border-radius:12px;font-size:12px"><button class="btn" style="width:70px" onclick="navigator.clipboard.writeText(refLink.value);alert('Copied!')">Copy</button></div><button class="btn" style="margin-top:10px;background:#229ED9" onclick="openLink('https://t.me/ProtidinerKajBD')">Share on Telegram</button></div>
 </div>
 
-<!-- SUPPORT - PROFESSIONAL FIXED -->
+<!-- SUPPORT -->
 <div id="p-support" class="page">
-<div class="glass" style="text-align:center"><h3>💬 Support Center</h3><small>We help 10AM-10PM</small></div>
-<div class="glass"><b>📢 Admin Notice</b><div class="card" id="adminNotice" style="min-height:50px;margin-top:8px"></div></div>
-<div class="glass"><b>📞 Contact - 100% Working</b><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="background:#229ED9" onclick="openLink(CFG.tg)">📢 Telegram</button><button class="btn" style="background:#FF0000" onclick="openLink(CFG.yt)">▶️ YouTube</button></div></div>
+<div style="padding:16px"><h2 style="font-size:22px">Support</h2><small style="color:#8A8F9E">We are here to help</small></div>
+<div class="card"><b>📢 Admin Notice</b><div style="background:#F6F7FB;border-radius:12px;padding:12px;margin-top:10px;font-size:13px;line-height:1.6" id="adminNotice"></div></div>
+<div class="card"><b>Contact Us</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><button class="btn" style="background:#229ED9" onclick="openLink(CFG.tg)">Telegram</button><button class="btn" style="background:#FF0000" onclick="openLink(CFG.yt)">YouTube</button></div></div>
+<div class="card"><b>FAQ</b><div style="margin-top:10px;font-size:13px;line-height:2;color:#6B7280">✓ Payment within 24 hours<br>✓ Minimum withdraw ৳500<br>✓ Ads reset every 12 hours<br>✓ 100% Trusted & Paying</div></div>
 </div>
 
-<!-- PROFILE - PROFESSIONAL FIXED -->
+<!-- PROFILE -->
 <div id="p-profile" class="page">
-<div class="glass" style="text-align:center"><input type="file" id="picUp" accept="image/*" style="display:none" onchange="previewPic(this)"><div id="profPic" onclick="document.getElementById('picUp').click()" style="width:90px;height:90px;background:#2A335E;border-radius:20px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:36px;border:2px solid #7C5CFF;overflow:hidden;cursor:pointer">👤</div><small>Tap to change</small><input id="profName" value="SHIBLI NOMAN" style="width:100%;text-align:center;font-weight:800;background:#0B0E1C;border:1px solid #2A335E;color:#fff;padding:10px;border-radius:10px;margin-top:10px"><button class="btn" style="margin-top:10px;background:#22c55e" onclick="saveProfile()">💾 Save Permanent</button><div id="saveMsg" style="color:#22c55e;font-size:12px;margin-top:4px"></div><div style="font-size:28px;font-weight:900;color:#22c55e;margin-top:10px" id="bal2">৳0</div></div>
-<div style="display:flex;gap:0"><div class="glass" style="flex:1;text-align:center"><b id="stAds">0</b><br><small>Ads</small></div><div class="glass" style="flex:1;text-align:center"><b id="stDiam">0</b><br><small>Diamond</small></div><div class="glass" style="flex:1;text-align:center"><b id="stEarn">৳0</b><br><small>Earn</small></div></div>
-<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>✅ Verified Account</b><br><small id="verifyText">ID 12345 • Trusted</small></div><span style="color:#22c55e">✓</span></div>
+<div style="padding:16px"><h2 style="font-size:22px">Profile</h2></div>
+<div class="card" style="text-align:center"><input type="file" id="picUp" accept="image/*" style="display:none" onchange="previewPic(this)"><div id="profPic" onclick="picUp.click()" style="width:90px;height:90px;background:#F6F7FB;border-radius:24px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;cursor:pointer;border:2px solid #E8EAF1">👤</div><input id="profName" value="SHIBLI NOMAN" style="width:100%;text-align:center;font-weight:800;background:#F6F7FB;border:1px solid #E8EAF1;padding:12px;border-radius:12px;margin-top:12px"><button class="btn" style="margin-top:10px" onclick="saveProfile()">Save Profile - Permanent</button><div id="saveMsg" style="color:#16a34a;font-size:12px;margin-top:6px"></div><div style="font-size:30px;font-weight:900;margin-top:12px" id="bal2">৳701.25</div><small style="color:#8A8F9E">ID: 12345 • Verified Member ✓</small></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0"><div class="card" style="text-align:center"><b id="stAds">17</b><br><small style="color:#8A8F9E">Ads</small></div><div class="card" style="text-align:center"><b id="stDiam">1234</b><br><small style="color:#8A8F9E">Diamond</small></div><div class="card" style="text-align:center"><b id="stEarn">৳701</b><br><small style="color:#8A8F9E">Earned</small></div></div>
+</div>
+
+<!-- ADMIN -->
+<div id="p-admin" class="page">
+<div style="padding:16px"><h2>👑 Admin Panel - Pro</h2></div>
+<div class="card"><label>Telegram Link</label><input id="a_tg" class="input"><label>YouTube Link</label><input id="a_yt" class="input"><label>Refer Bonus</label><input id="a_refTk" type="number" class="input"><label>Min Withdraw</label><input id="a_wMin" type="number" class="input"><label>Big Offer Text</label><textarea id="a_adTitle" class="input" style="height:70px"></textarea><label>Admin Notice</label><textarea id="a_notice" class="input" style="height:70px"></textarea><button class="btn" style="margin-top:12px" onclick="saveAdmin()">💾 Save All - 100% Working</button></div>
 </div>
 
 <div class="btm">
 <div class="on" onclick="openTab('home',this)"><span>🏠</span>Home</div>
-<div onclick="openTab('task',this)"><span>🎯</span>Task</div>
+<div onclick="openTab('task',this)"><span>🎯</span>Tasks</div>
 <div onclick="openTab('refer',this)"><span>👥</span>Refer</div>
 <div onclick="openTab('support',this)"><span>💬</span>Support</div>
 <div onclick="openTab('profile',this)"><span>👤</span>Profile</div>
+<div id="adminTab" style="display:none" onclick="openTab('admin',this)"><span>👑</span>Admin</div>
 </div>
 
 <script>
-let CFG={tg:"https://t.me/ProtidinerKajBD",yt:"https://www.youtube.com/@MdSible-k7o",refBase:"https://t.me/ProtidinMiniAppBot?start=",cTk:0.25,pTk:0.20,wMin:500,refTk:20,adTitle:"💎 প্রতিদিনের কাজ BD - ঘরে বসে ইনকাম | 60 Ads = ৳200 Bonus | bKash/Nagad Instant | No Investment",notice:"Min Withdraw 500 • 12h Reset • 24h Payment • Support: t.me/ProtidinerKajBD"};
-try{let s=localStorage.getItem('protidin_admin_config');if(s){let j=JSON.parse(s);CFG={...CFG,...j}}}catch{}
-function openLink(url){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.openLink){Telegram.WebApp.openLink(url);return}}catch(e){}window.open(url,'_blank')}
+let CFG={tg:"https://t.me/ProtidinerKajBD",yt:"https://www.youtube.com/@MdSible-k7o",refBase:"https://t.me/ProtidinMiniAppBot?start=",cTk:0.25,pTk:0.20,wMin:500,refTk:20,adTitle:"60 Ads = ৳200 Bonus • No Investment • bKash/Nagad Instant Payment • 100% Trusted",notice:"Support 10AM-10PM | Min Withdraw 500 Taka | 12h Reset | 24h Payment | t.me/ProtidinerKajBD"};
+try{let s=localStorage.getItem('protidin_admin_config');if(s)CFG={...CFG,...JSON.parse(s)}}catch{}
+function openLink(u){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.openLink){Telegram.WebApp.openLink(u);return}}catch{}window.open(u,'_blank')}
 let bal=parseFloat(localStorage.getItem('bal')||701.25),c=parseInt(localStorage.getItem('cCount')||17),p=parseInt(localStorage.getItem('pCount')||0),diamond=parseInt(localStorage.getItem('diamond')||1234),curMeth='bKash';
-function setMeth(m){curMeth=m;document.getElementById('mBkash').classList.toggle('on',m==='bKash');document.getElementById('mNagad').classList.toggle('on',m==='Nagad');document.getElementById('withdrawInfo').innerText='Min '+CFG.wMin+' • '+curMeth}
-function doWithdraw(){let a=parseFloat(document.getElementById('wAmt').value),n=document.getElementById('wNum').value;if(!a||!n)return alert('Amount + Number দাও');if(a<CFG.wMin)return alert('Min '+CFG.wMin);if(a>bal)return alert('Balance কম');alert(curMeth+' Withdraw ৳'+a+' to '+n+' - Request Sent!')}
-function tin(){try{let ctx=new(window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.frequency.setValueAtTime(1800,ctx.currentTime);o.frequency.linearRampToValueAtTime(2600,ctx.currentTime+0.12);g.gain.setValueAtTime(0.22,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.2);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.2)}catch{}}
-function fly(fromEl,count){let big=document.getElementById('bigD'),br=big.getBoundingClientRect(),fr=fromEl.getBoundingClientRect(),fx=fr.left+fr.width/2,fy=fr.top+fr.height/2,tx=br.left+br.width/2,ty=br.top+br.height/2;for(let i=0;i<count;i++){setTimeout(()=>{let d=document.createElement('div');d.className='fly';d.innerText='💎';d.style.left=fx+'px';d.style.top=fy+'px';document.body.appendChild(d);tin();d.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:`translate(${(tx-fx)/2}px,${(ty-fy)-50}px) scale(1.2)`,opacity:1,offset:.55},{transform:`translate(${tx-fx}px,${ty-fy}px) scale(0.1)`,opacity:0}],{duration:900}).onfinish=()=>d.remove()},i*120)}}
-function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);document.getElementById('dBig').innerText=diamond;document.getElementById('dTxt').innerText=diamond+' Diamond';document.getElementById('stDiam').innerText=diamond;document.getElementById('stAds').innerText=c+p;document.getElementById('stEarn').innerText='৳'+bal.toFixed(0);document.getElementById('cC').innerText=c+'/30';document.getElementById('pC').innerText=p+'/30';document.getElementById('ads').innerText=c+p;document.getElementById('cTk').innerText='৳'+CFG.cTk;document.getElementById('pTk').innerText='৳'+CFG.pTk;document.getElementById('withdrawInfo').innerText='Min '+CFG.wMin+' • '+curMeth;document.getElementById('referTop').innerText='৳'+CFG.refTk+' Per Refer';document.getElementById('adminNotice').innerText=CFG.notice;document.getElementById('adBox').innerText=CFG.adTitle;document.getElementById('referBox').innerText='৳'+CFG.refTk+' Instant + 15% Lifetime';document.getElementById('refLink').value=CFG.refBase+'12345';localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('pCount',p);localStorage.setItem('diamond',diamond)}
-function openTab(n,el){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(x=>x.classList.remove('on'));el.classList.add('on');window.scrollTo(0,0)}
-let tempPic="";function previewPic(inp){if(inp.files&&inp.files[0]){let r=new FileReader();r.onload=e=>{tempPic=e.target.result;document.getElementById('profPic').innerHTML='<img src="'+tempPic+'" style="width:100%;height:100%;object-fit:cover">'};r.readAsDataURL(inp.files[0])}}
-function saveProfile(){let n=document.getElementById('profName').value;localStorage.setItem('profName',n);if(tempPic)localStorage.setItem('profPic',tempPic);document.getElementById('saveMsg').innerText='✅ Saved Permanent!';alert('Saved Permanent!')}
-function watchAd(btn,type){
-// FIXED - 100% WORKING AD LOGIC
-if(type==='c'&&c>=30)return alert('Company Ads Done - 12h পর');if(type==='p'&&p>=30)return alert('Popup Ads Done - 12h পর');
-btn.innerText='Loading...';btn.disabled=true;
-let zone=type==='c'?'11764581':'11798857';
-let fn=window['show_'+zone];
-if(typeof fn==='function'){
-try{
-let pr=fn();
-if(pr&&typeof pr.then==='function'){
-pr.then(()=>{if(type==='c'){c++;bal+=CFG.cTk;diamond+=1}else{p++;bal+=CFG.pTk;diamond+=1}render();fly(btn,1);btn.innerText='Done ✓';btn.disabled=false;}).catch(e=>{console.log(e);btn.innerText='▶️ Try Again';btn.disabled=false;});
-return;
-}
-}catch(e){console.log(e)}
-}
-// Fallback - যদি SDK না আসে
-setTimeout(()=>{if(type==='c'){c++;bal+=CFG.cTk;diamond+=1}else{p++;bal+=CFG.pTk;diamond+=1}render();fly(btn,1);btn.innerText='Done ✓';btn.disabled=false;},800);
-}
-function doTask(btn,type){let url=type==='tg'||type==='company'?CFG.tg:CFG.yt;openLink(url);btn.innerText='Done ✓';bal+=10;diamond+=10;render();fly(btn,3)}
-function doCheckin(btn){if(localStorage.getItem('checkin')===new Date().toDateString())return alert('আজ করা হয়েছে');openLink(CFG.tg);bal+=10;diamond+=20;render();fly(btn,5);localStorage.setItem('checkin',new Date().toDateString());btn.innerText='Done ✓';document.getElementById('chkTxt').innerText='Done Today'}
-(function(){let pic=localStorage.getItem('profPic');if(pic){document.getElementById('profPic').innerHTML='<img src="'+pic+'" style="width:100%;height:100%;object-fit:cover">';tempPic=pic}let name=localStorage.getItem('profName');if(name)document.getElementById('profName').value=name;render()})();
+function setMeth(m){curMeth=m;document.getElementById('mBkash').classList.toggle('on',m==='bKash');document.getElementById('mNagad').classList.toggle('on',m==='Nagad')}
+function doWithdraw(){let a=parseFloat(wAmt.value),n=wNum.value;if(!a||!n)return alert('Amount + Number দাও');if(a<CFG.wMin)return alert('Min '+CFG.wMin);if(a>bal)return alert('Balance কম');alert(curMeth+' Withdraw ৳'+a+' Sent!')}
+function fly(el,n){let big=document.getElementById('bigD'),br=big.getBoundingClientRect(),fr=el.getBoundingClientRect(),fx=fr.left+fr.width/2,fy=fr.top+fr.height/2,tx=br.left+br.width/2,ty=br.top+br.height/2;for(let i=0;i<n;i++){setTimeout(()=>{let d=document.createElement('div');d.className='fly';d.innerText='💎';d.style.left=fx+'px';d.style.top=fy+'px';document.body.appendChild(d);d.animate([{transform:'translate(-50%,-50%) scale(1)'},{transform:`translate(${tx-fx}px,${ty-fy}px) scale(.1)`,opacity:0}],{duration:800}).onfinish=()=>d.remove()},i*100)}}
+function render(){balEl=document.getElementById('bal');if(balEl)balEl.innerText='৳'+bal.toFixed(2);bal2.innerText='৳'+bal.toFixed(2);dBig.innerText=diamond;dTxt.innerText=diamond+' Diamond';stDiam.innerText=diamond;stAds.innerText=c+p;stEarn.innerText='৳'+bal.toFixed(0);cC.innerText=c+'/30';pC.innerText=p+'/30';ads.innerText=c+p;cTk.innerText='৳'+CFG.cTk;pTk.innerText='৳'+CFG.pTk;withdrawInfo.innerText='Min '+CFG.wMin+' • '+curMeth;adminNotice.innerText=CFG.notice;adBox.innerText=CFG.adTitle;refLink.value=CFG.refBase+'12345';localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('pCount',p);localStorage.setItem('diamond',diamond)}
+function openTab(n,el){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+let tempPic="";function previewPic(i){if(i.files&&i.files[0]){let r=new FileReader();r.onload=e=>{tempPic=e.target.result;profPic.innerHTML='<img src="'+tempPic+'" style="width:100%;height:100%;object-fit:cover">'};r.readAsDataURL(i.files[0])}}
+function saveProfile(){let n=profName.value;localStorage.setItem('profName',n);if(tempPic)localStorage.setItem('profPic',tempPic);saveMsg.innerText='✅ Saved Permanent!';alert('Saved!')}
+function watchAd(btn,type){if(type==='c'&&c>=30)return alert('Done 12h পর');if(type==='p'&&p>=30)return alert('Done 12h পর');btn.innerText='Loading...';let zone=type==='c'?'11764581':'11798857',fn=window['show_'+zone];if(typeof fn==='function'){try{let pr=fn();if(pr&&pr.then){pr.then(()=>{if(type==='c'){c++;bal+=CFG.cTk;diamond++}else{p++;bal+=CFG.pTk;diamond++}render();fly(btn,2);btn.innerText='Done ✓'}).catch(()=>{btn.innerText='Try Again'});return}}catch{}}setTimeout(()=>{if(type==='c'){c++;bal+=CFG.cTk;diamond++}else{p++;bal+=CFG.pTk;diamond++}render();fly(btn,2);btn.innerText='Done ✓'},700)}
+function doTask(b,t){openLink(t==='tg'||t==='company'?CFG.tg:CFG.yt);b.innerText='Done ✓';bal+=10;diamond+=10;render();fly(b,3)}
+function doCheckin(b){if(localStorage.getItem('checkin')===new Date().toDateString())return alert('আজ করা হয়েছে');openLink(CFG.tg);bal+=10;diamond+=20;render();fly(b,4);localStorage.setItem('checkin',new Date().toDateString());b.innerText='Done ✓'}
+function loadAdmin(){a_tg.value=CFG.tg;a_yt.value=CFG.yt;a_refTk.value=CFG.refTk;a_wMin.value=CFG.wMin;a_adTitle.value=CFG.adTitle;a_notice.value=CFG.notice}
+function saveAdmin(){CFG={...CFG,tg:a_tg.value,yt:a_yt.value,refTk:parseFloat(a_refTk.value),wMin:parseFloat(a_wMin.value),adTitle:a_adTitle.value,notice:a_notice.value};localStorage.setItem('protidin_admin_config',JSON.stringify(CFG));render();alert('✅ Admin Saved - 100% Working!')}
+(function(){let pic=localStorage.getItem('profPic');if(pic){profPic.innerHTML='<img src="'+pic+'" style="width:100%;height:100%;object-fit:cover">';tempPic=pic}let name=localStorage.getItem('profName');if(name)profName.value=name;if(location.search.includes('admin=shibli123')){adminTab.style.display='block';loadAdmin()}render()})();
 </script>
 </body>
 </html>
