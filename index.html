@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Protidin - FINAL FULL Bhorpur</title>
+<title>Protidin - Final Awesome</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:170px}
@@ -13,12 +13,10 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 .btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#12152B;display:flex;padding:12px 0 20px;border-radius:22px 22px 0 0;border-top:1px solid #2A335E;z-index:999}
 .btm div{flex:1;text-align:center;color:#6B7280;font-size:11px;font-weight:700}.btm div.on{color:#8B5CF6}.btm div span{font-size:22px;display:block}
 .input{width:100%;padding:13px;border-radius:12px;border:1px solid #2A335E;background:#0B0E1C;color:#fff;margin-top:8px}
-.meth{flex:1;padding:12px;border-radius:14px;border:1px solid #2A335E;text-align:center;background:#0B0E1C;cursor:pointer}
-.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
-.fly{position:fixed;font-size:28px;z-index:100000;pointer-events:none}
+.meth{flex:1;padding:12px;border-radius:14px;border:1px solid #2A335E;text-align:center;background:#0B0E1C;cursor:pointer}.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.25)}
+.fly{position:fixed;font-size:30px;z-index:100000;pointer-events:none;will-change:transform}
 .big-diamond{animation:blink 1.2s infinite}@keyframes blink{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-.level-box{height:18px;background:#0B0E1C;border-radius:100px;overflow:hidden;border:1px solid #2A335E;margin-top:8px}
-.level-fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e);transition:width.5s}
+.level-box{height:18px;background:#0B0E1C;border-radius:100px;overflow:hidden;border:1px solid #2A335E;margin-top:8px}.level-fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e);transition:width.5s}
 #wheelWrap{position:relative;width:300px;height:300px;margin:15px auto}
 #wheel{width:100%;height:100%;border-radius:50%;border:8px solid #FF9F0A;transition:transform 4.5s cubic-bezier(.17,.67,.12,.99);background:conic-gradient(#7C5CFF 0deg 60deg,#1e293b 60deg 120deg,#38bdf8 120deg 180deg,#22c55e 180deg 240deg,#FF9F0A 240deg 300deg,#e11d48 300deg 360deg);position:relative}
 #pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:30px solid #fff;z-index:2}
@@ -37,41 +35,37 @@ let z2=document.createElement('script'); z2.src=atob('Ly9saWJ0bC5jb20vc2RrLmpz')
 <div id="p-home" class="page active">
 <div class="glass"><b>👑 প্রতিদিনের কাজ বিডি✅</b><span style="float:right;color:#22c55e">● Online</span></div>
 <div class="glass"><small>Balance</small><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:42px;font-weight:900" id="bal">৳0</div><div style="text-align:center"><div class="big-diamond" id="bigD" style="font-size:72px">💎</div><div style="color:#38bdf8;font-weight:900;font-size:26px" id="dBig">0</div></div></div><small>Ads: <span id="ads">0</span>/60 | <span id="dTxt">0 Diamond</span> | Reset: <span id="resetTime">12h</span></small></div>
-<div style="display:flex"><div class="glass" style="flex:1;text-align:center"><div>Company Ads<br><small>11764581</small></div><div style="font-size:32px;font-weight:900;color:#22c55e">৳0.25</div><div id="cC">0/30</div><button class="btn" onclick="watchAd(this,'c')">▶️ Start</button></div><div class="glass" style="flex:1;text-align:center"><div>Popup Ads<br><small>11798857</small></div><div style="font-size:32px;font-weight:900;color:#FF9F0A">৳0.20</div><div id="pC">0/30</div><button class="btn btn-o" onclick="watchAd(this,'p')">▶️ Watch</button></div></div>
-<div class="glass" style="border:2px solid #7C5CFF"><b>💸 Withdraw - bKash / Nagad - ভরপুর</b><div style="display:flex;gap:10px;margin:12px 0"><div class="meth on" id="mBkash" onclick="setMeth('bKash')"><b>📱 bKash</b></div><div class="meth" id="mNagad" onclick="setMeth('Nagad')"><b>📱 Nagad</b></div></div><input class="input" id="wAmt" placeholder="Amount - Min 500" type="number"><input class="input" id="wNum" placeholder="bKash/Nagad Number"><button class="btn" style="margin-top:12px;background:linear-gradient(90deg,#7C5CFF,#22c55e)" onclick="doWithdraw()">💸 Withdraw Now</button><small style="color:#8B5CF6;display:block;margin-top:6px">Selected: <span id="selMeth">bKash</span> - 24h এ পাবেন</small></div>
-<div class="glass" style="border:2px solid #FF9F0A"><b>🔥 Biggest Offer</b><div class="box-dark">30+30=60 Ad দেখলে ৳200 Bonus + Check-in ৳10 + 20💎</div></div>
+<div style="display:flex"><div class="glass" style="flex:1;text-align:center"><div>Company Ads</div><div style="font-size:32px;font-weight:900;color:#22c55e">৳0.25</div><div id="cC">0/30</div><button class="btn" onclick="watchAd(this,'c')">▶️ Start</button></div><div class="glass" style="flex:1;text-align:center"><div>Popup Ads</div><div style="font-size:32px;font-weight:900;color:#FF9F0A">৳0.20</div><div id="pC">0/30</div><button class="btn btn-o" onclick="watchAd(this,'p')">▶️ Watch</button></div></div>
+<div class="glass" style="border:2px solid #7C5CFF"><b>💸 Withdraw - bKash / Nagad</b><div style="display:flex;gap:10px;margin:12px 0"><div class="meth on" id="mBkash" onclick="setMeth('bKash')"><b>📱 bKash</b></div><div class="meth" id="mNagad" onclick="setMeth('Nagad')"><b>📱 Nagad</b></div></div><input class="input" id="wAmt" placeholder="Amount - Min 500" type="number"><input class="input" id="wNum" placeholder="bKash/Nagad Number"><button class="btn" style="margin-top:12px;background:linear-gradient(90deg,#7C5CFF,#22c55e)" onclick="doWithdraw()">💸 Withdraw Now</button><small style="color:#8B5CF6;display:block;margin-top:6px">Selected: <span id="selMeth">bKash</span></small></div>
+<div class="glass" style="border:2px solid #FF9F0A"><b>🔥 Biggest Offer</b><div class="box-dark">30+30=60 Ad = ৳200 Bonus</div></div>
 </div>
 
 <div id="p-task" class="page">
 <div class="glass"><b>🎯 Tasks - ভরপুর</b></div>
-<div class="glass" style="display:flex;justify-content:space-between"><div><b>🌐 Visit Company</b><br><small>৳20 + 15💎 - t.me/ProtidinerKajBD</small></div><button class="btn" style="width:auto" onclick="doTask(this,20,15,'company')">Go</button></div>
-<div class="glass" style="display:flex;justify-content:space-between"><div><b>✅ Daily Check-in - ৳10 + 20💎</b><br><small id="chkTxt">Ready - দিনে ১ বার</small></div><button class="btn" style="width:auto;background:#22c55e" id="chkBtn" onclick="doCheckin(this)">Check-in</button></div>
-<div class="glass" style="display:flex;justify-content:space-between"><div><b>📢 Join Telegram - ৳10 + 10💎</b><br><small>t.me/ProtidinerKajBD</small></div><button class="btn" style="width:auto;background:#229ED9" onclick="doTask(this,10,10,'tg')">Join</button></div>
-<div class="glass" style="display:flex;justify-content:space-between"><div><b>▶️ Join YouTube - ৳10 + 10💎</b><br><small>@MdSible-k7o</small></div><button class="btn" style="width:auto;background:#FF0000" onclick="doTask(this,10,10,'yt')">Join</button></div>
+<div class="glass" style="display:flex;justify-content:space-between"><div><b>🌐 Visit Company - ৳20 + 15💎</b><br><small>দিনে ১ বার - t.me/ProtidinerKajBD</small></div><button class="btn" style="width:auto" id="btnCompany" onclick="doTask(this,20,15,'company')">Go</button></div>
+<div class="glass" style="display:flex;justify-content:space-between"><div><b>✅ Daily Check-in - ৳10 + 20💎</b><br><small id="chkTxt">Ready</small></div><button class="btn" style="width:auto;background:#22c55e" id="chkBtn" onclick="doCheckin(this)">Check-in</button></div>
+<div class="glass" style="display:flex;justify-content:space-between"><div><b>📢 Join Telegram - ৳10 + 10💎</b></div><button class="btn" style="width:auto;background:#229ED9" id="btnTg" onclick="doTask(this,10,10,'tg')">Join</button></div>
+<div class="glass" style="display:flex;justify-content:space-between"><div><b>▶️ Join YouTube - ৳10 + 10💎</b></div><button class="btn" style="width:auto;background:#FF0000" id="btnYt" onclick="doTask(this,10,10,'yt')">Join</button></div>
 <div class="glass" style="text-align:center;border:3px solid #FF9F0A"><b>🎰 চরকি - যেখানে থামবে ওইটাই পাবে</b><div id="wheelWrap"><div id="pointer"></div><div id="wheel"><div class="slice" style="transform:translate(-50%,-50%) rotate(30deg) translate(100px) rotate(-30deg)">5</div><div class="slice" style="transform:translate(-50%,-50%) rotate(90deg) translate(100px) rotate(-90deg)">10</div><div class="slice" style="transform:translate(-50%,-50%) rotate(150deg) translate(100px) rotate(-150deg)">20</div><div class="slice" style="transform:translate(-50%,-50%) rotate(210deg) translate(100px) rotate(-210deg)">30</div><div class="slice" style="transform:translate(-50%,-50%) rotate(270deg) translate(100px) rotate(-270deg)">50</div><div class="slice" style="transform:translate(-50%,-50%) rotate(330deg) translate(100px) rotate(-330deg)">100</div></div></div><button class="btn btn-o" id="spinBtn" onclick="doSpin()">🎡 SPIN NOW - দিনে ১ বার</button><div id="spinSt" style="margin-top:8px;color:#FF9F0A;font-weight:800">Ready</div></div>
 </div>
 
 <div id="p-refer" class="page">
-<div class="glass" style="border:2px solid #7C5CFF;text-align:center"><h2>👥 Refer & Earn - ভরপুর</h2><div style="font-size:36px;font-weight:900;color:#22c55e;margin:8px 0">৳20 Per Refer</div><div class="box-dark" style="text-align:left">🔥 রেফার করলেই ৳20 ইনস্ট্যান্ট<br>💎 15% Lifetime Commission<br>🎁 10 Refer = ৳200 Bonus<br>🚀 50 Refer = ৳1000 + VIP<br>⚡ Unlimited Refer</div></div>
-<div class="glass"><b>🔗 তোমার রেফার লিংক</b><div class="box-dark" style="display:flex;gap:8px;align-items:center"><input id="refLink" style="flex:1;background:transparent;border:none;color:#fff" value="https://t.me/ProtidinMiniAppBot?start=12345" readonly><button class="btn" style="width:85px;padding:10px" onclick="navigator.clipboard.writeText(document.getElementById('refLink').value);alert('Copied!')">Copy</button></div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;background:#0B0E1C;padding:12px;border-radius:12px;text-align:center"><b id="refC">0</b><br><small>Total Refer</small></div><div style="flex:1;background:#0B0E1C;padding:12px;border-radius:12px;text-align:center"><b>৳0</b><br><small>Refer Earn</small></div><div style="flex:1;background:#0B0E1C;padding:12px;border-radius:12px;text-align:center"><b>৳200</b><br><small>Bonus</small></div></div></div>
-<div class="glass"><b>📘 কিভাবে রেফার কাজ করে?</b><div class="box-dark">1️⃣ লিংক কপি করে বন্ধুকে দাও</div><div class="box-dark">2️⃣ বন্ধু Start করবে Bot এ</div><div class="box-dark">3️⃣ Join করলেই তুমি <b style="color:#22c55e">৳20 Instant</b> পাবে</div><div class="box-dark">4️⃣ বন্ধুর আর্নের 15% Lifetime পাবে</div></div>
-<div class="glass"><b>👥 My Refer List - ভরপুর</b><div class="box-dark" style="display:flex;justify-content:space-between"><span>1. @Rahim - Active ✅</span><span style="color:#22c55e">৳20</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>2. @Karim - Active ✅</span><span style="color:#22c55e">৳35</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>3. @Sakib - Joined ⏳</span><span style="color:#FF9F0A">৳10 Pending</span></div><div class="box-dark" style="text-align:center;color:#8B5CF6">🔥 আরো আসলে এখানে সিরিয়ালে দেখাবে</div></div>
-<div class="glass" style="border:1px solid #FF9F0A;text-align:center"><b>🏆 Top Referrers This Week</b><div class="box-dark" style="display:flex;justify-content:space-between"><span>🥇 @Top1 - 120 Refer</span><span>৳2400</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>🥈 @Top2 - 89 Refer</span><span>৳1780</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>🥉 @Top3 - 65 Refer</span><span>৳1300</span></div></div>
+<div class="glass" style="border:2px solid #7C5CFF;text-align:center"><h2>👥 Refer & Earn - ভরপুর</h2><div style="font-size:36px;font-weight:900;color:#22c55e">৳20 Per Refer</div><div class="box-dark" style="text-align:left">🔥 ৳20 Instant<br>💎 15% Lifetime<br>🎁 10 Refer = ৳200<br>🚀 50 Refer = ৳1000 + VIP</div></div>
+<div class="glass"><b>🔗 তোমার রেফার লিংক</b><div class="box-dark" style="display:flex;gap:8px"><input id="refLink" style="flex:1;background:transparent;border:none;color:#fff" value="https://t.me/ProtidinMiniAppBot?start=12345" readonly><button class="btn" style="width:80px" onclick="navigator.clipboard.writeText(document.getElementById('refLink').value);alert('Copied!')">Copy</button></div></div>
+<div class="glass"><b>👥 My Refer List</b><div class="box-dark" style="display:flex;justify-content:space-between"><span>1. @Rahim - Active ✅</span><span style="color:#22c55e">৳20</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>2. @Karim - Active ✅</span><span style="color:#22c55e">৳35</span></div><div class="box-dark" style="text-align:center;color:#8B5CF6">আরো আসলে সিরিয়ালে দেখাবে</div></div>
+<div class="glass" style="text-align:center;border:1px solid #FF9F0A"><b>🏆 Top Referrers</b><div class="box-dark" style="display:flex;justify-content:space-between"><span>🥇 120 Refer</span><span>৳2400</span></div></div>
 </div>
 
 <div id="p-support" class="page">
 <div class="glass" style="text-align:center"><h2>💬 Support - ভরপুর</h2><div style="display:flex;gap:8px;margin-top:12px"><div class="box-dark" style="flex:1;text-align:center">📢<br><b>Telegram</b><br><small>@ProtidinerKajBD</small></div><div class="box-dark" style="flex:1;text-align:center">▶️<br><b>YouTube</b><br><small>@MdSible-k7o</small></div><div class="box-dark" style="flex:1;text-align:center;border:1px solid #22c55e">✅<br><b>Live</b><br><small>3 Online</small></div></div></div>
-<div class="glass" style="border:2px solid #22c55e"><b>📢 Admin Notice - ভরপুর</b><div class="box-dark">Support: 10AM-10PM<br>Telegram: t.me/ProtidinerKajBD<br>YouTube: @MdSible-k7o<br>Withdraw 24h এ পাবেন, Min 500<br>Ad Reset: 12h পর পর<br>Refer: 10 জনে ৳200</div></div>
-<div class="glass"><b>📝 সরাসরি মেসেজ পাঠাও</b><input class="input" placeholder="তোমার নাম"><input class="input" placeholder="Telegram @Username"><textarea class="input" style="height:90px" placeholder="সমস্যা লিখো..."></textarea><button class="btn" style="margin-top:10px" onclick="alert('Message Sent! 10 মিনিটে রিপ্লাই পাবে')">📤 Send Message</button></div>
-<div class="glass"><b>❓ FAQ - ভরপুর ৫টা</b><div class="box-dark"><b>Q: টাকা কখন পাবো?</b><br>A: 24h এর মধ্যে bKash/Nagad এ, Min 500</div><div class="box-dark"><b>Q: এড আসে না কেন?</b><br>A: 12h পর রিসেট, VPN বন্ধ রাখো</div><div class="box-dark"><b>Q: রেফার টাকা?</b><br>A: Join করলেই Instant ৳20 + 15% Lifetime</div><div class="box-dark"><b>Q: চরকি কয়বার?</b><br>A: দিনে ১ বার, যেখানে থামবে ওইটাই পাবে</div><div class="box-dark"><b>Q: Verified?</b><br>A: 20 Ad দেখলেই Auto Verified</div></div>
-<div class="glass" style="text-align:center;border:1px dashed #7C5CFF"><b>📞 Direct Contact</b><br><small>Telegram: @ProtidinerKajBD | YouTube: @MdSible-k7o - 10AM-10PM</small></div>
+<div class="glass" style="border:2px solid #22c55e"><b>📢 Admin Notice</b><div class="box-dark">Support 10AM-10PM | Telegram t.me/ProtidinerKajBD | YouTube @MdSible-k7o | Withdraw 24h Min 500 | Ad Reset 12h</div></div>
+<div class="glass"><b>❓ FAQ - ভরপুর</b><div class="box-dark"><b>Q: টাকা কখন?</b><br>A: 24h এ bKash/Nagad</div><div class="box-dark"><b>Q: এড আসে না?</b><br>A: 12h পর রিসেট</div><div class="box-dark"><b>Q: রেফার?</b><br>A: Instant ৳20 + 15% Lifetime</div><div class="box-dark"><b>Q: চরকি?</b><br>A: দিনে ১ বার, যেখানে থামবে ওইটাই পাবে</div></div>
 </div>
 
 <div id="p-profile" class="page">
 <div class="glass" style="text-align:center"><input type="file" id="picUp" accept="image/*" style="display:none" onchange="savePic(this)"><div id="profPic" onclick="document.getElementById('picUp').click()" style="width:120px;height:120px;background:#2A335E;border-radius:28px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:55px;border:3px solid #7C5CFF;cursor:pointer;overflow:hidden">👤</div><small style="color:#7C5CFF;display:block;margin-top:8px">👆 টিপ দিয়ে ছবি লাগাও - পার্মানেন্ট</small><input id="profName" value="👑 SHIBLI NOMAN✅" style="width:100%;text-align:center;font-weight:900;font-size:18px;background:#0B0E1C;border:1px solid #2A335E;color:#fff;padding:12px;border-radius:12px;margin-top:12px" oninput="localStorage.setItem('profName',this.value)"><div style="font-size:38px;color:#22c55e;font-weight:900;margin-top:10px" id="bal2">৳0</div></div>
-<div class="glass"><b>💎 Diamond Level - লম্বা ভরার জায়গা</b><div style="display:flex;justify-content:space-between;margin-top:8px"><span>Silver Level</span><span><b>Level 3</b></span></div><div class="level-box"><div class="level-fill" id="levelFill" style="width:65%"></div></div><div style="display:flex;justify-content:space-between;margin-top:6px"><small id="dProf">0 Diamond</small><small>Next: 500 Diamond</small></div><div style="display:flex;gap:8px;margin-top:12px"><div class="box-dark" style="flex:1;text-align:center"><b id="tAds" style="font-size:20px">0</b><br><small>Ads</small></div><div class="box-dark" style="flex:1;text-align:center"><b id="tDia" style="font-size:20px">0</b><br><small>Diamond</small></div><div class="box-dark" style="flex:1;text-align:center"><b id="tEarn" style="font-size:20px">৳0</b><br><small>Earn</small></div></div></div>
-<div class="glass"><b>📊 My Stats - ভরপুর</b><div class="box-dark" style="display:flex;justify-content:space-between"><span>✅ Verified</span><span style="color:#22c55e">Yes - পার্মানেন্ট</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>📅 Join Date</span><span>18 Sep 2026</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>💸 Withdrawn</span><span>৳0</span></div><div class="box-dark" style="display:flex;justify-content:space-between"><span>👥 Total Refer</span><span>2 জন</span></div></div>
-<div class="glass" style="border:1px dashed #22c55e;text-align:center;background:rgba(34,197,94,.15)"><b>✅ Verified - পার্মানেন্ট</b><br><small>নাম, টাকা, ছবি, ডায়মন্ড সব পার্মানেন্ট</small></div>
+<div class="glass"><b>💎 Diamond Level - লম্বা ভরার জায়গা</b><div style="display:flex;justify-content:space-between;margin-top:8px"><span>Silver Level</span><span><b>Level 3</b></span></div><div class="level-box"><div class="level-fill" id="levelFill" style="width:65%"></div></div><div style="display:flex;justify-content:space-between;margin-top:6px"><small id="dProf">0 Diamond</small><small>Next: 500</small></div><div style="display:flex;gap:8px;margin-top:12px"><div class="box-dark" style="flex:1;text-align:center"><b id="tAds" style="font-size:20px">0</b><br><small>Ads</small></div><div class="box-dark" style="flex:1;text-align:center"><b id="tDia" style="font-size:20px">0</b><br><small>Diamond</small></div><div class="box-dark" style="flex:1;text-align:center"><b id="tEarn" style="font-size:20px">৳0</b><br><small>Earn</small></div></div></div>
+<div class="glass" style="border:1px dashed #22c55e;text-align:center;background:rgba(34,197,94,.15)"><b>✅ Verified - পার্মানেন্ট</b></div>
 </div>
 
 <div class="btm"><div class="on" onclick="openTab('home',this)"><span>🏠</span>Home</div><div onclick="openTab('task',this)"><span>🎯</span>Tasks</div><div onclick="openTab('refer',this)"><span>👥</span>Refer</div><div onclick="openTab('support',this)"><span>💬</span>Support</div><div onclick="openTab('profile',this)"><span>👤</span>Profile</div></div>
@@ -81,19 +75,116 @@ const TG_LINK="https://t.me/ProtidinerKajBD"; const YT_LINK="https://www.youtube
 let curMeth='bKash';
 let lastReset=parseInt(localStorage.getItem('lastReset')||'0'); if(Date.now()-lastReset>12*60*60*1000){localStorage.setItem('cCount','0');localStorage.setItem('pCount','0');localStorage.setItem('lastReset',Date.now().toString());}
 let bal=parseFloat(localStorage.getItem('bal')||'558.65'),c=parseInt(localStorage.getItem('cCount')||'12'),p=parseInt(localStorage.getItem('pCount')||'8'),diamond=parseInt(localStorage.getItem('diamond')||'340');
-function setMeth(m){curMeth=m; document.getElementById('mBkash').classList.toggle('on',m==='bKash'); document.getElementById('mNagad').classList.toggle('on',m==='Nagad'); document.getElementById('selMeth').innerText=m; document.getElementById('wNum').placeholder=m+' Number';}
-function doWithdraw(){let amt=document.getElementById('wAmt').value; let num=document.getElementById('wNum').value; if(!amt||!num)return alert('Amount আর Number দাও'); if(parseFloat(amt)<500)return alert('Min 500'); if(parseFloat(amt)>bal)return alert('Balance কম'); alert(curMeth+' Withdraw Done: ৳'+amt+' to '+num);}
+
+function setMeth(m){curMeth=m; document.getElementById('mBkash').classList.toggle('on',m==='bKash'); document.getElementById('mNagad').classList.toggle('on',m==='Nagad'); document.getElementById('selMeth').innerText=m;}
+function doWithdraw(){let amt=document.getElementById('wAmt').value; let num=document.getElementById('wNum').value; if(!amt||!num)return alert('Amount আর Number দাও'); if(parseFloat(amt)<500)return alert('Min 500'); if(parseFloat(amt)>bal)return alert('Balance কম'); alert(curMeth+' Withdraw Done: ৳'+amt+' to '+num+' - 24h এ পাবে');}
+
 function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2); document.getElementById('bal2').innerText='৳'+bal.toFixed(2); document.getElementById('cC').innerText=c+'/30'; document.getElementById('pC').innerText=p+'/30'; document.getElementById('ads').innerText=c+p; document.getElementById('dBig').innerText=diamond; document.getElementById('dTxt').innerText=diamond+' Diamond'; document.getElementById('dProf').innerText=diamond+' Diamond'; document.getElementById('tAds').innerText=c+p; document.getElementById('tDia').innerText=diamond; document.getElementById('tEarn').innerText='৳'+Math.floor(bal); document.getElementById('levelFill').style.width=Math.min((diamond/500)*100,100)+'%'; localStorage.setItem('bal',bal); localStorage.setItem('cCount',c); localStorage.setItem('pCount',p); localStorage.setItem('diamond',diamond);}
+
 function openTab(n,el){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active')); document.getElementById('p-'+n).classList.add('active'); document.querySelectorAll('.btm div').forEach(x=>x.classList.remove('on')); el.classList.add('on');}
+
 function savePic(input){ if(input.files&&input.files[0]){ let r=new FileReader(); r.onload=e=>{ localStorage.setItem('profPic',e.target.result); document.getElementById('profPic').innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover">'; }; r.readAsDataURL(input.files[0]); }}
-let ctx; function tinTin(){try{if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)(); let o=ctx.createOscillator(),g=ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(2000,ctx.currentTime); o.frequency.exponentialRampToValueAtTime(2800,ctx.currentTime+0.08); g.gain.setValueAtTime(0.25,ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15); o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.15);}catch{}}
-function fly(fromEl,count){let to=document.getElementById('bigD').getBoundingClientRect(); let fr=fromEl.getBoundingClientRect(); for(let i=0;i<count;i++){setTimeout(()=>{let d=document.createElement('div');d.className='fly';d.innerText='💎';d.style.left=fr.left+'px';d.style.top=fr.top+'px';document.body.appendChild(d);tinTin(); d.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${to.left-fr.left}px,${to.top-fr.top}px) scale(0.15)`,opacity:0}],{duration:500}).onfinish=()=>d.remove();},i*45);}}
-function watchAd(el,type){if(type==='c'&&c>=30)return alert('12h পর'); if(type==='p'&&p>=30)return alert('12h পর'); el.innerText='Loading...'; let fn=type==='c'?window.show_11764581:window.show_11798857; if(typeof fn==='function'){let pr=fn(); if(pr&&pr.then){pr.then(()=>{if(type==='c'){c++;bal+=0.25;}else{p++;bal+=0.20;}diamond++;render();fly(el,1);el.innerText='Done ✓';}).catch(()=>el.innerText='Try Again'); return;}} let t=10; let it=setInterval(()=>{t--; el.innerText=t+'s'; if(t<=0){clearInterval(it); if(type==='c'){c++;bal+=0.25;}else{p++;bal+=0.20;}diamond++;render();fly(el,1);el.innerText='Done ✓';}},1000);}
-function doTask(el,tk,dm,type){if(type==='tg'||type==='company')window.open(TG_LINK,'_blank'); if(type==='yt')window.open(YT_LINK,'_blank'); el.innerText='Done ✓'; bal+=tk; diamond+=dm; render(); fly(el,dm);}
-function doCheckin(el){if(localStorage.getItem('checkin')===new Date().toDateString())return alert('আজ করা হয়েছে'); bal+=10; diamond+=20; render(); fly(el,20); localStorage.setItem('checkin',new Date().toDateString()); el.innerText='Done ✓'; document.getElementById('chkTxt').innerText='Done Today';}
-function doSpin(){if(localStorage.getItem('spinDate')===new Date().toDateString())return alert('আজ ১ বার'); let w=document.getElementById('wheel'); let rnd=Math.floor(Math.random()*360); let deg=1800+rnd; w.style.transform='rotate('+deg+'deg)'; let win=rnd<60?5:rnd<120?10:rnd<180?20:rnd<240?30:rnd<300?50:100; setTimeout(()=>{diamond+=win; render(); fly(document.getElementById('wheelWrap'),win); alert('চরকি '+win+' তে থামছে! '+win+' Diamond পাইছো'); localStorage.setItem('spinDate',new Date().toDateString()); document.getElementById('spinSt').innerText='You Win '+win+' Diamond!';},4600);}
-(function(){let pic=localStorage.getItem('profPic'); if(pic){document.getElementById('profPic').innerHTML='<img src="'+pic+'" style="width:100%;height:100%;object-fit:cover">';} let name=localStorage.getItem('profName'); if(name)document.getElementById('profName').value=name; let chk=localStorage.getItem('checkin'); if(chk===new Date().toDateString()){document.getElementById('chkTxt').innerText='Done Today'; document.getElementById('chkBtn').innerText='Done ✓';}})();
-render(); setInterval(()=>{let diff=12*60*60*1000-(Date.now()-parseInt(localStorage.getItem('lastReset')||'0')); let h=Math.floor(diff/3600000); let m=Math.floor((diff%3600000)/60000); let rt=document.getElementById('resetTime'); if(rt)rt.innerText=h+'h '+m+'m';},1000);
+
+// তিন তিন হালকা আওয়াজ
+let ctx;
+function tinTin(){
+try{
+if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();
+let o=ctx.createOscillator(),g=ctx.createGain();
+o.type='sine';
+o.frequency.setValueAtTime(1800,ctx.currentTime);
+o.frequency.linearRampToValueAtTime(2600,ctx.currentTime+0.12);
+g.gain.setValueAtTime(0.22,ctx.currentTime);
+g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.2);
+o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.2);
+}catch{}
+}
+
+// অসাধারণ - একটা একটা করে মিডিয়াম স্পিডে উড়ে গিয়ে পড়বে
+function fly(fromEl,count){
+let to=document.getElementById('bigD').getBoundingClientRect();
+let fr=fromEl.getBoundingClientRect();
+for(let i=0;i<count;i++){
+setTimeout(()=>{
+let d=document.createElement('div');
+d.className='fly';
+d.innerText='💎';
+d.style.left=(fr.left + Math.random()*10)+'px';
+d.style.top=(fr.top + Math.random()*10)+'px';
+document.body.appendChild(d);
+tinTin(); // তিন তিন
+d.animate([
+{transform:'translate(0,0) scale(1) rotate(0deg)',opacity:1,offset:0},
+{transform:`translate(${(to.left-fr.left)/2}px,${(to.top-fr.top)-40}px) scale(1.1) rotate(180deg)`,opacity:1,offset:0.6},
+{transform:`translate(${to.left-fr.left}px,${to.top-fr.top}px) scale(0.1) rotate(360deg)`,opacity:0,offset:1}
+],{duration:950,easing:'cubic-bezier(.4,0,.6,1)'}).onfinish=()=>d.remove();
+}, i * 130); // একটা একটা সিরিয়ালে - 130ms পর পর - মিডিয়াম স্পিড
+}
+}
+
+function watchAd(el,type){
+if(type==='c'&&c>=30)return alert('Company 12h পর রিসেট হবে');
+if(type==='p'&&p>=30)return alert('Popup 12h পর রিসেট হবে');
+el.innerText='Loading Ad...';
+let fn=type==='c'?window.show_11764581:window.show_11798857;
+if(typeof fn==='function'){
+let pr=fn();
+if(pr&&pr.then){
+pr.then(()=>{ if(type==='c'){c++;bal+=0.25;}else{p++;bal+=0.20;} diamond++; render(); fly(el,1); el.innerText='Done ✓'; }).catch(()=>el.innerText='Try Again');
+return;
+}
+}
+let t=8; let it=setInterval(()=>{t--; el.innerText=t+'s'; if(t<=0){clearInterval(it); if(type==='c'){c++;bal+=0.25;}else{p++;bal+=0.20;} diamond++; render(); fly(el,1); el.innerText='Done ✓';}},1000);
+}
+
+// Telegram/Youtube যতবার ঢুকবে ততবার পাবে না - FIXED
+function doTask(el,tk,dm,type){
+if(type==='tg' || type==='yt'){
+if(localStorage.getItem('done_'+type)) return alert('এটা একবারই পাবে - তুমি আগেই পেয়েছো');
+localStorage.setItem('done_'+type,'1');
+}
+if(type==='company'){
+let today=new Date().toDateString();
+if(localStorage.getItem('done_company')===today) return alert('আজ Company Visit করা হয়েছে - কাল আবার');
+localStorage.setItem('done_company',today);
+}
+if(type==='tg'||type==='company')window.open(TG_LINK,'_blank');
+if(type==='yt')window.open(YT_LINK,'_blank');
+el.innerText='Done ✓'; el.style.opacity='0.6';
+bal+=tk; diamond+=dm; render();
+fly(el,dm); // 15 টা হলে 15 টাই একটা একটা উড়বে
+}
+
+function doCheckin(el){
+if(localStorage.getItem('checkin')===new Date().toDateString()) return alert('আজ Check-in করা হয়েছে');
+bal+=10; diamond+=20; render(); fly(el,20); // 20 টা একটা একটা উড়বে
+localStorage.setItem('checkin',new Date().toDateString());
+el.innerText='Done ✓'; document.getElementById('chkTxt').innerText='Done Today - কাল আবার';
+}
+
+function doSpin(){
+if(localStorage.getItem('spinDate')===new Date().toDateString()) return alert('আজ ১ বার হয়ে গেছে');
+let w=document.getElementById('wheel'); let rnd=Math.floor(Math.random()*360); let deg=1800+rnd;
+w.style.transform='rotate('+deg+'deg)';
+let win=rnd<60?5:rnd<120?10:rnd<180?20:rnd<240?30:rnd<300?50:100;
+setTimeout(()=>{
+diamond+=win; render();
+fly(document.getElementById('wheelWrap'),win); // যেখানে থামবে ওইটাই একটা একটা উড়বে
+alert('চরকি '+win+' তে থামছে! তুমি '+win+' Diamond পাইছো - একটা একটা উড়ে যাচ্ছে');
+localStorage.setItem('spinDate',new Date().toDateString());
+document.getElementById('spinSt').innerText='You Win '+win+' Diamond!';
+},4600);
+}
+
+(function(){
+let pic=localStorage.getItem('profPic'); if(pic) document.getElementById('profPic').innerHTML='<img src="'+pic+'" style="width:100%;height:100%;object-fit:cover">';
+let name=localStorage.getItem('profName'); if(name) document.getElementById('profName').value=name;
+let chk=localStorage.getItem('checkin'); if(chk===new Date().toDateString()){document.getElementById('chkTxt').innerText='Done Today'; document.getElementById('chkBtn').innerText='Done ✓';}
+if(localStorage.getItem('done_tg')) document.getElementById('btnTg').innerText='Done ✓';
+if(localStorage.getItem('done_yt')) document.getElementById('btnYt').innerText='Done ✓';
+})();
+render();
+setInterval(()=>{let diff=12*60*60*1000-(Date.now()-parseInt(localStorage.getItem('lastReset')||'0')); let h=Math.floor(diff/3600000); let m=Math.floor((diff%3600000)/60000); let rt=document.getElementById('resetTime'); if(rt)rt.innerText=h+'h '+m+'m';},1000);
 </script>
 </body>
 </html>
