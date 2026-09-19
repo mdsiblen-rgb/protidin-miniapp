@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Protidin Kaj BD - No Empty Space Final</title>
+<title>Protidin Kaj BD - Level Fix Final</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="//libtl.com/sdk.js" data-zone="11764581" data-sdk="show_11764581"></script>
 <script src="//libtl.com/sdk.js" data-zone="11798857" data-sdk="show_11798857"></script>
@@ -11,30 +11,43 @@
 body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:110px}
 .glass{background:#161C36;border:1px solid #2A335E;border-radius:18px;padding:14px;margin:10px 12px}
 .btn{padding:12px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#7C5CFF;cursor:pointer;width:100%}
-.page{display:none}.page.active{display:block;height:auto;min-height:auto}
+.page{display:none}.page.active{display:block}
 .btm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#12152B;display:flex;padding:8px 0 20px;border-radius:18px 18px 0 0;border-top:1px solid #2A335E;z-index:9999}
 .btm div{flex:1;text-align:center;color:#6B7280;font-size:11px;font-weight:700;cursor:pointer}.btm div.on{color:#8B5CF6}.btm div span{font-size:20px;display:block}
 .input{width:100%;padding:11px;border-radius:10px;border:1px solid #2A335E;background:#0B0E1C;color:#fff;margin-top:8px}
 .card{background:#0B0E1C;border:1px solid #2A335E;border-radius:12px;padding:10px;margin-top:8px}
-.adminInput{width:100%;padding:10px;border-radius:10px;border:1px solid #7C5CFF;background:#0B0E1C;color:#fff;margin-top:6px}
+.bar{height:12px;background:#0B0E1C;border-radius:100px;border:1px solid #2A335E;overflow:hidden;margin-top:6px}.fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e)}
 @keyframes dm{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}.dm{animation:dm 1.2s infinite;display:inline-block}
 @keyframes om{0%,100%{opacity:1}50%{opacity:.3}}.od{width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;animation:om 1s infinite}
-.bar{height:10px;background:#0B0E1C;border-radius:100px;border:1px solid #2A335E;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#7C5CFF,#22c55e);width:80%}
 #profPicWrap{position:relative;width:110px;height:110px;margin:0 auto}#profPic{width:110px;height:110px;background:#2A335E;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:40px;border:3px solid #7C5CFF;overflow:hidden;cursor:pointer}#profPic img{width:100%;height:100%;object-fit:cover}#camIcon{position:absolute;bottom:-6px;right:-6px;background:#7C5CFF;width:32px;height:32px;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #070A1A}
+.adminInput{width:100%;padding:10px;border-radius:10px;border:1px solid #7C5CFF;background:#0B0E1C;color:#fff;margin-top:6px}
 </style>
 </head>
 <body>
 
 <div id="p-home" class="page active">
-<div class="glass" style="display:flex;justify-content:space-between"><b>👑 প্রতিদিনের কাজ BD</b><div style="display:flex;align-items:center;gap:6px;background:#0B0E1C;border:1px solid #22c55e;padding:6px 10px;border-radius:100px;font-size:12px"><span class="od"></span><span style="color:#22c55e">Online</span></div></div>
-<div class="glass" style="border:1.5px solid #7C5CFF"><small>TOTAL BALANCE</small><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:38px;font-weight:900" id="bal">৳764.00</div><div style="text-align:center"><div style="font-size:44px" class="dm">💎</div><div style="color:#38bdf8;font-weight:900" id="dBig">1307</div></div></div></div>
+<div class="glass" style="display:flex;justify-content:space-between;align-items:center"><b>👑 প্রতিদিনের কাজ BD</b><div style="display:flex;align-items:center;gap:6px;background:#0B0E1C;border:1px solid #22c55e;padding:6px 10px;border-radius:100px;font-size:12px"><span class="od"></span><span style="color:#22c55e">Online</span></div></div>
+
+<div class="glass" style="border:1.5px solid #7C5CFF">
+<small style="color:#8B90B8">TOTAL BALANCE</small>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="font-size:38px;font-weight:900" id="bal">৳764.00</div>
+<div style="text-align:center"><div style="font-size:44px" class="dm">💎</div><div style="color:#38bdf8;font-weight:900" id="dBig">1307</div></div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:6px"><small style="color:#7C5CFF;font-weight:900" id="lvlTxt">💎 Diamond Level: 2</small><small style="color:#8B90B8" id="lvlPer">80%</small></div>
+<div class="bar"><div class="fill" id="lvlFill" style="width:80%"></div></div>
+<small style="color:#8B90B8"><span id="adsCount">20</span>/60 Ads • <span id="dTxt">1307 Diamond</span> • Next: 1500</small>
+</div>
+
 <div style="display:flex"><div class="glass" style="flex:1;text-align:center"><small>COMPANY ADS</small><div style="font-size:22px;font-weight:900;color:#22c55e;margin:4px 0" id="cRate">৳0.25</div><div class="card" id="cC">20/30</div><button class="btn" style="margin-top:8px" onclick="watchAd(this,'c')">▶️ Start</button></div><div class="glass" style="flex:1;text-align:center"><small>POPUP ADS</small><div style="font-size:22px;font-weight:900;color:#FF9F0A;margin:4px 0" id="pRate">৳0.20</div><div class="card" id="pC">0/30</div><button class="btn" style="margin-top:8px;background:#FF9F0A" onclick="watchAd(this,'p')">▶️ Watch</button></div></div>
-<div class="glass"><b>💸 Withdraw</b><div style="display:flex;gap:8px;margin:8px 0"><div style="flex:1;padding:11px;border-radius:12px;background:rgba(124,92,255,.25);border:1.5px solid #7C5CFF;text-align:center">bKash</div><div style="flex:1;padding:11px;border-radius:12px;background:#0B0E1C;border:1px solid #2A335E;text-align:center">Nagad</div></div><input class="input" id="wAmt" type="number" placeholder="Amount Min 500"><input class="input" id="wNum" placeholder="Number"><button class="btn" style="margin-top:8px;background:#22c55e" onclick="doWithdraw()">Withdraw Now</button></div>
-<div class="glass" style="border:2px dashed #22c55e;text-align:center"><b>📢 Direct Ad Box - Panel থেকে কন্ট্রোল</b><div class="card" id="bigAdBox" style="padding:18px;margin-top:8px">এখানে তোমার বড় বিজ্ঞাপন বসবে</div></div>
+
+<div class="glass"><b>💸 Withdraw</b><div style="display:flex;gap:8px;margin:8px 0"><div style="flex:1;padding:11px;border-radius:12px;background:rgba(124,92,255,.25);border:1.5px solid #7C5CFF;text-align:center">bKash</div><div style="flex:1;padding:11px;border-radius:12px;background:#0B0E1C;border:1px solid #2A335E;text-align:center">Nagad</div></div><input class="input" id="wAmt" type="number" placeholder="Amount Min 500"><input class="input" id="wNum" placeholder="Number 01XXXXXXXXX"><button class="btn" style="margin-top:8px;background:#22c55e" onclick="doWithdraw()">Withdraw Now</button></div>
+
+<div class="glass" style="border:2px dashed #22c55e;text-align:center"><b>📢 Direct Ad Box - Panel থেকে কন্ট্রোল</b><div class="card" id="bigAdBox" style="padding:20px;margin-top:8px;min-height:70px">এখানে তোমার বড় বিজ্ঞাপন বসবে</div></div>
 </div>
 
 <div id="p-task" class="page">
-<div class="glass"><b>🎯 Tasks - Direct Link</b></div>
+<div class="glass"><b>🎯 Tasks - Direct Link</b><div class="card">4 টা Task Complete করো - ভরপুর</div></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>🌐 Company Visit</b><br><small style="color:#22c55e">৳20 + 15💎 • Daily</small></div><button class="btn" style="width:90px" onclick="openL('tg')">Go</button></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>✅ Daily Check-in</b><br><small style="color:#22c55e">৳10 + 20💎 • Daily</small></div><button class="btn" style="width:90px;background:#22c55e" onclick="openL('tg')">Claim</button></div>
 <div class="glass" style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Join Telegram</b><br><small style="color:#22c55e">৳10 + 10💎 • Lifetime</small></div><button class="btn" style="width:90px;background:#229ED9" onclick="openL('tg')">Join</button></div>
@@ -48,24 +61,24 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 
 <div id="p-support" class="page">
 <div class="glass" style="border:1.5px solid #22c55e"><b>📢 Admin Notice - Panel থেকে কন্ট্রোল</b><div class="card" style="text-align:left" id="adminNotice">• Min 500 • 12h Reset • 24h Payment • 100% Trusted</div></div>
-<div class="glass"><b>📞 Contact</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn" style="flex:1;background:#229ED9" onclick="openL('tg')">Telegram</button><button class="btn" style="flex:1;background:#FF0000" onclick="openL('yt')">YouTube</button></div></div>
+<div class="glass"><b>📞 Contact</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn" style="flex:1;background:#229ED9" onclick="openL('tg')">Telegram</button><button class="btn" style="flex:1;background:#FF0000" onclick="openL('yt')">YouTube</button></div><div class="card" style="display:flex;justify-content:space-between;margin-top:8px"><span>Admin Support</span><span style="color:#22c55e">Online ●</span></div></div>
 <div class="glass"><b>💰 Payment Proof - Panel থেকে কন্ট্রোল</b><div class="card" style="display:flex;justify-content:space-between"><span>Today Paid</span><b style="color:#22c55e" id="todayPaid">৳45,200</b></div><div class="card" style="display:flex;justify-content:space-between"><span>Total Paid</span><b id="totalPaid">৳12,45,000+</b></div></div>
 </div>
 
 <div id="p-profile" class="page">
 <div class="glass" style="text-align:center;border:1.5px solid #7C5CFF"><input type="file" id="picUp" accept="image/*" style="display:none"><div id="profPicWrap" onclick="picUp.click()"><div id="profPic">👤</div><div id="camIcon">📷</div></div><input id="profName" value="SHIBLI NOMAN" class="input" style="text-align:center;font-weight:800"><button class="btn" style="margin-top:10px;background:#22c55e" onclick="saveProfile()">💾 Save Name & Photo</button><div style="font-size:26px;font-weight:900;color:#22c55e;margin-top:10px" id="bal2">৳764.00</div><div class="card">20 Refer • ৳764 Income • 24 Joined</div></div>
-<div class="glass"><b>💎 Diamond Level</b><div class="bar" style="margin-top:8px"><div class="fill"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px"><small>1307 Diamond</small><small>Next: 1500</small></div></div>
+<div class="glass"><b>💎 Diamond Level: 2</b><div class="bar"><div class="fill" id="fill2" style="width:80%"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px"><small id="dProf">1307 Diamond</small><small>Next: 1500</small></div></div>
 <div class="glass" style="border:1.5px solid #22c55e;display:flex;justify-content:space-between;align-items:center" id="verifyBox"><div><b style="color:#22c55e">✅ Verified Account</b><br><small>ID: 12345 • Level 2 - 5 বার ক্লিক = Admin</small></div><div style="background:#22c55e;padding:6px 12px;border-radius:100px;font-size:12px;font-weight:800">Verified</div></div>
 </div>
 
 <div id="p-admin" class="page">
-<div class="glass" style="border:2px solid #FF3B30"><h3>🔐 Admin Panel - A to Z</h3>
+<div class="glass" style="border:2px solid #FF3B30"><h3>🔐 Admin Panel - A to Z Control</h3>
 <input id="aTg" class="adminInput" placeholder="Telegram Link">
 <input id="aYt" class="adminInput" placeholder="YouTube Link">
 <input id="aCRate" class="adminInput" type="number" step="0.01" placeholder="Company Rate">
 <input id="aPRate" class="adminInput" type="number" step="0.01" placeholder="Popup Rate">
 <textarea id="aNotice" class="adminInput" placeholder="Admin Notice"></textarea>
-<textarea id="aBigAd" class="adminInput" placeholder="Big Ad Box"></textarea>
+<textarea id="aBigAd" class="adminInput" placeholder="Big Ad Box Content"></textarea>
 <input id="aToday" class="adminInput" placeholder="Today Paid">
 <input id="aTotal" class="adminInput" placeholder="Total Paid">
 <button class="btn" style="margin-top:12px;background:#22c55e" onclick="saveAdmin()">💾 Save All</button>
@@ -85,7 +98,7 @@ body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding-bottom:
 let cfg=JSON.parse(localStorage.getItem('cfg')||'{}');let def={tg:'https://t.me/ProtidinerKajBD',yt:'https://www.youtube.com/@MdSible-k7o',cRate:0.25,pRate:0.20,notice:'• Min 500 • 12h Reset • 24h Payment • 100% Trusted',bigAd:'এখানে তোমার বড় বিজ্ঞাপন বসবে - Admin Panel থেকে চেঞ্জ',today:'৳45,200',total:'৳12,45,000+',join:'1,240',referHead:'৳20 Per Refer + 15% Lifetime'};for(let k in def)if(!cfg[k])cfg[k]=def[k];
 function openL(t){let u=t==='tg'?cfg.tg:cfg.yt;try{if(Telegram&&Telegram.WebApp&&Telegram.WebApp.openLink){Telegram.WebApp.openLink(u);return}}catch{}window.open(u,'_blank')}
 let sBal=localStorage.getItem('bal');let bal=(sBal!==null&&parseFloat(sBal)>0)?parseFloat(sBal):764;let sC=localStorage.getItem('cCount');let c=sC?parseInt(sC):20;let sP=localStorage.getItem('pCount');let p=sP?parseInt(sP):0;let sD=localStorage.getItem('diamond');let diamond=sD?parseInt(sD):1307;
-function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);document.getElementById('dBig').innerText=diamond;document.getElementById('cC').innerText=c+'/30';document.getElementById('pC').innerText=p+'/30';document.getElementById('cRate').innerText='৳'+cfg.cRate;document.getElementById('pRate').innerText='৳'+cfg.pRate;document.getElementById('adminNotice').innerText=cfg.notice;document.getElementById('bigAdBox').innerHTML=cfg.bigAd;document.getElementById('todayPaid').innerText=cfg.today;document.getElementById('totalPaid').innerText=cfg.total;localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('pCount',p);localStorage.setItem('diamond',diamond)}
+function render(){document.getElementById('bal').innerText='৳'+bal.toFixed(2);document.getElementById('bal2').innerText='৳'+bal.toFixed(2);document.getElementById('dBig').innerText=diamond;document.getElementById('dTxt').innerText=diamond+' Diamond';document.getElementById('cC').innerText=c+'/30';document.getElementById('pC').innerText=p+'/30';document.getElementById('cRate').innerText='৳'+cfg.cRate;document.getElementById('pRate').innerText='৳'+cfg.pRate;document.getElementById('adminNotice').innerText=cfg.notice;document.getElementById('bigAdBox').innerHTML=cfg.bigAd;document.getElementById('todayPaid').innerText=cfg.today;document.getElementById('totalPaid').innerText=cfg.total;document.getElementById('adsCount').innerText=c;document.getElementById('lvlTxt').innerText='💎 Diamond Level: 2';document.getElementById('lvlPer').innerText='80%';document.getElementById('lvlFill').style.width='80%';document.getElementById('fill2').style.width='80%';localStorage.setItem('bal',bal);localStorage.setItem('cCount',c);localStorage.setItem('pCount',p);localStorage.setItem('diamond',diamond)}
 function openP(n){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('p-'+n).classList.add('active');document.querySelectorAll('.btm div').forEach(x=>x.classList.remove('on'));let b=document.getElementById('b-'+n);if(b)b.classList.add('on');window.scrollTo(0,0)}
 function watchAd(b,t){b.innerText='Loading...';let zone=t==='c'?'11764581':'11798857';let fn=window['show_'+zone];if(typeof fn==='function'){try{let pr=fn();if(pr&&pr.then){pr.then(()=>{if(t==='c'){c++;bal+=parseFloat(cfg.cRate)}else{p++;bal+=parseFloat(cfg.pRate)}diamond++;render();b.innerText='Done ✓';setTimeout(()=>b.innerText=t==='c'?'▶️ Start':'▶️ Watch',1200)}).catch(()=>b.innerText='Try Again');return}}catch{}}setTimeout(()=>{if(t==='c'){c++;bal+=parseFloat(cfg.cRate)}else{p++;bal+=parseFloat(cfg.pRate)}diamond++;render();b.innerText='Done ✓'},700)}
 function doWithdraw(){let a=parseFloat(document.getElementById('wAmt').value);if(!a||a<500)return alert('Min 500');if(a>bal)return alert('Balance কম');bal-=a;render();alert('Withdraw Success')}
@@ -94,7 +107,7 @@ document.getElementById('picUp').addEventListener('change',function(){if(this.fi
 function saveProfile(){localStorage.setItem('profName',document.getElementById('profName').value);if(tempPic)localStorage.setItem('profPic',tempPic);alert('Saved!')}
 let clicks=0;document.getElementById('verifyBox').addEventListener('click',()=>{clicks++;if(clicks>=5){clicks=0;openAdmin()}setTimeout(()=>clicks=0,2000)});
 function openAdmin(){openP('admin');document.getElementById('aTg').value=cfg.tg;document.getElementById('aYt').value=cfg.yt;document.getElementById('aCRate').value=cfg.cRate;document.getElementById('aPRate').value=cfg.pRate;document.getElementById('aNotice').value=cfg.notice;document.getElementById('aBigAd').value=cfg.bigAd;document.getElementById('aToday').value=cfg.today;document.getElementById('aTotal').value=cfg.total}
-function saveAdmin(){cfg.tg=document.getElementById('aTg').value;cfg.yt=document.getElementById('aYt').value;cfg.cRate=document.getElementById('aCRate').value;cfg.pRate=document.getElementById('aPRate').value;cfg.notice=document.getElementById('aNotice').value;cfg.bigAd=document.getElementById('aBigAd').value;cfg.today=document.getElementById('aToday').value;cfg.total=document.getElementById('aTotal').value;localStorage.setItem('cfg',JSON.stringify(cfg));render();alert('✅ Saved! ফাঁকা বন্ধ হয়ে গেছে');openP('home')}
+function saveAdmin(){cfg.tg=document.getElementById('aTg').value;cfg.yt=document.getElementById('aYt').value;cfg.cRate=document.getElementById('aCRate').value;cfg.pRate=document.getElementById('aPRate').value;cfg.notice=document.getElementById('aNotice').value;cfg.bigAd=document.getElementById('aBigAd').value;cfg.today=document.getElementById('aToday').value;cfg.total=document.getElementById('aTotal').value;localStorage.setItem('cfg',JSON.stringify(cfg));render();alert('✅ Saved!');openP('home')}
 render();
 </script>
 </body>
