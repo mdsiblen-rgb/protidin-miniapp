@@ -15,7 +15,7 @@ exports.handler = async (event) => {
           reply_markup: {
             inline_keyboard: [
               [{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://protidin-miniapp.netlify.app" } }],
-              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinPaymentBD" }]
+              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হন", url: "https://t.me/ProtidinerKajBD" }]
             ]
           }
         })
