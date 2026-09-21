@@ -1,4 +1,3 @@
-
 exports.handler = async (event) => {
   const token = process.env.BOT_TOKEN;
   try {
@@ -12,11 +11,12 @@ exports.handler = async (event) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
-          text: "Protidin Mini App এ স্বাগতম! নিচের বাটনে টিপ দিন",
+          text: "✅ স্বাগতম Protidin Mini App এ!\n\nপ্রতিদিন ইনকাম করতে নিচের বাটনে ক্লিক করুন।",
           reply_markup: {
-            inline_keyboard: [[
-              { text: "🚀 Open App", web_app: { url: "https://protidin-miniapp.netlify.app" } }
-            ]]
+            inline_keyboard: [
+              [{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://protidin-miniapp.netlify.app" } }],
+              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinPaymentBD" }]
+            ]
           }
         })
       });
