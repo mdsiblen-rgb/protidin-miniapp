@@ -3,9 +3,12 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
     const chatId = body.message?.chat?.id;
-    const text = body.message?.text;
+    const text = body.message?.text?.trim() || "";
+
     if (!chatId) return { statusCode: 200, body: "ok" };
-    if (text === "/start") {
+
+    // /start, /start@botname সবগুলো ধরবে
+    if (text.startsWith("/start")) {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -15,12 +18,14 @@ exports.handler = async (event) => {
           reply_markup: {
             inline_keyboard: [
               [{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://protidin-miniapp.netlify.app" } }],
-              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হন", url: "https://t.me/ProtidinerKajBD" }]
+              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinerKajBD" }]
             ]
           }
         })
       });
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log("Error:", e);
+  }
   return { statusCode: 200, body: "ok" };
 };
