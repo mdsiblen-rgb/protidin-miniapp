@@ -1,172 +1,144 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin Panel - Protidin - A to Z Control</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Protidiner Kaj BD - A to Z</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#070A1A;color:#fff;max-width:700px;margin:0 auto;padding:12px;padding-bottom:100px}
-.glass{background:#161C36;border:1px solid #2A335E;border-radius:18px;padding:16px;margin:10px 0}
-.btn{padding:12px 18px;border:none;border-radius:12px;font-weight:800;color:#fff;background:#7C5CFF;cursor:pointer;margin-top:8px}
-.btn-g{background:#22c55e}.btn-o{background:#FF9F0A}.btn-r{background:#e11d48}
-.input{width:100%;padding:11px;border-radius:10px;border:1px solid #2A335E;background:#0B0E1C;color:#fff;margin-top:6px}
-label{font-size:12px;color:#9CA3AF;margin-top:10px;display:block;font-weight:700}
-h2{color:#8B5CF6;margin-top:10px} h3{color:#22c55e;margin:12px 0 6px}
-.flex{display:flex;gap:8px}.flex>div{flex:1}
+:root{--bg:#0f0f1e;--card:#1a1a2e;--card2:#252542;--purple:#8b5cf6;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--text:#fff;--muted:#9ca3af}
+*{box-sizing:border-box;font-family: 'Hind Siliguri',system-ui}
+body{margin:0;background:var(--bg);color:var(--text);padding:12px}
+h1{text-align:center;color:var(--purple);font-size:22px;margin:10px 0}
+.card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid #2d2d4d;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.card h2{margin:0 0 12px;font-size:17px;color:var(--green)}
+label{font-size:12px;color:var(--muted);display:block;margin:8px 0 4px}
+input,textarea{width:100%;background:#0f0f1e;border:1px solid #333;padding:10px 12px;border-radius:10px;color:#fff;font-size:14px;outline:none}
+input:focus,textarea:focus{border-color:var(--purple)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.btn{border:none;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;font-size:14px;width:100%;margin-top:8px}
+.btn-green{background:var(--green);color:#000}
+.btn-orange{background:var(--orange);color:#000}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.top-actions button{width:auto}
 </style>
 </head>
 <body>
-<div class="glass" style="text-align:center;border:2px solid #7C5CFF">
-<h2>👑 Admin Panel - A to Z Control - ভরপুর</h2>
-<small>এখান থেকে সব চেঞ্জ করলে মেইন অ্যাপে অটো আপডেট হবে</small><br>
-<button class="btn btn-g" onclick="loadConfig()">🔄 Load Current Config</button>
-<button class="btn btn-o" onclick="saveConfig()">💾 Save All - ভরপুর সেভ</button>
-<button class="btn btn-r" onclick="resetConfig()">♻️ Reset Default</button>
+<h1>👑 Admin Panel - A to Z Control - ভরপুর</h1>
+<p style="text-align:center;color:var(--muted);font-size:12px;margin:0">এখান থেকে সব চেঞ্জ করলে মেইন অ্যাপে অটো আপডেট হবে</p>
+
+<div class="top-actions">
+<button class="btn btn-green" style="width:auto" onclick="loadConfig()">🔄 Load Current Config</button>
+<button class="btn btn-orange" style="width:auto" onclick="saveAll()">💾 Save All - ভরপুর সেভ</button>
+<button class="btn btn-red" style="width:auto" onclick="resetDefault()">♻️ Reset Default</button>
 </div>
 
-<div class="glass">
-<h3>🔗 লিংক কন্ট্রোল - ভরপুর</h3>
-<label>Telegram Link</label><input class="input" id="tg_link">
-<label>YouTube Link</label><input class="input" id="yt_link">
-<label>Refer Base Link</label><input class="input" id="ref_base">
-<label>Company Ad Zone ID (11764581)</label><input class="input" id="zone_c">
-<label>Popup Ad Zone ID (11798857)</label><input class="input" id="zone_p">
+<!-- LINK CONTROL -->
+<div class="card">
+<h2>🔗 লিংক কন্ট্রোল - ভরপুর</h2>
+<label>Telegram Link</label><input id="tg_link" value="https://t.me/ProtidinerKajBD">
+<label>YouTube Link</label><input id="yt_link" value="https://www.youtube.com/@MdSible-k7o">
+<label>Refer Base Link</label><input id="ref_base" value="https://t.me/ProtidinMiniAppBot?start=">
+<div class="grid2">
+<div><label>Company Ad Zone ID (11764581)</label><input id="zone_c" value="11764581"></div>
+<div><label>Popup Ad Zone ID (11798857)</label><input id="zone_p" value="11798857"></div>
+</div>
 </div>
 
-<div class="glass">
-<h3>💸 টাকার পরিমাণ - ভরপুর</h3>
-<div class="flex"><div><label>Company Ad ৳</label><input class="input" id="c_tk" type="number" step="0.01"></div><div><label>Popup Ad ৳</label><input class="input" id="p_tk" type="number" step="0.01"></div></div>
-<div class="flex"><div><label>Visit Company Task ৳</label><input class="input" id="task_company_tk" type="number"></div><div><label>Check-in ৳</label><input class="input" id="checkin_tk" type="number"></div></div>
-<div class="flex"><div><label>Telegram Join ৳</label><input class="input" id="tg_tk" type="number"></div><div><label>YouTube Join ৳</label><input class="input" id="yt_tk" type="number"></div></div>
-<div class="flex"><div><label>Refer Bonus ৳</label><input class="input" id="refer_tk" type="number"></div><div><label>Spin Bonus Min ৳ না - Diamond হিসাবে</label><input class="input" id="spin_info" placeholder="Diamond only"></div></div>
-<label>Withdraw Min ৳</label><input class="input" id="withdraw_min" type="number">
-<label>60 Ads Bonus ৳</label><input class="input" id="bonus_60" type="number">
+<!-- TAKA -->
+<div class="card">
+<h2>💸 টাকার পরিমাণ - ভরপুর</h2>
+<div class="grid2">
+<div><label>Company Ad ৳</label><input id="t_company" type="number" value="0.25"></div>
+<div><label>Popup Ad ৳</label><input id="t_popup" type="number" value="0.2"></div>
+<div><label>Visit Company Task ৳</label><input id="t_visit" type="number" value="20"></div>
+<div><label>Check-in ৳</label><input id="t_checkin" type="number" value="10"></div>
+<div><label>Telegram Join ৳</label><input id="t_tg" type="number" value="10"></div>
+<div><label>YouTube Join ৳</label><input id="t_yt" type="number" value="10"></div>
+<div><label>Refer Bonus ৳</label><input id="t_refer" type="number" value="20"></div>
+<div><label>Spin Bonus Min ৳ (Diamond হিসাবে)</label><input id="t_spin" value="Diamond only"></div>
+</div>
+<label>Withdraw Min ৳</label><input id="t_withdraw" type="number" value="500">
+<label>60 Ads Bonus ৳</label><input id="t_60ads" type="number" value="200">
 </div>
 
-<div class="glass">
-<h3>💎 ডায়মন্ড পরিমাণ - ভরপুর</h3>
-<div class="flex"><div><label>Company Task Diamond</label><input class="input" id="task_company_d" type="number"></div><div><label>Check-in Diamond</label><input class="input" id="checkin_d" type="number"></div></div>
-<div class="flex"><div><label>Telegram Diamond</label><input class="input" id="tg_d" type="number"></div><div><label>YouTube Diamond</label><input class="input" id="yt_d" type="number"></div></div>
-<div class="flex"><div><label>Company Ad Diamond (প্রতি Ad)</label><input class="input" id="c_d" type="number"></div><div><label>Popup Ad Diamond</label><input class="input" id="p_d" type="number"></div></div>
-<label>Spin Rewards (5,10,20,30,50,100)</label><input class="input" id="spin_rewards">
+<!-- DIAMOND -->
+<div class="card">
+<h2>💎 ডায়মন্ড কন্ট্রোল</h2>
+<div class="grid2">
+<div><label>Telegram Diamond</label><input id="d_tg" type="number" value="10"></div>
+<div><label>YouTube Diamond</label><input id="d_yt" type="number" value="10"></div>
+<div><label>Company Ad Diamond (প্রতি Ad)</label><input id="d_company" type="number" value="1"></div>
+<div><label>Popup Ad Diamond</label><input id="d_popup" type="number" value="1"></div>
+</div>
+<label>Spin Rewards (5,10,20,30,50,100)</label><input id="spin_rewards" value="5,10,20,30,50,100">
 </div>
 
-<div class="glass">
-<h3>📦 বক্সের লেখা - ভরপুর</h3>
-<label>Home Biggest Offer Text</label><textarea class="input" id="txt_offer" style="height:70px"></textarea>
-<label>Support Admin Notice</label><textarea class="input" id="txt_admin" style="height:70px"></textarea>
-<label>Refer Top Text</label><input class="input" id="txt_refer">
-<label>Level Names (0-100,100-300,300-500,500+)</label><input class="input" id="txt_levels">
+<!-- TEXT -->
+<div class="card">
+<h2>📦 বক্সের লেখা - ভরপুর</h2>
+<label>Home Biggest Offer Text</label><textarea id="home_offer" rows="3">30+30=60 Ad = ৳200 Bonus | সব বাটন কাজ করে | সব লিংক কাজ করে</textarea>
+<label>Support Admin Notice</label><textarea id="support_notice" rows="3">Support 10AM-10PM | t.me/ProtidinerKajBD | Min 500 | 12h Reset</textarea>
+<label>Refer Top Text</label><input id="refer_top" value="৳20 Instant + 15% Lifetime">
+<label>Level Names (0-100,100-300,300-500,500+)</label><input id="level_names" value="Bronze,Silver,Gold,Diamond VIP">
 </div>
 
-<div class="glass">
-<h3>🎯 Level & Progress - ভরপুর</h3>
-<div class="flex"><div><label>Bronze Max</label><input class="input" id="lvl_bronze" type="number"></div><div><label>Silver Max</label><input class="input" id="lvl_silver" type="number"></div><div><label>Gold Max</label><input class="input" id="lvl_gold" type="number"></div></div>
-<label>Default Balance ৳</label><input class="input" id="default_bal" type="number" step="0.01">
-<label>Default Diamond</label><input class="input" id="default_diamond" type="number">
-<label>Default Ads Count</label><input class="input" id="default_ads" type="number">
+<!-- LEVEL -->
+<div class="card">
+<h2>🎯 Level & Progress - ভরপুর</h2>
+<div class="grid3">
+<div><label>Bronze Max</label><input id="bronze_max" type="number" value="100"></div>
+<div><label>Silver Max</label><input id="silver_max" type="number" value="300"></div>
+<div><label>Gold Max</label><input id="gold_max" type="number" value="500"></div>
+</div>
+<label>Default Balance ৳</label><input id="def_balance" type="number" value="700.55">
+<label>Default Diamond</label><input id="def_diamond" type="number" value="1231">
+<label>Default Ads Count</label><input id="def_ads" type="number" value="17">
 </div>
 
-<div class="glass" style="border:2px dashed #22c55e">
-<b>📤 Export / Import - ভরপুর</b><br>
-<textarea class="input" id="exportBox" style="height:120px" placeholder="Config JSON এখানে আসবে"></textarea>
-<div class="flex"><button class="btn" onclick="exportConfig()">📋 Export JSON</button><button class="btn btn-g" onclick="importConfig()">📥 Import JSON</button></div>
-<small style="color:#9CA3AF">এই JSON কপি করে রাখলে পরে যেকোন সময় Restore করতে পারবে</small>
+<!-- EXPORT IMPORT -->
+<div class="card" style="border:2px dashed var(--green)">
+<h2>📤 Export / Import - ভরপুর</h2>
+<textarea id="json_box" rows="8" placeholder='{"tg_link":...}'></textarea>
+<div class="grid2">
+<button class="btn btn-purple" onclick="exportJSON()">📋 Export JSON</button>
+<button class="btn btn-green" onclick="importJSON()">📥 Import JSON</button>
+</div>
+<p style="color:var(--muted);font-size:11px;margin-top:8px">এই JSON কপি করে রাখলে পরে যেকোন সময় Restore করতে পারবে</p>
 </div>
 
 <script>
-const DEFAULT = {
-tg_link:"https://t.me/ProtidinerKajBD", yt_link:"https://www.youtube.com/@MdSible-k7o", ref_base:"https://t.me/ProtidinMiniAppBot?start=",
-zone_c:"11764581", zone_p:"11798857",
-c_tk:0.25, p_tk:0.20, task_company_tk:20, checkin_tk:10, tg_tk:10, yt_tk:10, refer_tk:20, withdraw_min:500, bonus_60:200,
-task_company_d:15, checkin_d:20, tg_d:10, yt_d:10, c_d:1, p_d:1, spin_rewards:"5,10,20,30,50,100",
-txt_offer:"30+30=60 Ad = ৳200 Bonus | সব বাটন কাজ করে | সব লিংক কাজ করে",
-txt_admin:"Support 10AM-10PM | t.me/ProtidinerKajBD | Min 500 | 12h Reset",
-txt_refer:"৳20 Instant + 15% Lifetime", txt_levels:"Bronze,Silver,Gold,Diamond VIP",
-lvl_bronze:100, lvl_silver:300, lvl_gold:500, default_bal:700.55, default_ads:17, default_diamond:1231
-};
-
+const KEYS = ["tg_link","yt_link","ref_base","zone_c","zone_p","t_company","t_popup","t_visit","t_checkin","t_tg","t_yt","t_refer","t_spin","t_withdraw","t_60ads","d_tg","d_yt","d_company","d_popup","spin_rewards","home_offer","support_notice","refer_top","level_names","bronze_max","silver_max","gold_max","def_balance","def_diamond","def_ads"];
+function saveAll(){
+ let cfg={}; KEYS.forEach(k=>{cfg[k]=document.getElementById(k).value});
+ localStorage.setItem("protidin_config", JSON.stringify(cfg));
+ document.getElementById("json_box").value=JSON.stringify(cfg,null,2);
+ alert("✅ ভরপুর সেভ হয়ে গেছে জান! LocalStorage এ সেভ!");
+}
 function loadConfig(){
-let cfg = {...DEFAULT,...JSON.parse(localStorage.getItem('protidin_admin_config')||'{}')};
-document.getElementById('tg_link').value=cfg.tg_link;
-document.getElementById('yt_link').value=cfg.yt_link;
-document.getElementById('ref_base').value=cfg.ref_base;
-document.getElementById('zone_c').value=cfg.zone_c;
-document.getElementById('zone_p').value=cfg.zone_p;
-document.getElementById('c_tk').value=cfg.c_tk;
-document.getElementById('p_tk').value=cfg.p_tk;
-document.getElementById('task_company_tk').value=cfg.task_company_tk;
-document.getElementById('checkin_tk').value=cfg.checkin_tk;
-document.getElementById('tg_tk').value=cfg.tg_tk;
-document.getElementById('yt_tk').value=cfg.yt_tk;
-document.getElementById('refer_tk').value=cfg.refer_tk;
-document.getElementById('withdraw_min').value=cfg.withdraw_min;
-document.getElementById('bonus_60').value=cfg.bonus_60;
-document.getElementById('task_company_d').value=cfg.task_company_d;
-document.getElementById('checkin_d').value=cfg.checkin_d;
-document.getElementById('tg_d').value=cfg.tg_d;
-document.getElementById('yt_d').value=cfg.yt_d;
-document.getElementById('c_d').value=cfg.c_d;
-document.getElementById('p_d').value=cfg.p_d;
-document.getElementById('spin_rewards').value=cfg.spin_rewards;
-document.getElementById('txt_offer').value=cfg.txt_offer;
-document.getElementById('txt_admin').value=cfg.txt_admin;
-document.getElementById('txt_refer').value=cfg.txt_refer;
-document.getElementById('txt_levels').value=cfg.txt_levels;
-document.getElementById('lvl_bronze').value=cfg.lvl_bronze;
-document.getElementById('lvl_silver').value=cfg.lvl_silver;
-document.getElementById('lvl_gold').value=cfg.lvl_gold;
-document.getElementById('default_bal').value=cfg.default_bal;
-document.getElementById('default_diamond').value=cfg.default_diamond;
-document.getElementById('default_ads').value=cfg.default_ads;
-document.getElementById('exportBox').value=JSON.stringify(cfg,null,2);
-alert('✅ Config Loaded - সব ভরপুর লোড হয়েছে');
+ let s=localStorage.getItem("protidin_config");
+ if(!s){alert("কোন সেভ করা Config নাই!");return;}
+ let cfg=JSON.parse(s); KEYS.forEach(k=>{if(cfg[k]!==undefined) document.getElementById(k).value=cfg[k]});
+ document.getElementById("json_box").value=JSON.stringify(cfg,null,2);
+ alert("✅ Load হয়ে গেছে!");
 }
-
-function saveConfig(){
-let cfg={
-tg_link:document.getElementById('tg_link').value,
-yt_link:document.getElementById('yt_link').value,
-ref_base:document.getElementById('ref_base').value,
-zone_c:document.getElementById('zone_c').value,
-zone_p:document.getElementById('zone_p').value,
-c_tk:parseFloat(document.getElementById('c_tk').value),
-p_tk:parseFloat(document.getElementById('p_tk').value),
-task_company_tk:parseFloat(document.getElementById('task_company_tk').value),
-checkin_tk:parseFloat(document.getElementById('checkin_tk').value),
-tg_tk:parseFloat(document.getElementById('tg_tk').value),
-yt_tk:parseFloat(document.getElementById('yt_tk').value),
-refer_tk:parseFloat(document.getElementById('refer_tk').value),
-withdraw_min:parseFloat(document.getElementById('withdraw_min').value),
-bonus_60:parseFloat(document.getElementById('bonus_60').value),
-task_company_d:parseInt(document.getElementById('task_company_d').value),
-checkin_d:parseInt(document.getElementById('checkin_d').value),
-tg_d:parseInt(document.getElementById('tg_d').value),
-yt_d:parseInt(document.getElementById('yt_d').value),
-c_d:parseInt(document.getElementById('c_d').value),
-p_d:parseInt(document.getElementById('p_d').value),
-spin_rewards:document.getElementById('spin_rewards').value,
-txt_offer:document.getElementById('txt_offer').value,
-txt_admin:document.getElementById('txt_admin').value,
-txt_refer:document.getElementById('txt_refer').value,
-txt_levels:document.getElementById('txt_levels').value,
-lvl_bronze:parseInt(document.getElementById('lvl_bronze').value),
-lvl_silver:parseInt(document.getElementById('lvl_silver').value),
-lvl_gold:parseInt(document.getElementById('lvl_gold').value),
-default_bal:parseFloat(document.getElementById('default_bal').value),
-default_diamond:parseInt(document.getElementById('default_diamond').value),
-default_ads:parseInt(document.getElementById('default_ads').value)
-};
-localStorage.setItem('protidin_admin_config',JSON.stringify(cfg));
-document.getElementById('exportBox').value=JSON.stringify(cfg,null,2);
-alert('✅ Saved! এখন মেইন অ্যাপ রিফ্রেশ দাও - সব চেঞ্জ হয়ে যাবে - ভরপুর');
+function exportJSON(){
+ let cfg={}; KEYS.forEach(k=>{cfg[k]=document.getElementById(k).value});
+ document.getElementById("json_box").value=JSON.stringify(cfg,null,2);
+ navigator.clipboard.writeText(document.getElementById("json_box").value);
+ alert("📋 JSON Copy হয়ে গেছে!");
 }
-
-function resetConfig(){ if(confirm('Reset Default?')){ localStorage.removeItem('protidin_admin_config'); loadConfig(); alert('Reset Done'); } }
-function exportConfig(){ document.getElementById('exportBox').value=localStorage.getItem('protidin_admin_config')||JSON.stringify(DEFAULT,null,2); }
-function importConfig(){ try{ let j=JSON.parse(document.getElementById('exportBox').value); localStorage.setItem('protidin_admin_config',JSON.stringify(j)); loadConfig(); alert('Imported!'); }catch(e){ alert('Invalid JSON'); } }
-
-loadConfig();
+function importJSON(){
+ try{
+  let cfg=JSON.parse(document.getElementById("json_box").value);
+  KEYS.forEach(k=>{if(cfg[k]!==undefined) document.getElementById(k).value=cfg[k]});
+  saveAll();
+  alert("✅ Import সফল!");
+ }catch(e){alert("❌ JSON ভুল আছে: "+e.message)}
+}
+function resetDefault(){if(confirm("Reset করবে জান?")){localStorage.removeItem("protidin_config"); location.reload();}}
 </script>
 </body>
 </html>
