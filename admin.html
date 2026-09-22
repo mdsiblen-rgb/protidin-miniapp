@@ -1,80 +1,121 @@
-<!-- === SEPARATE ADMIN PANEL BOX - FINAL PRO - 5x VERIFY + BOT ADMIN === -->
-<div id="p-admin" class="page">
-  <div class="glass" style="border:2px solid #7C5CFF">
-    <b>🔐 Admin Panel - Final Pro (Boss) - 2 Way Open</b>
-    
-    <label>Telegram Channel Link</label><input id="aTg" class="adminInput">
-    <label>YouTube Channel Link</label><input id="aYt" class="adminInput">
-    <label style="color:#22c55e">Company Visit Direct Link</label><input id="aDirect" class="adminInput">
-    <label style="color:#22c55e">Company Ads Zone ID</label><input id="aZoneC" class="adminInput">
-    <label style="color:#FF9F0A">Popup / Bonus Zone ID</label><input id="aZoneP" class="adminInput">
-    <hr style="margin:10px 0;border-color:#252B4A">
-    <label>Company Rate</label><input id="aCR" class="adminInput" type="number" step="0.01">
-    <label>Popup Rate</label><input id="aPR" class="adminInput" type="number" step="0.01">
-    <label>Min Withdraw (500)</label><input id="aMin" class="adminInput" type="number">
-    <label>Refer Bonus</label><input id="aRef" class="adminInput" type="number">
-    <label>Refer Head</label><input id="aHead" class="adminInput">
-    <label>Notice</label><textarea id="aNotice" class="adminInput"></textarea>
-    <label>Home Big Box</label><textarea id="aAd" class="adminInput" style="height:80px"></textarea>
-    <label>Support Big Box</label><textarea id="aSupport" class="adminInput" style="height:80px"></textarea>
-    <label>Refer Big Box</label><textarea id="aReferBox" class="adminInput" style="height:80px"></textarea>
-    <label>Profile Big Box</label><textarea id="aProfile" class="adminInput" style="height:80px"></textarea>
-    <label>Spin Rewards</label><input id="aSpin" class="adminInput">
-    <label>Welcome Tk</label><input id="aWelTk" class="adminInput" type="number">
-    <label>Welcome Diamond</label><input id="aWelDm" class="adminInput" type="number">
-    <label>Today Paid</label><input id="aToday" class="adminInput">
-    <label>Total Paid</label><input id="aTotal" class="adminInput">
-    <label>Total Joined</label><input id="aJoin" class="adminInput" type="number">
-    <button class="btn" style="background:#22c55e;margin-top:10px" onclick="saveA()">Save All Config</button>
-  </div>
-
-  <div class="glass" style="border:2px solid #22c55e">
-    <b>💸 Withdraw Requests - Boss Control</b>
-    <button class="btn" style="margin-top:8px;background:#0E122A;border:1px solid #22c55e" onclick="loadWithdraws()">🔄 Load Withdraw Requests</button>
-    <div id="withdrawList" style="margin-top:10px"><small style="color:#8B90B8">Load এ ক্লিক করুন</small></div>
-  </div>
-
-  <div class="glass" style="border:2px solid #FF9F0A">
-    <b>👥 All Users - Balance / Refer Control</b>
-    <button class="btn" style="margin-top:8px;background:#0E122A;border:1px solid #FF9F0A" onclick="loadAllUsers()">🔄 Load All Users</button>
-    <div id="allUsersList" style="margin-top:10px"><small style="color:#8B90B8">Load এ ক্লিক করুন</small></div>
-  </div>
-  
-  <div class="glass">
-    <button class="btn" style="background:#FF3B30;margin-top:8px" onclick="resetAll()">Reset All to 0</button>
-    <button class="btn" style="background:#2A2E4A;margin-top:8px" onclick="openP('profile')">Back to Profile</button>
-  </div>
-</div>
-
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protidiner Kaj BD - Boss Panel</title>
+<style>
+body{background:#0B0E1F;color:#fff;font-family:Arial;padding:10px;margin:0}
+.main{border:2px solid #7c4dff;background:#15182e;padding:12px;border-radius:12px;max-width:600px;margin:auto}
+label{display:block;margin-top:12px;color:#8b8fa8;font-size:13px;font-weight:bold}
+input,textarea{width:100%;background:#0B0E1F!important;color:#fff!important;border:1px solid #3a3f5c!important;padding:10px;border-radius:8px;margin-top:4px;box-sizing:border-box;font-size:14px}
+textarea{resize:vertical}
+input:focus,textarea:focus{border-color:#7c4dff!important;outline:none}
+.btn-green{background:#00ff88;color:#000;padding:12px;width:100%;border:0;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:15px}
+.btn-dark{background:#22263f;color:#fff;border:1px solid #444;padding:8px 12px;border-radius:6px;cursor:pointer;margin-top:10px}
+h2{color:#7c4dff;text-align:center}
+.box{border:1px solid #333;background:#0B0E1F;padding:10px;border-radius:8px;margin-top:10px;color:#ccc}
+</style>
 <script>
-// === ADMIN BOX LOGIC - 2 WAY ===
-let cl=0,lastTap=0;
-document.getElementById('vBox').addEventListener('click',()=>{
-  let now=Date.now();
-  if(now-lastTap>3000) cl=0;
-  lastTap=now; cl++;
-  if(cl>=5){
-    let pass=prompt("🔐 Enter Admin Password:");
-    if(pass==="653598"){ openA(); }
-    else if(pass!==null){ alert("❌ Wrong Password!"); }
-    cl=0;
-  }
-});
-
-// BOT ADMIN ?admin=653598 দিয়ে খুলবে
-if(window.location.href.includes('admin=653598')){
-  setTimeout(()=>{ openA(); }, 800);
-}
-
-function openA(){
-  openP('admin');
-  aTg.value=cfg.tg; aYt.value=cfg.yt; aCR.value=cfg.cRate; aPR.value=cfg.pRate;
-  aMin.value=cfg.min; aRef.value=cfg.refBonus; aHead.value=cfg.referHead;
-  aNotice.value=cfg.notice; aAd.value=cfg.bigAd; aSupport.value=cfg.supportBox;
-  aReferBox.value=cfg.referBox; aProfile.value=cfg.profileBox;
-  aSpin.value=(cfg.spinRewards||[5,10,15,20,50,100]).join(',');
-  aWelTk.value=cfg.welcomeTk; aWelDm.value=cfg.welcomeDm;
-  aToday.value=cfg.today; aTotal.value=cfg.total; aJoin.value=cfg.join;
-  aDirect.value=cfg.direct; aZoneC.value=cfg.zoneC; aZoneP.value=cfg.zoneP;
+// পাসওয়ার্ড চেক - 653598
+let check = prompt("🔐 Boss Password দিন জান:");
+if(check !== "653598"){
+  alert("❌ ভুল পাসওয়ার্ড!");
+  document.write("<h1 style='color:red;text-align:center;margin-top:100px'>Access Denied!</h1>");
+  throw new Error("Wrong Password");
 }
 </script>
+</head>
+<body>
+<div class="main">
+<h2>🔐 Admin Panel - Final Pro (Boss)</h2>
+
+<label>Telegram Channel Link</label><input id="tg">
+<label>YouTube Channel Link</label><input id="yt">
+<label style="color:#00ff88">Company Visit Direct Link</label><input id="clink">
+<label style="color:#00ff88">Company Ads Zone ID</label><input id="czone">
+<label style="color:#ffcc00">Popup / Bonus Zone ID</label><input id="pzone">
+
+<label>Company Rate</label><input id="crate" placeholder="0.01">
+<label>Popup Rate</label><input id="prate" placeholder="0.02">
+<label>Min Withdraw (500)</label><input id="minw" placeholder="500">
+<label>Refer Bonus</label><input id="rbonus" placeholder="50">
+<label>Refer Head</label><input id="rhead" placeholder="5">
+<label>Notice</label><input id="notice" placeholder="আজকের নোটিশ">
+
+<label>Home Big Box</label><textarea id="home" rows="4"></textarea>
+<label>Support Big Box</label><textarea id="support" rows="4"></textarea>
+<label>Refer Big Box</label><textarea id="refer" rows="4"></textarea>
+<label>Profile Big Box</label><textarea id="profile" rows="4"></textarea>
+<label>Spin Rewards (10,20,0,50)</label><textarea id="spin" rows="3" style="border:2px solid #ff9800!important"></textarea>
+
+<label>Welcome Tk</label><input id="wtk">
+<label>Welcome Diamond</label><input id="wd">
+<label>Today Paid</label><input id="today">
+<label>Total Paid</label><input id="total">
+<label>Total Joined</label><input id="joined">
+
+<button class="btn-green" onclick="saveA()">✅ Save All Config</button>
+<p id="status" style="color:#00ff88;text-align:center"></p>
+
+<h3 style="margin-top:20px">💸 Withdraw Requests - Boss Control</h3>
+<button class="btn-dark" onclick="loadW()">🔄 Load Withdraw Requests</button>
+<div id="wlist" class="box">Load এ ক্লিক করুন</div>
+
+<h3>👥 All Users - Balance / Refer Control</h3>
+<button class="btn-dark" onclick="loadU()">🔄 Load All Users</button>
+<div id="ulist" class="box">Load এ ক্লিক করুন</div>
+
+<br>
+<button style="background:#ff4444;color:#fff;padding:10px;border:0;border-radius:6px;width:48%" onclick="resetA()">Reset All to 0</button>
+<button style="background:#333;color:#fff;padding:10px;border:0;border-radius:6px;width:48%" onclick="location.href='/'">Back to Profile</button>
+</div>
+
+<script type="module">
+// **** এখানে তোমার Firebase Config বসাও জান - index.html থেকে কপি করো ****
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Load Data
+get(ref(db, 'config')).then(s=>{
+ if(s.exists()){
+  let c=s.val();
+  tg.value=c.tg||''; yt.value=c.yt||''; clink.value=c.clink||''; czone.value=c.czone||'';
+  pzone.value=c.pzone||''; crate.value=c.crate||''; prate.value=c.prate||'';
+  minw.value=c.minw||''; rbonus.value=c.rbonus||''; rhead.value=c.rhead||'';
+  notice.value=c.notice||''; home.value=c.home||''; support.value=c.support||'';
+  refer.value=c.refer||''; profile.value=c.profile||''; spin.value=c.spin||'';
+  wtk.value=c.wtk||''; wd.value=c.wd||''; today.value=c.today||'';
+  total.value=c.total||''; joined.value=c.joined||'';
+ }
+});
+
+window.saveA=()=>{
+ set(ref(db,'config'),{
+  tg:tg.value, yt:yt.value, clink:clink.value, czone:czone.value, pzone:pzone.value,
+  crate:crate.value, prate:prate.value, minw:minw.value, rbonus:rbonus.value,
+  rhead:rhead.value, notice:notice.value, home:home.value, support:support.value,
+  refer:refer.value, profile:profile.value, spin:spin.value, wtk:wtk.value,
+  wd:wd.value, today:today.value, total:total.value, joined:joined.value
+ }).then(()=>{ status.innerText="✅ Save হয়ে গেছে জান!"; setTimeout(()=>status.innerText="",2000)});
+}
+
+window.loadW=()=>{ wlist.innerHTML="Loading..."; get(ref(db,'withdraws')).then(s=>{ if(!s.exists()){wlist.innerHTML="কোনো Request নাই"; return} let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${JSON.stringify(ch.val())}</div>`}); wlist.innerHTML=h; }); }
+window.loadU=()=>{ ulist.innerHTML="Loading..."; get(ref(db,'users')).then(s=>{ if(!s.exists()){ulist.innerHTML="কোনো User নাই"; return} let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${ch.key} : ${JSON.stringify(ch.val()).substring(0,100)}</div>`}); ulist.innerHTML=h; }); }
+window.resetA=()=>{ if(confirm("সব 0 করে দিবো জান?")){ set(ref(db,'config/today'),"0"); set(ref(db,'config/total'),"0"); set(ref(db,'config/joined'),"0"); alert("Reset Done"); } }
+</script>
+</body>
+</html>
