@@ -17,105 +17,94 @@ h2{color:#7c4dff;text-align:center}
 .box{border:1px solid #333;background:#0B0E1F;padding:10px;border-radius:8px;margin-top:10px;color:#ccc}
 </style>
 <script>
-// পাসওয়ার্ড চেক - 653598
+// FINAL LOCK - ভুল পাসওয়ার্ডে আর খুলবে না
 let check = prompt("🔐 Boss Password দিন জান:");
 if(check !== "653598"){
   alert("❌ ভুল পাসওয়ার্ড!");
-  document.write("<h1 style='color:red;text-align:center;margin-top:100px'>Access Denied!</h1>");
-  throw new Error("Wrong Password");
+  document.documentElement.innerHTML = "<h1 style='color:red;text-align:center;margin-top:150px;font-family:Arial'>⛔ Access Denied!</h1><p style='text-align:center;color:#fff;font-family:Arial'>ভুল পাসওয়ার্ড দিয়েছেন!</p>";
+  window.stop();
+  throw new Error("Access Denied");
 }
 </script>
 </head>
 <body>
 <div class="main">
 <h2>🔐 Admin Panel - Final Pro (Boss)</h2>
-
 <label>Telegram Channel Link</label><input id="tg">
 <label>YouTube Channel Link</label><input id="yt">
 <label style="color:#00ff88">Company Visit Direct Link</label><input id="clink">
 <label style="color:#00ff88">Company Ads Zone ID</label><input id="czone">
 <label style="color:#ffcc00">Popup / Bonus Zone ID</label><input id="pzone">
-
 <label>Company Rate</label><input id="crate" placeholder="0.01">
 <label>Popup Rate</label><input id="prate" placeholder="0.02">
 <label>Min Withdraw (500)</label><input id="minw" placeholder="500">
 <label>Refer Bonus</label><input id="rbonus" placeholder="50">
 <label>Refer Head</label><input id="rhead" placeholder="5">
 <label>Notice</label><input id="notice" placeholder="আজকের নোটিশ">
-
 <label>Home Big Box</label><textarea id="home" rows="4"></textarea>
 <label>Support Big Box</label><textarea id="support" rows="4"></textarea>
 <label>Refer Big Box</label><textarea id="refer" rows="4"></textarea>
 <label>Profile Big Box</label><textarea id="profile" rows="4"></textarea>
 <label>Spin Rewards (10,20,0,50)</label><textarea id="spin" rows="3" style="border:2px solid #ff9800!important"></textarea>
-
 <label>Welcome Tk</label><input id="wtk">
 <label>Welcome Diamond</label><input id="wd">
 <label>Today Paid</label><input id="today">
 <label>Total Paid</label><input id="total">
 <label>Total Joined</label><input id="joined">
-
 <button class="btn-green" onclick="saveA()">✅ Save All Config</button>
 <p id="status" style="color:#00ff88;text-align:center"></p>
-
 <h3 style="margin-top:20px">💸 Withdraw Requests - Boss Control</h3>
 <button class="btn-dark" onclick="loadW()">🔄 Load Withdraw Requests</button>
 <div id="wlist" class="box">Load এ ক্লিক করুন</div>
-
 <h3>👥 All Users - Balance / Refer Control</h3>
 <button class="btn-dark" onclick="loadU()">🔄 Load All Users</button>
 <div id="ulist" class="box">Load এ ক্লিক করুন</div>
-
 <br>
 <button style="background:#ff4444;color:#fff;padding:10px;border:0;border-radius:6px;width:48%" onclick="resetA()">Reset All to 0</button>
 <button style="background:#333;color:#fff;padding:10px;border:0;border-radius:6px;width:48%" onclick="location.href='/'">Back to Profile</button>
 </div>
-
 <script type="module">
-// **** এখানে তোমার Firebase Config বসাও জান - index.html থেকে কপি করো ****
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
+  databaseURL: "https://protidin-kaj-default-rtdb.firebaseio.com",
   projectId: "YOUR_PROJECT_ID",
   storageBucket: "YOUR_STORAGE_BUCKET",
   messagingSenderId: "YOUR_SENDER_ID",
   appId: "YOUR_APP_ID"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
-// Load Data
 get(ref(db, 'config')).then(s=>{
  if(s.exists()){
   let c=s.val();
-  tg.value=c.tg||''; yt.value=c.yt||''; clink.value=c.clink||''; czone.value=c.czone||'';
-  pzone.value=c.pzone||''; crate.value=c.crate||''; prate.value=c.prate||'';
-  minw.value=c.minw||''; rbonus.value=c.rbonus||''; rhead.value=c.rhead||'';
-  notice.value=c.notice||''; home.value=c.home||''; support.value=c.support||'';
-  refer.value=c.refer||''; profile.value=c.profile||''; spin.value=c.spin||'';
-  wtk.value=c.wtk||''; wd.value=c.wd||''; today.value=c.today||'';
-  total.value=c.total||''; joined.value=c.joined||'';
+  tg.value=c.tg||''; yt.value=c.yt||''; clink.value=c.clink||''; czone.value=c.czone||''; pzone.value=c.pzone||''; crate.value=c.crate||''; prate.value=c.prate||''; minw.value=c.minw||''; rbonus.value=c.rbonus||''; rhead.value=c.rhead||''; notice.value=c.notice||''; home.value=c.home||''; support.value=c.support||''; refer.value=c.refer||''; profile.value=c.profile||''; spin.value=c.spin||''; wtk.value=c.wtk||''; wd.value=c.wd||''; today.value=c.today||''; total.value=c.total||''; joined.value=c.joined||'';
  }
 });
-
 window.saveA=()=>{
- set(ref(db,'config'),{
-  tg:tg.value, yt:yt.value, clink:clink.value, czone:czone.value, pzone:pzone.value,
-  crate:crate.value, prate:prate.value, minw:minw.value, rbonus:rbonus.value,
-  rhead:rhead.value, notice:notice.value, home:home.value, support:support.value,
-  refer:refer.value, profile:profile.value, spin:spin.value, wtk:wtk.value,
-  wd:wd.value, today:today.value, total:total.value, joined:joined.value
- }).then(()=>{ status.innerText="✅ Save হয়ে গেছে জান!"; setTimeout(()=>status.innerText="",2000)});
+ set(ref(db,'config'),{ tg:tg.value, yt:yt.value, clink:clink.value, czone:czone.value, pzone:pzone.value, crate:crate.value, prate:prate.value, minw:minw.value, rbonus:rbonus.value, rhead:rhead.value, notice:notice.value, home:home.value, support:support.value, refer:refer.value, profile:profile.value, spin:spin.value, wtk:wtk.value, wd:wd.value, today:today.value, total:total.value, joined:joined.value }).then(()=>{ status.innerText="✅ Save হয়ে গেছে জান!"; setTimeout(()=>status.innerText="",2000)});
 }
-
-window.loadW=()=>{ wlist.innerHTML="Loading..."; get(ref(db,'withdraws')).then(s=>{ if(!s.exists()){wlist.innerHTML="কোনো Request নাই"; return} let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${JSON.stringify(ch.val())}</div>`}); wlist.innerHTML=h; }); }
-window.loadU=()=>{ ulist.innerHTML="Loading..."; get(ref(db,'users')).then(s=>{ if(!s.exists()){ulist.innerHTML="কোনো User নাই"; return} let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${ch.key} : ${JSON.stringify(ch.val()).substring(0,100)}</div>`}); ulist.innerHTML=h; }); }
-window.resetA=()=>{ if(confirm("সব 0 করে দিবো জান?")){ set(ref(db,'config/today'),"0"); set(ref(db,'config/total'),"0"); set(ref(db,'config/joined'),"0"); alert("Reset Done"); } }
+window.loadW=()=>{
+ wlist.innerHTML="Loading...";
+ get(ref(db,'withdraws')).then(s=>{
+  if(!s.exists()){wlist.innerHTML="কোনো Request নাই"; return}
+  let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${JSON.stringify(ch.val())}</div>`}); wlist.innerHTML=h;
+ });
+}
+window.loadU=()=>{
+ ulist.innerHTML="Loading...";
+ get(ref(db,'users')).then(s=>{
+  if(!s.exists()){ulist.innerHTML="কোনো User নাই"; return}
+  let h=""; s.forEach(ch=>{h+=`<div style='border-bottom:1px solid #333;padding:5px'>${ch.key} : ${JSON.stringify(ch.val()).substring(0,100)}</div>`}); ulist.innerHTML=h;
+ });
+}
+window.resetA=()=>{
+ if(confirm("সব 0 করে দিবো জান?")){
+  set(ref(db,'config/today'),"0"); set(ref(db,'config/total'),"0"); set(ref(db,'config/joined'),"0"); alert("Reset Done");
+ }
+}
 </script>
 </body>
 </html>
