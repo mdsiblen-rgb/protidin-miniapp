@@ -2,6 +2,7 @@ exports.handler = async (event) => {
   const token = process.env.BOT_TOKEN;
   const adminId = String(process.env.ADMIN_ID || "");
   const botUsername = process.env.BOT_USERNAME || "ProtidinerKaj_BD_Bot";
+  const FIREBASE_URL = "https://protidin-kaj-default-rtdb.firebaseio.com";
 
   try {
     const body = JSON.parse(event.body || "{}");
@@ -15,95 +16,52 @@ exports.handler = async (event) => {
 
     // /start
     if (text.startsWith("/start")) {
-      const parts = text.split(" ");
-      const refId = parts[1] || "";
-
-      const welcomeText = `স্বাগতম ${firstName} 🌟\n\n` +
-        `🎉 you are Creat your account successfully\n` +
-        `(আপনার একাউন্ট তৈরি হয়েছে)\n\n` +
-        `🚀 নিচের ইনকাম শুরু করুন বাটনে ক্লিক করে\n` +
-        `বিজ্ঞাপন দেখা শুরু করুন।\n` +
-        `Your reffer Link:\n` +
-        `👉 https://t.me/${botUsername}?start=${fromId}\n\n` +
-        `🔊 আমাদের অফিসিয়াল পেমেন্ট চ্যানেলে যুক্ত থাকুন।\n\n` +
-        `🔥 এখনই শুরু করুন আর আপনার ভালো সময় উপভোগ করুন।`;
-
+      const welcomeText = `স্বাগতম ${firstName} 🌟\n\n` + `🎉 you are Creat your account successfully\n` + `(আপনার একাউন্ট তৈরি হয়েছে)\n\n` + `🚀 নিচের ইনকাম শুরু করুন বাটনে ক্লিক করে\n` + `বিজ্ঞাপন দেখা শুরু করুন।\n` + `Your reffer Link:\n` + `👉 https://t.me/${botUsername}?start=${fromId}\n\n` + `🔊 আমাদের অফিসিয়াল পেমেন্ট চ্যানেলে যুক্ত থাকুন।\n\n` + `🔥 এখনই শুরু করুন আর আপনার ভালো সময় উপভোগ করুন।`;
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId, text: welcomeText,
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://dailyworkbd.netlify.app" } }],
-              [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinerKajBD" }]
-            ]
-          }
-        })
+        body: JSON.stringify({ chat_id: chatId, text: welcomeText, reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://dailyworkbd.netlify.app" } }], [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinerKajBD" }]] } })
       });
     }
-
-    // /balance
+    // /balance - REAL BALANCE
     else if (text.startsWith("/balance")) {
+      let realBalance = 0;
+      try {
+        const r = await fetch(`${FIREBASE_URL}/users/${fromId}/balance.json`);
+        const d = await r.json();
+        if (d !== null) realBalance = d;
+      } catch(e) {}
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: `💰 ${firstName} আপনার ব্যালেন্স:\n\n0.00 টাকা\n\nবিজ্ঞাপন দেখে ইনকাম বাড়ান! 🚀`,
-          reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://dailyworkbd.netlify.app" } }]] }
-        })
+        body: JSON.stringify({ chat_id: chatId, text: `💰 ${firstName} আপনার ব্যালেন্স:\n\n${realBalance} টাকা\n\nআরো ইনকাম করতে নিচের বাটনে ক্লিক করুন! 🚀`, reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: "https://dailyworkbd.netlify.app" } }]] } })
       });
     }
-
     // /daily_bonus
     else if (text.startsWith("/daily_bonus")) {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: `🎁 ডেইলি বোনাস নিতে নিচের বাটনে ক্লিক করুন ${firstName}!`,
-          reply_markup: { inline_keyboard: [[{ text: "🎁 বোনাস নিন", web_app: { url: "https://dailyworkbd.netlify.app" } }]] }
-        })
+        body: JSON.stringify({ chat_id: chatId, text: `🎁 ডেইলি বোনাস নিতে নিচের বাটনে ক্লিক করুন ${firstName}!`, reply_markup: { inline_keyboard: [[{ text: "🎁 বোনাস নিন", web_app: { url: "https://dailyworkbd.netlify.app" } }]] } })
       });
     }
-
     // /community_task
     else if (text.startsWith("/community_task")) {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: `📢 কমিউনিটি টাস্ক কমপ্লিট করুন এবং বোনাস জিতুন!`,
-          reply_markup: { inline_keyboard: [[{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinerKajBD" }]] }
-        })
+        body: JSON.stringify({ chat_id: chatId, text: `📢 কমিউনিটি টাস্ক কমপ্লিট করুন এবং বোনাস জিতুন!`, reply_markup: { inline_keyboard: [[{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: "https://t.me/ProtidinerKajBD" }]] } })
       });
     }
-
     // /refer_link
     else if (text.startsWith("/refer_link")) {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: `🔗 আপনার রেফার লিংক:\n👉 https://t.me/${botUsername}?start=${fromId}\n\nপ্রতি রেফারে 10% কমিশন পাবেন!`
-        })
+        body: JSON.stringify({ chat_id: chatId, text: `🔗 আপনার রেফার লিংক:\n👉 https://t.me/${botUsername}?start=${fromId}\n\nপ্রতি রেফারে 10% কমিশন পাবেন!` })
       });
     }
-
-    // /admin এবং /admin_panel দুইটাই একই
+    // /admin
     else if (text.startsWith("/admin")) {
-      if (fromId!== adminId) {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: chatId, text: "❌ আপনি অ্যাডমিন না! ID: " + fromId })
-        });
+      if (fromId !== adminId) {
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: chatId, text: "❌ আপনি অ্যাডমিন না!" }) });
       } else {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId, text: "✅ অ্যাডমিন প্যানেল!",
-            reply_markup: { inline_keyboard: [[{ text: "🔧 Admin Panel খুলুন", web_app: { url: "https://dailyworkbd.netlify.app/admin.html" } }]] }
-          })
-        });
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: chatId, text: "✅ অ্যাডমিন প্যানেল!", reply_markup: { inline_keyboard: [[{ text: "🔧 Admin Panel খুলুন", web_app: { url: "https://dailyworkbd.netlify.app/admin.html" } }]] } }) });
       }
     }
 
