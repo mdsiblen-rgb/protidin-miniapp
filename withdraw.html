@@ -1,1 +1,72 @@
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Withdraw System - Final</title><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}body{background:#070A1A;color:#fff;max-width:430px;margin:0 auto;padding:12px;padding-bottom:50px}.glass{background:#161C36;border:1px solid #252B4A;border-radius:16px;padding:14px;margin-top:10px}.btn{width:100%;padding:12px;border:0;border-radius:12px;font-weight:800;background:#22c55e;color:#fff;cursor:pointer}.btn:disabled{background:#2A2E4A}.input{width:100%;padding:11px;border-radius:10px;border:1px solid #252B4A;background:#0E122A;color:#fff;margin-top:8px}.meth{flex:1;padding:11px;border:1px solid #252B4A;background:#0E122A;border-radius:10px;text-align:center;font-weight:800;cursor:pointer}.meth.on{border-color:#7C5CFF;background:rgba(124,92,255,.2)}.card{background:#0E122A;border:1px solid #252B4A;border-radius:12px;padding:10px;margin-top:8px;font-size:13px}</style></head><body>
+<div class="glass" style="border:1.5px solid #7C5CFF;text-align:center"><b>💸 Withdraw System - FINAL FIXED</b><br><small style="color:#22c55e">✅ New Bot Token Active | ID: 8807178385</small></div>
+<div class="glass"><b>💰 Your Balance</b><div style="display:flex;justify-content:space-between;margin-top:8px"><span>Balance: <b id="balTxt">৳0</b></span><span>Diamond: <b id="diaTxt">0 💎</b></span></div><div id="myHistory" style="margin-top:10px"></div></div>
+<div class="glass"><b>💸 Withdraw (Min 500)</b><div style="display:flex;gap:8px;margin-top:8px"><div class="meth on" id="m1" onclick="setM('bKash')">bKash</div><div class="meth" id="m2" onclick="setM('Nagad')">Nagad</div></div><input id="wAmt" class="input" type="number" placeholder="Amount Min 500"><input id="wNum" class="input" placeholder="01XXXXXXXXX"><button class="btn" style="margin-top:10px" onclick="doWithdraw()">Withdraw Now</button></div>
+<div class="glass" style="border:1.5px solid #FF9F0A"><b>🔐 Admin Panel</b><button class="btn" style="background:#0E122A;border:1px solid #FF9F0A;margin-top:8px" onclick="loadWithdraws()">🔄 Load Withdraw Requests</button><div id="withdrawList" style="margin-top:10px"></div></div>
+<script>
+// ===== FINAL CONFIG - NEW TOKEN =====
+const BOT_TOKEN = "8851083480:AAG1P_nehHtarP_D2_NP5EiLVLSD7hD6uk4"; // জান নতুন Token
+const ADMIN_ID = "8807178385"; // তোমার Telegram User ID
+const APP_URL = "https://protidin-earning-bd.netlify.app";
+const firebaseConfig={apiKey:"AIzaSyAqfnQ0YwSNj7ttIYSvatOiu4BJXgq1eL4",authDomain:"protidin-kaj.firebaseapp.com",databaseURL:"https://protidin-kaj-default-rtdb.firebaseio.com",projectId:"protidin-kaj",storageBucket:"protidin-kaj.firebasestorage.app",messagingSenderId:"802183566419",appId:"1:802183566419:web:06bad2dbbab776bddee2a6"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+function getUid(){let tg=window.Telegram?.WebApp?.initDataUnsafe?.user?.id;if(tg)return'tg_'+tg;let uid=localStorage.getItem('uid');if(!uid){uid='user_'+Math.random().toString(36).substr(2,9);localStorage.setItem('uid',uid);}return uid;}
+const UID=getUid();
+let curMethod='bKash';
+function setM(m){curMethod=m;document.getElementById('m1').classList.toggle('on',m==='bKash');document.getElementById('m2').classList.toggle('on',m==='Nagad');}
+function renderBal(){let bal=+(localStorage.getItem('bal')||0);let dia=+(localStorage.getItem('diamond')||0);document.getElementById('balTxt').innerText='৳'+bal.toFixed(2);document.getElementById('diaTxt').innerText=dia+' 💎';}
+renderBal();
+async function sendToTelegram(wd){
+  let msg=`💸 নতুন উইথড্র জান!\n\n👤 নাম: ${wd.name}\n🆔 UID: ${wd.uid}\n💰 টাকা: ${wd.amount} Tk\n💳 মেথড: ${wd.method}\n📱 নাম্বার: ${wd.number}\n⏰ ${wd.time}\n💎 কাটা: ${wd.diamondCut} 💎\n💰 বাকি: ৳${wd.balLeft}`;
+  try{
+    let r=await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:msg})});
+    let d=await r.json();
+    console.log("Telegram:",d);
+    if(d.ok) alert('✅ Telegram ID তে চলে গেছে জান!');
+  }catch(e){console.log(e);}
+}
+function doWithdraw(){
+  let a=+document.getElementById('wAmt').value;
+  let num=document.getElementById('wNum').value.trim();
+  let bal=+(localStorage.getItem('bal')||0);
+  let diamond=+(localStorage.getItem('diamond')||0);
+  if(!num) return alert('নাম্বার দিন জান');
+  if(!a) return alert('টাকা দিন');
+  if(a < 500) return alert('❌ Minimum 500 Tk লাগবে জান');
+  if(a > bal) return alert('❌ ব্যালেন্স কম জান! আছে ৳'+bal);
+  if(localStorage.getItem('pendingW')==='1') return alert('⏳ Pending আছে');
+  let diamondCut=Math.floor(a);
+  if(diamondCut>diamond) diamondCut=diamond;
+  bal-=a; diamond-=diamondCut;
+  localStorage.setItem('bal',bal); localStorage.setItem('diamond',diamond); localStorage.setItem('pendingW','1');
+  renderBal();
+  let wd={uid:UID,name:localStorage.getItem('name')||'User',amount:a,number:num,method:curMethod,status:'pending',diamondCut:diamondCut,balLeft:bal.toFixed(2),time:new Date().toLocaleString('en-BD',{timeZone:'Asia/Dhaka'})};
+  db.ref('withdraws').push(wd);
+  db.ref('users/'+UID).update({bal,diamond});
+  sendToTelegram(wd);
+  let myW=JSON.parse(localStorage.getItem('myWithdraws')||'[]'); myW.unshift(wd); localStorage.setItem('myWithdraws',JSON.stringify(myW));
+  showHistory();
+  document.getElementById('wAmt').value=''; document.getElementById('wNum').value='';
+}
+function showHistory(){
+  let box=document.getElementById('myHistory');
+  let myW=JSON.parse(localStorage.getItem('myWithdraws')||'[]');
+  if(myW.length===0){box.innerHTML='<small style="color:#8B90B8">No withdraw</small>';return;}
+  box.innerHTML=myW.slice(0,5).map(w=>{let c=w.status==='pending'?'#FF9F0A':(w.status==='approved'?'#22c55e':'#FF3B30');return `<div class="card" style="border-left:3px solid ${c}">💰 ৳${w.amount} - ${w.method} - <b style="color:${c}">${w.status.toUpperCase()}</b><br><small>${w.time}</small></div>`}).join('');
+}
+showHistory();
+function loadWithdraws(){
+  let list=document.getElementById('withdrawList'); list.innerHTML='Loading...';
+  db.ref('withdraws').limitToLast(50).once('value').then(snap=>{
+    let data=snap.val(); if(!data){list.innerHTML='কোনো Withdraw নেই';return;}
+    let html=''; Object.entries(data).reverse().forEach(([key,v])=>{
+      let pending=v.status==='pending';
+      html+=`<div class="card" style="border-left:3px solid ${pending?'#FF9F0A':'#22c55e'}"><b>${v.name}</b> - ${v.uid}<br>💰 ৳${v.amount} | ${v.method}<br>📱 ${v.number}<br>Status: <b style="color:${pending?'#FF9F0A':'#22c55e'}">${v.status}</b>${pending?`<div style="display:flex;gap:6px;margin-top:8px"><button class="btn" style="background:#22c55e;padding:6px" onclick="approveW('${key}')">Approve</button><button class="btn" style="background:#FF3B30;padding:6px" onclick="rejectW('${key}')">Reject</button></div>`:''}</div>`;
+    }); list.innerHTML=html;
+  });
+}
+function approveW(key){db.ref('withdraws/'+key).once('value').then(s=>{let v=s.val(); if(v.status!=='pending') return alert('আগেই '+v.status+' করা হয়েছে'); db.ref('withdraws/'+key).update({status:'approved'}); if(v.uid===UID) localStorage.setItem('pendingW','0'); alert('Approved'); loadWithdraws();});}
+function rejectW(key){db.ref('withdraws/'+key).once('value').then(s=>{let v=s.val(); if(v.status!=='pending') return alert('আগেই করা হয়েছে'); db.ref('users/'+v.uid).once('value').then(uSnap=>{let u=uSnap.val()||{}; db.ref('users/'+v.uid).update({bal:(+u.bal||0)+(+v.amount),diamond:(+u.diamond||0)+(+v.diamondCut||0)}); db.ref('withdraws/'+key).update({status:'rejected'}); if(v.uid===UID){localStorage.setItem('pendingW','0');} alert('Rejected & Refunded'); loadWithdraws();});});}
+try{Telegram.WebApp.ready();Telegram.WebApp.expand();}catch(e){}
+</script></body></html>
