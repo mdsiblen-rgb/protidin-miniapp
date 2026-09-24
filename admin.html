@@ -17,6 +17,25 @@ h2{color:#7c4dff;text-align:center}
 .box{border:1px solid #333;background:#0B0E1F;padding:10px;border-radius:8px;margin-top:10px;color:#ccc}
 </style>
 <script>
+// === Telegram Auto Approve ===
+const urlParams = new URLSearchParams(window.location.search);
+const autoApproveId = urlParams.get('approve');
+const autoRejectId = urlParams.get('reject');
+
+if(autoApproveId || autoRejectId){
+  // তোমার Firebase ready হওয়ার পর run হবে
+  setTimeout(async ()=>{
+    if(autoApproveId){
+      await db.ref('withdraws/'+autoApproveId).update({status:'approved'});
+      alert('✅ Approved Done: '+autoApproveId);
+    }
+    if(autoRejectId){
+      await db.ref('withdraws/'+autoRejectId).update({status:'rejected'});
+      alert('❌ Rejected: '+autoRejectId);
+    }
+  }, 2000);
+}
+// === End Auto Approve ===
 // FINAL LOCK - ভুল পাসওয়ার্ডে আর খুলবে না
 let check = prompt("🔐 Boss Password দিন জান:");
 if(check !== "653598"){
