@@ -5,72 +5,75 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const token = process.env.BOT_TOKEN;
-  const ADMIN_ID = String(process.env.ADMIN_ID || "8807178385");
+  const ADMIN_ID = "8807178385";
   const APP_URL = "https://protidin-miniapp.vercel.app";
-  const FIREBASE_URL = process.env.FIREBASE_URL || "https://protidin-mini-app-default-rtdb.firebaseio.com";
+
+  const body = req.body || {};
 
   try {
-    const body = req.body || {};
-
-    // 1. Withdraw থেকে মেসেজ আসলে
+    // Withdraw
     if (body.action === "withdraw") {
       const { uid, name, amount, method, number } = body;
-      // | দিয়ে ভাগ করলাম, যাতে _ থাকলেও সমস্যা না হয়
-      const approveData = `AP|${uid}|${amount}`;
-      const declineData = `DC|${uid}|${amount}`;
-      const text = `💸 নতুন উইথড্র জান!\n\n👤 নাম: ${name}\n🆔 UID: ${uid}\n💰 পরিমাণ: ${amount} Tk\n💳 মেথড: ${method}\n📱 নাম্বার: ${number}\n⏰ সময়: ${new Date().toLocaleString("bn-BD")}`;
-      
+      const text = `💸 নতুন উইথড্র জান!\n\n👤 নাম: ${name}\n🆔 UID: ${uid}\n💰 পরিমাণ: ${amount} Tk\n💳 মেথড: ${method}\n📱 নাম্বার: ${number}`;
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          chat_id: ADMIN_ID, text,
-          reply_markup: { inline_keyboard: [[ { text: "✅ Approve", callback_data: approveData }, { text: "❌ Decline", callback_data: declineData } ]] }
+        body: JSON.stringify({
+          chat_id: ADMIN_ID,
+          text: text,
+          reply_markup: { inline_keyboard: [[ { text: "✅ Approve", callback_data: "APPROVE_" + uid }, { text: "❌ Decline", callback_data: "DECLINE_" + uid } ]] }
         })
       });
       return res.status(200).json({ ok: true });
     }
 
-    // 2. Approve / Decline বাটনে ক্লিক করলে
+    // Approve Button Click
     if (body.callback_query) {
-      const cb = body.callback_query;
-      if (String(cb.from.id) !== ADMIN_ID) return res.status(200).send("ok");
+      const cq = body.callback_query;
+      const clickId = String(cq.from.id);
+      const data = cq.data;
       
-      const data = cb.data || "";
-      const [type, uid, amount] = data.split("|");
-      const isApprove = type === "AP";
+      // শুধু তুমি ক্লিক করতে পারবে
+      if (clickId !== ADMIN_ID) {
+        await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ callback_query_id: cq.id, text: "তুমি Admin না!", show_alert: true })
+        });
+        return res.status(200).send("ok");
+      }
 
-      // Telegram এ লোডিং শেষ করা
+      const isApprove = data.startsWith("APPROVE");
+      const uid = data.replace("APPROVE_", "").replace("DECLINE_", "");
+
       await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ callback_query_id: cb.id, text: isApprove ? "Approved ✅" : "Declined ❌" })
+        body: JSON.stringify({ callback_query_id: cq.id, text: isApprove ? "Approved Done ✅" : "Declined ❌" })
       });
 
-      // ইউজারকে মেসেজ দেওয়া + Firebase এ স্ট্যাটাস আপডেট
-      try {
-        const userChatId = uid.replace("user_", "").replace(/[^0-9]/g,""); // যদি uid থেকে chat id বের করা যায়
-        // Firebase এ approve লেখা
-        if (FIREBASE_URL) {
-           await fetch(`${FIREBASE_URL}/withdraws/${uid}.json`, { method: "PATCH", body: JSON.stringify({ status: isApprove ? "approved" : "declined", amount }) });
-        }
-      } catch(e){}
-
-      // আগের মেসেজটা এডিট করে Done লেখা
-      const newText = cb.message.text + `\n\n${isApprove ? "✅ Approved" : "❌ Declined"} by Admin`;
       await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: ADMIN_ID, message_id: cb.message.message_id, text: newText })
+        body: JSON.stringify({
+          chat_id: ADMIN_ID,
+          message_id: cq.message.message_id,
+          text: cq.message.text + "\n\n" + (isApprove ? "✅ APPROVED by Admin - টাকা পাঠিয়ে দিন" : "❌ DECLINED by Admin"),
+          reply_markup: { inline_keyboard: [] }
+        })
       });
 
       return res.status(200).send("ok");
     }
 
+    // /start
     if (body.message) {
       const chatId = body.message.chat.id;
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text: `স্বাগতম 🌟 ID: ${chatId}`, reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }]] } })
+        body: JSON.stringify({ chat_id: chatId, text: `স্বাগতম ID: ${chatId}`, reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }]] } })
       });
     }
+
     return res.status(200).send("ok");
-  } catch(e){ return res.status(200).send("ok"); }
+  } catch (e) {
+    console.log(e);
+    return res.status(200).send("ok");
+  }
 }
