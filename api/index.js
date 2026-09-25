@@ -1,4 +1,3 @@
-// FINAL A to Z - Protidin Earning BD - Fixed By Jan ❤️
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -6,77 +5,72 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const token = process.env.BOT_TOKEN;
-  const ADMIN_ID = process.env.ADMIN_ID || "8807178385";
+  const ADMIN_ID = String(process.env.ADMIN_ID || "8807178385");
   const APP_URL = "https://protidin-miniapp.vercel.app";
-  const PAYMENT_CHANNEL = "https://t.me/ProtidinerKajBD";
-  const BOT_USERNAME = "ProtidinerKajBD_bot";
+  const FIREBASE_URL = process.env.FIREBASE_URL || "https://protidin-mini-app-default-rtdb.firebaseio.com";
 
   try {
     const body = req.body || {};
 
-    // 1. Approve / Decline Button
+    // 1. Withdraw থেকে মেসেজ আসলে
+    if (body.action === "withdraw") {
+      const { uid, name, amount, method, number } = body;
+      // | দিয়ে ভাগ করলাম, যাতে _ থাকলেও সমস্যা না হয়
+      const approveData = `AP|${uid}|${amount}`;
+      const declineData = `DC|${uid}|${amount}`;
+      const text = `💸 নতুন উইথড্র জান!\n\n👤 নাম: ${name}\n🆔 UID: ${uid}\n💰 পরিমাণ: ${amount} Tk\n💳 মেথড: ${method}\n📱 নাম্বার: ${number}\n⏰ সময়: ${new Date().toLocaleString("bn-BD")}`;
+      
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          chat_id: ADMIN_ID, text,
+          reply_markup: { inline_keyboard: [[ { text: "✅ Approve", callback_data: approveData }, { text: "❌ Decline", callback_data: declineData } ]] }
+        })
+      });
+      return res.status(200).json({ ok: true });
+    }
+
+    // 2. Approve / Decline বাটনে ক্লিক করলে
     if (body.callback_query) {
       const cb = body.callback_query;
+      if (String(cb.from.id) !== ADMIN_ID) return res.status(200).send("ok");
+      
       const data = cb.data || "";
-      const fromId = String(cb.from.id);
-      if (fromId!== String(ADMIN_ID)) return res.status(200).send("ok");
+      const [type, uid, amount] = data.split("|");
+      const isApprove = type === "AP";
 
-      const parts = data.split("_");
-      const action = parts[0];
-      const targetUid = parts[1];
-      const amount = parts[2] || "0";
-
-      if (action === "approve") {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: ADMIN_ID, text: `✅ Done জান! UID: ${targetUid} এর ${amount} Tk Approve করা হলো!` })
-        });
-      } else {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: ADMIN_ID, text: `❌ ${targetUid} এর ${amount} Tk Decline করা হলো!` })
-        });
-      }
+      // Telegram এ লোডিং শেষ করা
       await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ callback_query_id: cb.id, text: "Done জান!" })
+        body: JSON.stringify({ callback_query_id: cb.id, text: isApprove ? "Approved ✅" : "Declined ❌" })
       });
+
+      // ইউজারকে মেসেজ দেওয়া + Firebase এ স্ট্যাটাস আপডেট
+      try {
+        const userChatId = uid.replace("user_", "").replace(/[^0-9]/g,""); // যদি uid থেকে chat id বের করা যায়
+        // Firebase এ approve লেখা
+        if (FIREBASE_URL) {
+           await fetch(`${FIREBASE_URL}/withdraws/${uid}.json`, { method: "PATCH", body: JSON.stringify({ status: isApprove ? "approved" : "declined", amount }) });
+        }
+      } catch(e){}
+
+      // আগের মেসেজটা এডিট করে Done লেখা
+      const newText = cb.message.text + `\n\n${isApprove ? "✅ Approved" : "❌ Declined"} by Admin`;
+      await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: ADMIN_ID, message_id: cb.message.message_id, text: newText })
+      });
+
       return res.status(200).send("ok");
     }
 
-    // 2. Withdraw Request - এখানেই তোমার সমস্যা ছিলো
-    if (body.action === "withdraw") {
-      const { uid, name, amount, method, number } = body;
-      const adminText = `💸 নতুন উইথড্র জান!\n\n👤 নাম: ${name}\n🆔 UID: ${uid}\n💰 পরিমাণ: ${amount} Tk\n💳 মেথড: ${method}\n📱 নাম্বার: ${number}\n⏰ সময়: ${new Date().toLocaleString("bn-BD")}`;
-
+    if (body.message) {
+      const chatId = body.message.chat.id;
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: ADMIN_ID,
-          text: adminText,
-          reply_markup: { inline_keyboard: [[ { text: "✅ Approve", callback_data: `approve_${uid}_${amount}` }, { text: "❌ Decline", callback_data: `decline_${uid}_${amount}` } ]] }
-        })
+        body: JSON.stringify({ chat_id: chatId, text: `স্বাগতম 🌟 ID: ${chatId}`, reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }]] } })
       });
-      return res.status(200).json({ ok: true, status: "pending" });
     }
-
-    // 3. Start Message
-    const msg = body.message;
-    if (!msg) return res.status(200).send("ok");
-    const chatId = msg.chat.id;
-    const firstName = msg.from.first_name || "User";
-    const welcomeText = `স্বাগতম ${firstName} 🌟\n\n🎉 আপনার একাউন্ট তৈরি হয়েছে!\n\n🆔 আপনার ID: ${chatId}\n\n🔗 আপনার রেফার লিংক:\n👉 https://t.me/${BOT_USERNAME}?start=${chatId}\n\n🚀 নিচের ইনকাম শুরু করুন বাটনে ক্লিক করে বিজ্ঞাপন দেখা শুরু করুন।\n\n📢 ${PAYMENT_CHANNEL}`;
-
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId, text: welcomeText, disable_web_page_preview: true,
-        reply_markup: { inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }], [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: PAYMENT_CHANNEL }]] }
-      })
-    });
     return res.status(200).send("ok");
-  } catch (e) {
-    console.log(e);
-    return res.status(200).send("ok");
-  }
+  } catch(e){ return res.status(200).send("ok"); }
 }
