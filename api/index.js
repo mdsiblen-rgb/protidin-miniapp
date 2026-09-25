@@ -1,5 +1,6 @@
-// FINAL A to Z - Protidin Earning BD - By Jan ❤️ - BD TIME 100% FIXED
+// FINAL A to Z - Protidin Earning BD - By Jan ❤️ - Full System with BD Time
 export default async function handler(req, res) {
+  // CORS for Mini App
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -12,12 +13,10 @@ export default async function handler(req, res) {
   const BOT_USERNAME = "ProtidinerKajBD_bot";
   const FIREBASE_URL = "https://protidin-earning-bd-default-rtdb.firebaseio.com";
 
-  // বাংলাদেশী টাইম 100% FIX - হাতে UTC+6 যোগ
+  // বাংলাদেশী টাইম ফাংশন - এটাই মেইন ফিক্স জান
   const bdTime = () => {
-    const now = new Date();
-    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const bdDate = new Date(utcTime + (6 * 60 * 60 * 1000));
-    return bdDate.toLocaleString("bn-BD", {
+    return new Date().toLocaleString("bn-BD", {
+      timeZone: "Asia/Dhaka",
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
@@ -31,12 +30,14 @@ export default async function handler(req, res) {
   try {
     const body = req.body || {};
 
+    // ================= 1. APPROVE / DECLINE - ONE TIME =================
     if (body.callback_query) {
       const cb = body.callback_query;
       const data = cb.data || "";
       const fromId = String(cb.from.id);
       if (fromId !== ADMIN_ID) return res.status(200).send("ok");
 
+      // বার বার ক্লিক বন্ধ
       if (cb.message.text.includes("APPROVED") || cb.message.text.includes("DECLINED")) {
         await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
           method: "POST", headers: { "Content-Type": "application/json" },
@@ -45,6 +46,7 @@ export default async function handler(req, res) {
         return res.status(200).send("ok");
       }
 
+      // UID Fix - tg_8807178385 এর জন্য
       const first = data.indexOf("_");
       const last = data.lastIndexOf("_");
       const action = data.slice(0, first);
@@ -52,10 +54,16 @@ export default async function handler(req, res) {
       const amount = data.slice(last + 1) || "0";
       const timeNow = bdTime();
 
+      // Firebase Update
       try {
         await fetch(`${FIREBASE_URL}/withdraws/${targetUid}.json`, {
-          method: "PATCH", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: action === "approve" ? "approved" : "rejected", approvedAt: timeNow, amount: amount })
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            status: action === "approve" ? "approved" : "rejected", 
+            approvedAt: timeNow,
+            amount: amount
+          })
         });
       } catch (e) { console.log("Firebase error", e); }
 
@@ -96,19 +104,28 @@ export default async function handler(req, res) {
       return res.status(200).send("ok");
     }
 
+    // ================= 2. WITHDRAW REQUEST =================
     if (body.action === "withdraw") {
       const { uid, name, amount, method, number } = body;
       const adminText = `💸 নতুন উইথড্র জান!\n\n👤 নাম: ${name}\n🆔 UID: ${uid}\n💰 পরিমাণ: ${amount} Tk\n💳 মেথড: ${method}\n📱 নাম্বার: ${number}\n⏰ সময়: ${bdTime()}`;
+      
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: ADMIN_ID, text: adminText,
-          reply_markup: { inline_keyboard: [[ { text: "✅ Approve", callback_data: `approve_${uid}_${amount}` }, { text: "❌ Decline", callback_data: `decline_${uid}_${amount}` } ]] }
+          chat_id: ADMIN_ID,
+          text: adminText,
+          reply_markup: {
+            inline_keyboard: [[
+              { text: "✅ Approve", callback_data: `approve_${uid}_${amount}` },
+              { text: "❌ Decline", callback_data: `decline_${uid}_${amount}` }
+            ]]
+          }
         })
       });
       return res.status(200).json({ ok: true, status: "pending" });
     }
 
+    // ================= 3. /START MESSAGE =================
     const msg = body.message;
     if (!msg) return res.status(200).send("ok");
     const chatId = msg.chat.id;
@@ -118,12 +135,21 @@ export default async function handler(req, res) {
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        chat_id: chatId, text: welcomeText, disable_web_page_preview: true,
+        chat_id: chatId,
+        text: welcomeText,
+        disable_web_page_preview: true,
         reply_markup: {
-          inline_keyboard: [[{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }], [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: PAYMENT_CHANNEL }]]
+          inline_keyboard: [
+            [{ text: "💰 ইনকাম শুরু করুন", web_app: { url: APP_URL } }],
+            [{ text: "📢 পেমেন্ট চ্যানেলে যুক্ত হোন", url: PAYMENT_CHANNEL }]
+          ]
         }
       })
     });
     return res.status(200).send("ok");
-  } catch (e) { console.log(e); return res.status(200).send("ok"); }
+
+  } catch (e) {
+    console.log(e);
+    return res.status(200).send("ok");
+  }
 }
