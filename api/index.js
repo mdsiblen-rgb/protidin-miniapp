@@ -68,7 +68,7 @@ export default async function handler(req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: targetUidForChat,
-            text: `✅ অভিনন্দন জান!\n\nআপনার ${amount} Tk Withdraw Approve হয়েছে!\n⏰ সময়: ${timeNow}\n5-10 মিনিটের মধ্যে পেমেন্ট পেয়ে যাবেন!\n\n📢 ${PAYMENT_CHANNEL}`
+            text: `✅ অভিনন্দন!\n\nআপনার ${amount} Tk Withdraw Approve হয়েছে!\n⏰ সময়: ${timeNow}\n5-10 মিনিটের মধ্যে পেমেন্ট পেয়ে যাবেন!\n\n📢 ${PAYMENT_CHANNEL}`
           })
         });
         await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
